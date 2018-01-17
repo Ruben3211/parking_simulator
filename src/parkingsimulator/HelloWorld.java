@@ -8,4 +8,8 @@ private String Hello;
 	public void printHello() {
 		System.out.println(Hello);
 	}
+	public void printHelloDetmer() {
+		System.out.println("Hallo Detmer als je dit ziet dan werkt het.");
+	}
+	
 	}
