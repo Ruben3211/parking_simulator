@@ -79,6 +79,12 @@ public class SimulatorView extends JFrame {
     	return numberOfOpenSpots;
     }
     
+    /**
+     * Method that gets the location of a car.
+     * 
+     * @param location
+     * @return null if the location is invalid and the floor, row and place if it is valid
+     */
     public Car getCarAt(Location location) {
         if (!locationIsValid(location)) {
             return null;
@@ -86,6 +92,13 @@ public class SimulatorView extends JFrame {
         return cars[location.getFloor()][location.getRow()][location.getPlace()];
     }
 
+    /**
+     * Method that sets a car at a location.
+     * 
+     * @param location
+     * @param car
+     * @return false if the location is invalid or true if the location is valid
+     */
     public boolean setCarAt(Location location, Car car) {
         if (!locationIsValid(location)) {
             return false;
@@ -99,6 +112,13 @@ public class SimulatorView extends JFrame {
         }
         return false;
     }
+    
+    /**
+     * Method that removes a car from a location.
+     * 
+     * @param location
+     * @return null if the location is invalid and car equals null or returns car if a car is found
+     */
 
     public Car removeCarAt(Location location) {
         if (!locationIsValid(location)) {
@@ -114,6 +134,11 @@ public class SimulatorView extends JFrame {
         return car;
     }
 
+    /**
+     * Method that returns the first free location it can find.
+     * 
+     * @return location if a free location is found, otherwise it returns null
+     */
     public Location getFirstFreeLocation() {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
@@ -128,6 +153,11 @@ public class SimulatorView extends JFrame {
         return null;
     }
 
+    /**
+     * Method that gets the first car that needs to leave.
+     * 
+     * @return car if a car is found, otherwise return null
+     */
     public Car getFirstLeavingCar() {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
@@ -143,6 +173,10 @@ public class SimulatorView extends JFrame {
         return null;
     }
 
+    /**
+     * Method that checks all the parking spaces and gets the cars at each location.
+     * If the car equals null it calls upon the tick() method in the Car class.
+     */
     public void tick() {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
@@ -157,6 +191,12 @@ public class SimulatorView extends JFrame {
         }
     }
 
+    /**
+     * Method that checks if a location is valid.
+     * 
+     * @param location
+     * @return false if location is invalid, otherwise return true
+     */
     private boolean locationIsValid(Location location) {
         int floor = location.getFloor();
         int row = location.getRow();
@@ -180,6 +220,7 @@ public class SimulatorView extends JFrame {
         }
     
         /**
+         * Method that sets the dimensions of car park view.
          * Overridden. Tell the GUI manager how big we would like to be.
          */
         public Dimension getPreferredSize() {
@@ -187,14 +228,14 @@ public class SimulatorView extends JFrame {
         }
     
         /**
-         * Overriden. The car park view component needs to be redisplayed. Copy the
-         * internal image to screen.
+         * Method that draws the image of a car park view.
+         * Overridden. The car park view component needs to be redisplayed. 
+         * Copy the internal image to screen.
          */
         public void paintComponent(Graphics g) {
             if (carParkImage == null) {
                 return;
             }
-    
             Dimension currentSize = getSize();
             if (size.equals(currentSize)) {
                 g.drawImage(carParkImage, 0, 0, null);
@@ -205,6 +246,9 @@ public class SimulatorView extends JFrame {
             }
         }
     
+        /**
+         * Method that updates the view.
+         */
         public void updateView() {
             // Create a new car park image if the size has changed.
             if (!size.equals(getSize())) {
@@ -226,7 +270,7 @@ public class SimulatorView extends JFrame {
         }
     
         /**
-         * Paint a place on this car park view in a given color.
+         * Method that paints a certain place in the car park view in a given color.
          */
         private void drawPlace(Graphics graphics, Location location, Color color) {
             graphics.setColor(color);
