@@ -6,8 +6,7 @@ public class Simulator {
 
 	private static final String AD_HOC = "1";
 	private static final String PASS = "2";
-	
-	
+
 	private CarQueue entranceCarQueue;
     private CarQueue entrancePassQueue;
     private CarQueue paymentCarQueue;
@@ -20,15 +19,20 @@ public class Simulator {
 
     private int tickPause = 100;
 
-    int weekDayArrivals= 100; // average number of arriving cars per hour
-    int weekendArrivals = 200; // average number of arriving cars per hour
-    int weekDayPassArrivals= 50; // average number of arriving cars per hour
-    int weekendPassArrivals = 5; // average number of arriving cars per hour
+    // Average number of cars arriving per hour.
+    int weekDayArrivals = 100;
+    int weekendArrivals = 200;
+    int weekDayPassArrivals = 50;
+    int weekendPassArrivals = 5;
 
-    int enterSpeed = 3; // number of cars that can enter per minute
-    int paymentSpeed = 7; // number of cars that can pay per minute
-    int exitSpeed = 5; // number of cars that can leave per minute
+    // Number of cars that can enter/leave per minute.
+    int enterSpeed = 3;
+    int paymentSpeed = 7;
+    int exitSpeed = 5;
 
+    /**
+     * Constructor for objects of class Simulator.
+     */
     public Simulator() {
         entranceCarQueue = new CarQueue();
         entrancePassQueue = new CarQueue();
@@ -37,6 +41,10 @@ public class Simulator {
         simulatorView = new SimulatorView(3, 6, 30);
     }
 
+    /**
+     * This method makes sure the simulator is run 10000 times, each 
+     * single time it will call upon the method named tick().
+     */
     public void run() {
         for (int i = 0; i < 10000; i++) {
             tick();
@@ -56,8 +64,11 @@ public class Simulator {
     	handleEntrance();
     }
 
+    /**
+     * This method advances the time with one minute each time the method is 
+     * called. It will go through 60 minutes, 24 hours and 7 days.
+     */
     private void advanceTime(){
-        // Advance the time by one minute.
         minute++;
         while (minute > 59) {
             minute -= 60;
@@ -70,7 +81,6 @@ public class Simulator {
         while (day > 6) {
             day -= 7;
         }
-
     }
 
     private void handleEntrance(){
@@ -180,5 +190,4 @@ public class Simulator {
     	simulatorView.removeCarAt(car.getLocation());
         exitCarQueue.addCar(car);
     }
-
 }

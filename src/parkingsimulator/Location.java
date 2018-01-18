@@ -1,13 +1,13 @@
 package parkingsimulator;
 
 public class Location {
-
+	
     private int floor;
     private int row;
     private int place;
 
     /**
-     * Constructor for objects of class Location
+     * Constructor for objects of class Location.
      */
     public Location(int floor, int row, int place) {
         this.floor = floor;
@@ -27,9 +27,11 @@ public class Location {
             return false;
         }
     }
-
+    
     /**
-     * Return a string of the form floor,row,place.
+     * This method returns a string consisting of the values 
+     * in floor, row and place and returns that string.
+     * 
      * @return A string representation of the location.
      */
     public String toString() {
@@ -37,34 +39,40 @@ public class Location {
     }
 
     /**
-     * Use the 10 bits for each of the floor, row and place
-     * values. Except for very big car parks, this should give
-     * a unique hash code for each (floor, row, place) tupel.
-     * @return A hashcode for the location.
+     * Using 10 bits for each of the floor, row and place
+     * values. This should give a unique hash code for each
+     * (floor, row, place) tuple.
+     * 
+     * @return A hash code for the location.
      */
     public int hashCode() {
         return (floor << 20) + (row << 10) + place;
     }
 
     /**
-     * @return The floor.
+     * This method returns the value of the instance variable floor.
+     * 
+     * @return floor
      */
     public int getFloor() {
         return floor;
     }
 
     /**
-     * @return The row.
+     * This method returns the value of the instance variable row.
+     * 
+     * @return row.
      */
     public int getRow() {
         return row;
     }
 
     /**
-     * @return The place.
+     * This method returns the value of the instance variable place.
+     * 
+     * @return place.
      */
     public int getPlace() {
         return place;
     }
-
 }

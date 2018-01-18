@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class SimulatorView extends JFrame {
+	
     private CarParkView carParkView;
     private int numberOfFloors;
     private int numberOfRows;
@@ -140,9 +141,9 @@ public class SimulatorView extends JFrame {
         
         private Dimension size;
         private Image carParkImage;    
-    
+
         /**
-         * Constructor for objects of class CarPark
+         * Constructor for objects of class CarPark.
          */
         public CarParkView() {
             size = new Dimension(0, 0);
@@ -206,5 +207,4 @@ public class SimulatorView extends JFrame {
                     10 - 1); // TODO use dynamic size or constants
         }
     }
-
 }
