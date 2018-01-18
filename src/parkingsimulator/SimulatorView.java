@@ -75,7 +75,7 @@ public class SimulatorView extends JFrame {
      * 
      * @return numberOfOpenSpots
      */
-    public int getNumberOfOpenSpots(){
+    public int getNumberOfOpenSpots() {
     	return numberOfOpenSpots;
     }
     

@@ -16,7 +16,9 @@ public class Location {
     }
 
     /**
-     * Implement content equality.
+     * Method that checks if the object created matches the
+     * instance of the Location class. This is used for to
+     * implement content equality.
      */
     public boolean equals(Object obj) {
         if(obj instanceof Location) {
