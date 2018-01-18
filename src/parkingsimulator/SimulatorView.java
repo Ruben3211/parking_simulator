@@ -36,22 +36,45 @@ public class SimulatorView extends JFrame {
         updateView();
     }
 
+    /**
+     * Method that updates the carParkView.
+     */
     public void updateView() {
         carParkView.updateView();
     }
     
+    /**
+     * Method that returns the number of floors.
+     * 
+     * @return numberOfFloors
+     */
 	public int getNumberOfFloors() {
         return numberOfFloors;
     }
 
+	/**
+	 * Method that returns the number of rows.
+	 * 
+	 * @return numberOfRows
+	 */
     public int getNumberOfRows() {
         return numberOfRows;
     }
 
+    /**
+     * Method that returns the number of places.
+     * 
+     * @return numberOfPlaces
+     */
     public int getNumberOfPlaces() {
         return numberOfPlaces;
     }
 
+    /**
+     * Method that returns the number of open spots.
+     * 
+     * @return numberOfOpenSpots
+     */
     public int getNumberOfOpenSpots(){
     	return numberOfOpenSpots;
     }
