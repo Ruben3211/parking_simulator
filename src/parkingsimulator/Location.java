@@ -29,7 +29,7 @@ public class Location {
     }
     
     /**
-     * This method returns a string consisting of the values 
+     * Method that returns a string consisting of the values 
      * in floor, row and place and returns that string.
      * 
      * @return A string representation of the location.
@@ -50,7 +50,7 @@ public class Location {
     }
 
     /**
-     * This method returns the value of the instance variable floor.
+     * Method that returns the value of the instance variable floor.
      * 
      * @return floor
      */
@@ -59,7 +59,7 @@ public class Location {
     }
 
     /**
-     * This method returns the value of the instance variable row.
+     * Method that returns the value of the instance variable row.
      * 
      * @return row.
      */
@@ -68,7 +68,7 @@ public class Location {
     }
 
     /**
-     * This method returns the value of the instance variable place.
+     * Method that returns the value of the instance variable place.
      * 
      * @return place.
      */

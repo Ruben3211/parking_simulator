@@ -17,7 +17,7 @@ public abstract class Car {
     }
 
     /**
-     * This method returns the location of a car object.
+     * Method that returns the location of a car object.
      * 
      * @return location
      */
@@ -26,7 +26,7 @@ public abstract class Car {
     }
 
     /**
-     * This method sets the location of a car object.
+     * Method that sets the location of a car object.
      * 
      * @param location
      */
@@ -35,7 +35,7 @@ public abstract class Car {
     }
 
     /**
-     * This method returns the amount of minutes left until a car object is removed.
+     * Method that returns the amount of minutes left until a car object is removed.
      * 
      * @return minutesLeft
      */
@@ -44,7 +44,7 @@ public abstract class Car {
     }
 
     /**
-     * This method sets the amount a minutes until a car object is removed.
+     * Method that sets the amount a minutes until a car object is removed.
      * 
      * @param minutesLeft
      */
@@ -53,7 +53,7 @@ public abstract class Car {
     }
     
     /**
-     * This method decides if a leaving car is going to pay or not.
+     * Method that decides if a leaving car is going to pay or not.
      * 
      * @return isPaying
      */
@@ -62,7 +62,7 @@ public abstract class Car {
     }
 
     /**
-     * This method sets whether a leaving car is going to pay or not.
+     * Method that sets whether a leaving car is going to pay or not.
      * 
      * @param isPaying
      */
@@ -71,7 +71,7 @@ public abstract class Car {
     }
 
     /**
-     * This method returns whether a car is obligated to pay or not.
+     * Method that returns whether a car is obligated to pay or not.
      * 
      * @return hasToPay
      */
@@ -80,7 +80,7 @@ public abstract class Car {
     }
 
     /**
-     * This method sets whether a car is obligated to pay or not.
+     * Method that sets whether a car is obligated to pay or not.
      * 
      * @param hasToPay
      */
@@ -89,14 +89,14 @@ public abstract class Car {
     }
 
     /**
-     * This method subtracts one minutes from the total amount of minutes that a car has left in the garage.
+     * Method that subtracts one minutes from the total amount of minutes that a car has left in the garage.
      */
     public void tick() {
         minutesLeft--;
     }
     
     /**
-     * This method returns the color of a car object.
+     * Method that returns the color of a car object.
      * 
      * @return color
      */

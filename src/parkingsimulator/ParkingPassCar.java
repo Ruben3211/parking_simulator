@@ -18,7 +18,7 @@ public class ParkingPassCar extends Car {
     }
     
     /**
-     * This method returns the color given to the ParkingPassCar objects.
+     * Method that returns the color given to the ParkingPassCar objects.
      * 
      * @return color
      */

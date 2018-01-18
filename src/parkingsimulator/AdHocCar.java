@@ -18,7 +18,7 @@ public class AdHocCar extends Car {
     }
     
     /**
-     * This method returns the color given to the AdHocCar objects.
+     * Method that returns the color given to the AdHocCar objects.
      * 
      * @return color
      */

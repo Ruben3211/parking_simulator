@@ -8,7 +8,7 @@ public class CarQueue {
     private Queue<Car> queue = new LinkedList<>();
 
     /**
-     * This method adds a car to the queue list.
+     * Method that adds a car to the queue list.
      * 
      * @param car A car object.
      * @return true If a car has been added.
@@ -18,7 +18,7 @@ public class CarQueue {
     }
 
     /**
-     * This method retrieves and removes the first car in the queue list.
+     * Method that retrieves and removes the first car in the queue list.
      * 
      * @return The first car in the list, or null if the list is empty.
      */
@@ -27,7 +27,7 @@ public class CarQueue {
     }
 
     /**
-     * This method returns how many car objects are in the queue list.
+     * Method that returns how many car objects are in the queue list.
      * 
      * @return The total size of the queue.
      */

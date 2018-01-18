@@ -42,7 +42,7 @@ public class Simulator {
     }
 
     /**
-     * This method makes sure the simulator is run 10000 times, each 
+     * Method that makes the simulator is run 10000 times, each 
      * single time it will call upon the method named tick().
      */
     public void run() {
@@ -65,7 +65,7 @@ public class Simulator {
     }
 
     /**
-     * This method advances the time with one minute each time the method is 
+     * Method that advances the time with one minute each time the method is 
      * called. It will go through 60 minutes, 24 hours and 7 days.
      */
     private void advanceTime(){
