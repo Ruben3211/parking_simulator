@@ -109,10 +109,10 @@ public class Simulator {
     }
 
     private void carsEntering(CarQueue queue){
-        int i=0;
+        int i = 0;
         // Remove car from the front of the queue and assign to a parking space.
-    	while (queue.carsInQueue()>0 && 
-    			simulatorView.getNumberOfOpenSpots()>0 && 
+    	while (queue.carsInQueue() > 0 && 
+    			simulatorView.getNumberOfOpenSpots() > 0 && 
     			i<enterSpeed) {
             Car car = queue.removeCar();
             Location freeLocation = simulatorView.getFirstFreeLocation();
@@ -124,7 +124,7 @@ public class Simulator {
     private void carsReadyToLeave(){
         // Add leaving cars to the payment queue.
         Car car = simulatorView.getFirstLeavingCar();
-        while (car!=null) {
+        while (car != null) {
         	if (car.getHasToPay()){
 	            car.setIsPaying(true);
 	            paymentCarQueue.addCar(car);
@@ -138,8 +138,8 @@ public class Simulator {
 
     private void carsPaying(){
         // Let cars pay.
-    	int i=0;
-    	while (paymentCarQueue.carsInQueue()>0 && i < paymentSpeed){
+    	int i = 0;
+    	while (paymentCarQueue.carsInQueue() > 0 && i < paymentSpeed){
             Car car = paymentCarQueue.removeCar();
             // TODO Handle payment.
             carLeavesSpot(car);
@@ -149,8 +149,8 @@ public class Simulator {
     
     private void carsLeaving(){
         // Let cars leave.
-    	int i=0;
-    	while (exitCarQueue.carsInQueue()>0 && i < exitSpeed){
+    	int i = 0;
+    	while (exitCarQueue.carsInQueue() > 0 && i < exitSpeed){
             exitCarQueue.removeCar();
             i++;
     	}	

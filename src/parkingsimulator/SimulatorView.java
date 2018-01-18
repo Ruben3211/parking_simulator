@@ -12,6 +12,13 @@ public class SimulatorView extends JFrame {
     private int numberOfOpenSpots;
     private Car[][][] cars;
 
+    /**
+     * Constructor for the objects of class SimulatorView.
+     * 
+     * @param numberOfFloors
+     * @param numberOfRows
+     * @param numberOfPlaces
+     */
     public SimulatorView(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
