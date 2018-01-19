@@ -196,13 +196,14 @@ public class SimulatorLogic extends AbstractModel {
 	// -----------------------------------------------------------
     public void run() {
         for (int i = 0; i < 10000; i++) {
-            tick();
+            step();
         }
     }
 
     private void step() {
     	advanceTime();
     	handleExit();
+    	notifyViews();
         try {
             Thread.sleep(stepPause);
         } catch (InterruptedException e) {

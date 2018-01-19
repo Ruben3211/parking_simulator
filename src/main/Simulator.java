@@ -29,6 +29,11 @@ public class Simulator {
 		carParkView.setBackground(Color.WHITE);
 		screen.setVisible(true);
 
+	}
+	
+	// Needs to be deleted when buttons are added.
+	public void run()
+	{
 		simulatorLogic.run();
 	}
 
