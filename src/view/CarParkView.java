@@ -20,23 +20,19 @@ public class CarParkView extends AbstractView {
 	
 	// This is all from the SimulatorView class under class CarParkView.
 	
-	public void paintComponent(Graphics g)
-	{
+	public void paintComponent(Graphics g) {
+		
 		Dimension panelSize = getSize();
 
-		if(!carParkImageSize.equals(panelSize))
-		{
+		if(!carParkImageSize.equals(panelSize)) {
 			carParkImageSize = panelSize; 
             carParkImage = createImage(panelSize.width, panelSize.height);
         }
         
         Graphics graphics = carParkImage.getGraphics();
-        for(int floor = 0; floor < simulator.getNumberOfFloors(); floor++)
-        {
-            for(int row = 0; row < simulator.getNumberOfRows(); row++)
-            {
-                for(int place = 0; place < simulator.getNumberOfPlaces(); place++)
-                {
+        for(int floor = 0; floor < simulator.getNumberOfFloors(); floor++) {
+            for(int row = 0; row < simulator.getNumberOfRows(); row++) {
+                for(int place = 0; place < simulator.getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     AbstractCar car = simulator.getCarAt(location);
                     Color color = car == null ? Color.white : car.getColor();
@@ -50,8 +46,7 @@ public class CarParkView extends AbstractView {
         g.dispose();
 	}
 	
-    private void drawPlace(Graphics graphics, Location location, Color color)
-    {
+    private void drawPlace(Graphics graphics, Location location, Color color) {
         graphics.setColor(color);
         graphics.fillRect(
                 location.getFloor() * 260 + (1 + (int)Math.floor(location.getRow() * 0.5)) * 75 + (location.getRow() % 2) * 20,
