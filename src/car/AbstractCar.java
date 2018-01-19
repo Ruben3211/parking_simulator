@@ -3,6 +3,7 @@ package car;
 import java.awt.*;
 
 import logic.*;
+import parkingsimulator.Location;
 
 public abstract class AbstractCar {
 	
