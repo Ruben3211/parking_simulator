@@ -18,9 +18,6 @@ public class SimulatorLogic extends AbstractModel {
     private int numberOfPlaces;
     private int numberOfOpenSpots;
     private AbstractCar[][][] cars;
-    
-    private Dimension size;
-    private Image carParkImage;
 	
 	// -----------------------------------------------------------
 	// These instance variables are from the Simulator class.
@@ -69,24 +66,7 @@ public class SimulatorLogic extends AbstractModel {
     
 	// -----------------------------------------------------------
 	// These methods are from the SimulatorView class.
-	// -----------------------------------------------------------
-    public Image getCarParkImage() {
-    	return carParkImage;
-    }
-    
-    public void setCarParkImage(Image carParkImage) {
-    	this.carParkImage = carParkImage;
-    }
-    
-    public Dimension getSize() {
-    	size = new Dimension(800, 500);
-    	return size;
-    }
-    
-    public void setSize(Dimension size) {
-    	this.size = size;
-    }
-    
+	// -----------------------------------------------------------  
     public int getNumberOfFloors() {
         return numberOfFloors;
     }
