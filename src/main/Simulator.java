@@ -9,26 +9,25 @@ import view.*;
 
 public class Simulator {
 	
-	private SimulatorLogic simulatorLogic;
-	
-	private CarParkView carParkView;
-	
 	private JFrame screen;
+	private CarParkView carParkView;
+	private SimulatorLogic simulatorLogic;
 	
 	public Simulator() {
 		simulatorLogic = new SimulatorLogic(3, 6, 30);
+		carParkView = new CarParkView(simulatorLogic);
 		
-		screen = new JFrame("Parking garage simulator");
+		screen = new JFrame("Parking Garage Simulator");
 		screen.setSize(1980, 1080);
 		screen.setResizable(false);
 		screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		screen.getContentPane().setLayout(null);
+		screen.setLayout(null);
+		screen.getContentPane().add(carParkView);
 		
-		carParkView = new CarParkView(simulatorLogic);
 		carParkView.setBounds(10, 120, 800, 400);
 		carParkView.setBackground(Color.WHITE);
 		
-		screen.getContentPane().add(carParkView);
+		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screen.setVisible(true);
 	}
 	

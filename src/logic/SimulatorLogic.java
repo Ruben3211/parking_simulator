@@ -18,9 +18,10 @@ public class SimulatorLogic extends AbstractModel {
 	// -----------------------------------------------------------
 	private static final String REGULAR = "1";
 	private static final String SUBSCRIPTION = "2";
+	private static final String RESERVATION = "3";
 
 	private CarQueue entranceCarQueue;
-    private CarQueue entrancePassQueue;
+    private CarQueue entrancePassAndRessQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
 
@@ -29,12 +30,18 @@ public class SimulatorLogic extends AbstractModel {
     private int minute = 0;
 
     private int stepPause = 100;
+    
+    // Maximum number of cars allowed in the garage.
+    int maxSubscriptions = 0;
+    int maxReservation = 0;
 
     // Average number of cars arriving per hour.
     int weekDayArrivals = 100;
     int weekendArrivals = 200;
     int weekDayPassArrivals = 50;
     int weekendPassArrivals = 5;
+    int weekDayRessArrivals = 50;
+    int weekendRessArrivals = 5;
 
     // Number of cars that can enter/leave per minute.
     int enterSpeed = 3;
@@ -53,7 +60,7 @@ public class SimulatorLogic extends AbstractModel {
         
         // These are from the constructor in the Simulator class.
         entranceCarQueue = new CarQueue();
-        entrancePassQueue = new CarQueue();
+        entrancePassAndRessQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
     }
@@ -203,7 +210,7 @@ public class SimulatorLogic extends AbstractModel {
     
     private void handleEntrance() {
     	carsArriving();
-    	carsEntering(entrancePassQueue);
+    	carsEntering(entrancePassAndRessQueue);
     	carsEntering(entranceCarQueue);  	
     }
     
@@ -217,7 +224,9 @@ public class SimulatorLogic extends AbstractModel {
     	int numberOfCars = getNumberOfCars(weekDayArrivals, weekendArrivals);
         addArrivingCars(numberOfCars, REGULAR);    	
     	numberOfCars = getNumberOfCars(weekDayPassArrivals, weekendPassArrivals);
-        addArrivingCars(numberOfCars, SUBSCRIPTION);    	
+        addArrivingCars(numberOfCars, SUBSCRIPTION);
+        numberOfCars = getNumberOfCars(weekDayRessArrivals, weekendRessArrivals);
+        addArrivingCars(numberOfCars, RESERVATION);
     }
     
     private void carsEntering(CarQueue queue) {
@@ -283,9 +292,13 @@ public class SimulatorLogic extends AbstractModel {
             break;
     	case SUBSCRIPTION:
             for (int i = 0; i < numberOfCars; i++) {
-            	entrancePassQueue.addCar(new SubscriptionCar());
+            	entrancePassAndRessQueue.addCar(new SubscriptionCar());
             }
-            break;	            
+            break;	
+    	case RESERVATION:
+    		for (int i = 0; i < numberOfCars; i++) {
+    			entrancePassAndRessQueue.addCar(new ReservationCar());
+    		}
     	}
     }
     
