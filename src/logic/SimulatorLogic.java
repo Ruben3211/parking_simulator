@@ -18,9 +18,10 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
 	// -----------------------------------------------------------
 	private static final String REGULAR = "1";
 	private static final String SUBSCRIPTION = "2";
+	private static final String RESERVATION = "3";
 
-	private CarQueue entranceCarQueue;
-    private CarQueue entrancePassQueue;
+	private CarQueue entranceRegQueue;
+    private CarQueue entranceSubResQueue;
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
 
@@ -31,10 +32,12 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     private int stepPause = 100;
 
     // Average number of cars arriving per hour.
-    int weekDayArrivals = 100;
-    int weekendArrivals = 200;
-    int weekDayPassArrivals = 50;
-    int weekendPassArrivals = 5;
+    int weekDayRegArrivals = 100;
+    int weekendRegArrivals = 200;
+    int weekDaySubArrivals = 50;
+    int weekendSubArrivals = 5;
+    int weekDayResArrivals = 50;
+    int weekendResArrivals = 5;
 
     // Number of cars that can enter/leave per minute.
     int enterSpeed = 3;
@@ -55,8 +58,8 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
         
         // These are from the constructor in the Simulator class.
-        entranceCarQueue = new CarQueue();
-        entrancePassQueue = new CarQueue();
+        entranceRegQueue = new CarQueue();
+        entranceSubResQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
         
@@ -222,8 +225,8 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     
     private void handleEntrance() {
     	carsArriving();
-    	carsEntering(entrancePassQueue);
-    	carsEntering(entranceCarQueue);  	
+    	carsEntering(entranceSubResQueue);
+    	carsEntering(entranceRegQueue);  	
     }
     
     private void handleExit() {
@@ -233,10 +236,12 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     }
     
     private void carsArriving() {
-    	int numberOfCars = getNumberOfCars(weekDayArrivals, weekendArrivals);
+    	int numberOfCars = getNumberOfCars(weekDayRegArrivals, weekendRegArrivals);
         addArrivingCars(numberOfCars, REGULAR);    	
-    	numberOfCars = getNumberOfCars(weekDayPassArrivals, weekendPassArrivals);
-        addArrivingCars(numberOfCars, SUBSCRIPTION);    	
+    	numberOfCars = getNumberOfCars(weekDaySubArrivals, weekendSubArrivals);
+        addArrivingCars(numberOfCars, SUBSCRIPTION);
+        numberOfCars = getNumberOfCars(weekDayResArrivals, weekendResArrivals);
+        addArrivingCars(numberOfCars, RESERVATION);
     }
     
     private void carsEntering(CarQueue queue) {
@@ -297,14 +302,18 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     	switch(type) {
     	case REGULAR: 
             for (int i = 0; i < numberOfCars; i++) {
-            	entranceCarQueue.addCar(new RegularCar());
+            	entranceRegQueue.addCar(new RegularCar());
             }
             break;
     	case SUBSCRIPTION:
             for (int i = 0; i < numberOfCars; i++) {
-            	entrancePassQueue.addCar(new SubscriptionCar());
+            	entranceSubResQueue.addCar(new SubscriptionCar());
             }
-            break;	            
+            break;
+    	case RESERVATION:
+    		for (int i = 0; i < numberOfCars; i++) {
+    			entranceSubResQueue.addCar(new ReservationCar());
+    		}
     	}
     }
     

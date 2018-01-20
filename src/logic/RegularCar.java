@@ -14,7 +14,7 @@ public class RegularCar extends Car {
         this.setHasToPay(true);
     }
     
-    public Color getColor(){
+    public Color getColor() {
     	return COLOR;
     }
 }
