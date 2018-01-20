@@ -2,7 +2,7 @@ package logic;
 
 import java.util.*;
 
-public class SimulatorLogic extends AbstractModel {
+public class SimulatorLogic extends AbstractModel implements Runnable {
 
 	// -----------------------------------------------------------
 	// These instance variables are from the SimulatorView class.
@@ -41,6 +41,9 @@ public class SimulatorLogic extends AbstractModel {
     int paymentSpeed = 7;
     int exitSpeed = 5;
     
+    private int numberOfSteps;
+    private boolean run;
+    
 	// -----------------------------------------------------------
 	// This is the constructor from the SimulatorView class.
 	// -----------------------------------------------------------
@@ -56,6 +59,8 @@ public class SimulatorLogic extends AbstractModel {
         entrancePassQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
         exitCarQueue = new CarQueue();
+        
+        run = false;
     }
     
 	// -----------------------------------------------------------
@@ -168,22 +173,36 @@ public class SimulatorLogic extends AbstractModel {
 	// -----------------------------------------------------------
 	// These methods are from the Simulator class.
 	// -----------------------------------------------------------
-    public void run() {
-        for (int i = 0; i < 10000; i++) {
-            step();
-        }
-    }
-
-    private void step() {
+    public void step() {
     	advanceTime();
     	handleExit();
     	notifyViews();
-        try {
-            Thread.sleep(stepPause);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     	handleEntrance();
+    }
+    
+    public void start(int numberOfSteps) {
+    	this.numberOfSteps = numberOfSteps;
+    	run = true;
+    	new Thread(this).start();
+    }
+    
+    public void stop() {
+    	run = false;
+    }
+    
+    public void run() {
+    	for(int i = 0; i < numberOfSteps && run; i++) {
+    		advanceTime();
+    		handleExit();
+    		notifyViews();
+    		try {
+    			Thread.sleep(100);
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}
+    		handleEntrance();
+    	}
+    	run = false;
     }
     
     private void advanceTime() {

@@ -9,33 +9,28 @@ import view.*;
 
 public class Simulator {
 	
-	private SimulatorLogic simulatorLogic;
-	
-	private CarParkView carParkView;
-	
 	private JFrame screen;
+	private AbstractView carParkView;
+	private SimulatorLogic simulatorLogic;
+	private AbstractController runController;	
 	
 	public Simulator() {
 		simulatorLogic = new SimulatorLogic(3, 6, 30);
+		carParkView = new CarParkView(simulatorLogic);
+		runController = new RunController(simulatorLogic);
 		
 		screen = new JFrame("Parking garage simulator");
 		screen.setSize(1980, 1080);
 		screen.setResizable(false);
+		screen.setLayout(null);
 		screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		screen.getContentPane().setLayout(null);
+		screen.getContentPane().add(carParkView);
+		screen.getContentPane().add(runController);
 		
-		carParkView = new CarParkView(simulatorLogic);
 		carParkView.setBounds(10, 120, 800, 400);
 		carParkView.setBackground(Color.WHITE);
+		runController.setBounds(10, 60, 800, 400);
 		
-		screen.getContentPane().add(carParkView);
 		screen.setVisible(true);
 	}
-	
-	// Needs to be deleted when buttons are added.
-	public void run()
-	{
-		simulatorLogic.run();
-	}
-
 }
