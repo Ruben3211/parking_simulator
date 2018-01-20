@@ -224,7 +224,7 @@ public class SimulatorLogic extends AbstractModel {
         int i = 0;
     	while (queue.carsInQueue() > 0 && 
     			getNumberOfOpenSpots() > 0 && 
-    			i<enterSpeed) {
+    			i < enterSpeed) {
             Car car = queue.removeCar();
             Location freeLocation = getFirstFreeLocation();
             setCarAt(freeLocation, car);
