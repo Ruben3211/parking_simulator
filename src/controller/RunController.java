@@ -4,6 +4,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import logic.*;
 
+// TODO: Add a way to disable the buttons once the simulator has been started.
+
 @SuppressWarnings("serial")
 public class RunController extends AbstractController implements ActionListener {
 
