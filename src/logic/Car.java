@@ -2,8 +2,6 @@ package logic;
 
 import java.awt.*;
 
-import logic.*;
-
 public abstract class Car {
 	
 	private Location location;

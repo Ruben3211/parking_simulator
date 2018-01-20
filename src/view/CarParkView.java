@@ -6,6 +6,7 @@ import logic.*;
 
 public class CarParkView extends AbstractView {
 
+	private static final long serialVersionUID = -5779340024759957535L;
 	private Dimension carParkImageSize;
 	private Image carParkImage;
 	
