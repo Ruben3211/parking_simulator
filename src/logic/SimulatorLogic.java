@@ -34,15 +34,32 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     // Average number of cars arriving per hour.
     int weekDayRegArrivals = 100;
     int weekendRegArrivals = 200;
+    int eventRegArrivals = 0; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
     int weekDaySubArrivals = 50;
     int weekendSubArrivals = 5;
+    int eventSubArrivals = 0; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
     int weekDayResArrivals = 50;
     int weekendResArrivals = 5;
+    int eventResArrivals = 0; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
 
     // Number of cars that can enter/leave per minute.
     int enterSpeed = 3;
     int paymentSpeed = 7;
     int exitSpeed = 5;
+    
+    // The prices the various cars have to pay.
+    int regPaymentAmount = 0;
+    int subPaymentAmount = 0;
+    int resPaymentAmount = 0;
+    
+    // max amount of cars allowed at once.
+    int maxSubAllowed = 60;
+    int maxResAllowed = 60;
+    
+    // lists the amount a cars per type that left, because the queue's were to long.
+    int regMissedAmount;
+    int subMissedAmount;
+    int resMissedAmount;
     
     private int numberOfSteps;
     private boolean run;
