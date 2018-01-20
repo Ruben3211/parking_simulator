@@ -214,9 +214,9 @@ public class SimulatorLogic extends AbstractModel {
     }
     
     private void carsArriving() {
-    	int numberOfCars=getNumberOfCars(weekDayArrivals, weekendArrivals);
+    	int numberOfCars = getNumberOfCars(weekDayArrivals, weekendArrivals);
         addArrivingCars(numberOfCars, REGULAR);    	
-    	numberOfCars=getNumberOfCars(weekDayPassArrivals, weekendPassArrivals);
+    	numberOfCars = getNumberOfCars(weekDayPassArrivals, weekendPassArrivals);
         addArrivingCars(numberOfCars, SUBSCRIPTION);    	
     }
     
