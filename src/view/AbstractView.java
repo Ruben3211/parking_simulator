@@ -6,7 +6,6 @@ import logic.*;
 
 public abstract class AbstractView extends JPanel {
 	
-	private static final long serialVersionUID = 434279804548490239L;
 	protected SimulatorLogic simulator;
 	
 	public AbstractView(SimulatorLogic simulator) {
