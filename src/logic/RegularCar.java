@@ -1,17 +1,17 @@
-package car;
+package logic;
 
 import java.awt.Color;
 import java.util.Random;
 
-public class SubscriptionCar extends AbstractCar {
+public class RegularCar extends Car {
 	
-	private static final Color COLOR=Color.blue;
+	private static final Color COLOR=Color.red;
 	
-    public SubscriptionCar() {
+    public RegularCar() {
     	Random random = new Random();
     	int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
         this.setMinutesLeft(stayMinutes);
-        this.setHasToPay(false);
+        this.setHasToPay(true);
     }
     
     public Color getColor(){

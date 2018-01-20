@@ -1,13 +1,11 @@
-package parkingsimulator;
+package logic;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
-import car.*;
-
 public class CarQueue {
 	
-    private Queue<AbstractCar> queue = new LinkedList<>();
+    private Queue<Car> queue = new LinkedList<>();
 
     /**
      * Method that adds a car to the queue list.
@@ -15,7 +13,7 @@ public class CarQueue {
      * @param car A car object.
      * @return true If a car has been added.
      */
-    public boolean addCar(AbstractCar car) {
+    public boolean addCar(Car car) {
         return queue.add(car);
     }
 
@@ -24,7 +22,7 @@ public class CarQueue {
      * 
      * @return The first car in the list, or null if the list is empty.
      */
-    public AbstractCar removeCar() {
+    public Car removeCar() {
         return queue.poll();
     }
 

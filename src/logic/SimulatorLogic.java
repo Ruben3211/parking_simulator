@@ -1,12 +1,6 @@
 package logic;
 
-import java.awt.Dimension;
-import java.awt.Image;
 import java.util.*;
-
-import car.*;
-import parkingsimulator.Location;
-import parkingsimulator.CarQueue;
 
 public class SimulatorLogic extends AbstractModel {
 
@@ -17,7 +11,7 @@ public class SimulatorLogic extends AbstractModel {
     private int numberOfRows;
     private int numberOfPlaces;
     private int numberOfOpenSpots;
-    private AbstractCar[][][] cars;
+    private Car[][][] cars;
 	
 	// -----------------------------------------------------------
 	// These instance variables are from the Simulator class.
@@ -55,7 +49,7 @@ public class SimulatorLogic extends AbstractModel {
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
         this.numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
-        cars = new AbstractCar[numberOfFloors][numberOfRows][numberOfPlaces];
+        cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
         
         // These are from the constructor in the Simulator class.
         entranceCarQueue = new CarQueue();
@@ -83,18 +77,18 @@ public class SimulatorLogic extends AbstractModel {
     	return numberOfOpenSpots;
     }
     
-    public AbstractCar getCarAt(Location location) {
+    public Car getCarAt(Location location) {
         if (!locationIsValid(location)) {
             return null;
         }
         return cars[location.getFloor()][location.getRow()][location.getPlace()];
     }
     
-    public boolean setCarAt(Location location, AbstractCar car) {
+    public boolean setCarAt(Location location, Car car) {
         if (!locationIsValid(location)) {
             return false;
         }
-        AbstractCar oldCar = getCarAt(location);
+        Car oldCar = getCarAt(location);
         if (oldCar == null) {
             cars[location.getFloor()][location.getRow()][location.getPlace()] = car;
             car.setLocation(location);
@@ -104,11 +98,11 @@ public class SimulatorLogic extends AbstractModel {
         return false;
     }
     
-    public AbstractCar removeCarAt(Location location) {
+    public Car removeCarAt(Location location) {
         if (!locationIsValid(location)) {
             return null;
         }
-        AbstractCar car = getCarAt(location);
+        Car car = getCarAt(location);
         if (car == null) {
             return null;
         }
@@ -132,12 +126,12 @@ public class SimulatorLogic extends AbstractModel {
         return null;
     }
     
-    public AbstractCar getFirstLeavingCar() {
+    public Car getFirstLeavingCar() {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
-                    AbstractCar car = getCarAt(location);
+                    Car car = getCarAt(location);
                     if (car != null && car.getMinutesLeft() <= 0 && !car.getIsPaying()) {
                         return car;
                     }
@@ -152,7 +146,7 @@ public class SimulatorLogic extends AbstractModel {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
-                    AbstractCar car = getCarAt(location);
+                    Car car = getCarAt(location);
                     if (car != null) {
                         car.tick();
                     }
@@ -231,7 +225,7 @@ public class SimulatorLogic extends AbstractModel {
     	while (queue.carsInQueue() > 0 && 
     			getNumberOfOpenSpots() > 0 && 
     			i<enterSpeed) {
-            AbstractCar car = queue.removeCar();
+            Car car = queue.removeCar();
             Location freeLocation = getFirstFreeLocation();
             setCarAt(freeLocation, car);
             i++;
@@ -239,7 +233,7 @@ public class SimulatorLogic extends AbstractModel {
     }
     
     private void carsReadyToLeave() {
-        AbstractCar car = getFirstLeavingCar();
+        Car car = getFirstLeavingCar();
         while (car != null) {
         	if (car.getHasToPay()){
 	            car.setIsPaying(true);
@@ -255,7 +249,7 @@ public class SimulatorLogic extends AbstractModel {
     private void carsPaying() {
     	int i = 0;
     	while (paymentCarQueue.carsInQueue() > 0 && i < paymentSpeed){
-            AbstractCar car = paymentCarQueue.removeCar();
+            Car car = paymentCarQueue.removeCar();
             // TODO Handle payment.
             carLeavesSpot(car);
             i++;
@@ -295,7 +289,7 @@ public class SimulatorLogic extends AbstractModel {
     	}
     }
     
-    private void carLeavesSpot(AbstractCar car) {
+    private void carLeavesSpot(Car car) {
     	removeCarAt(car.getLocation());
         exitCarQueue.addCar(car);
     } 

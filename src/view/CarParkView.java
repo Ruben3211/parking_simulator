@@ -3,8 +3,6 @@ package view;
 import java.awt.*;
 
 import logic.*;
-import car.*;
-import parkingsimulator.Location;
 
 public class CarParkView extends AbstractView {
 
@@ -34,15 +32,14 @@ public class CarParkView extends AbstractView {
             for(int row = 0; row < simulator.getNumberOfRows(); row++) {
                 for(int place = 0; place < simulator.getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
-                    AbstractCar car = simulator.getCarAt(location);
+                    Car car = simulator.getCarAt(location);
                     Color color = car == null ? Color.white : car.getColor();
                     drawPlace(graphics, location, color);
                 }
             }
         }
-
+        
         g.drawImage(carParkImage, 0, 0, null);
-        //g.drawImage(simulator.getCarParkImage(), 0, 0, currentSize.width, currentSize.height, null);
         g.dispose();
 	}
 	

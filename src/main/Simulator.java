@@ -2,7 +2,6 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.WindowConstants;
 
 import controller.*;
 import logic.*;
