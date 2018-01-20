@@ -18,16 +18,18 @@ public class Simulator {
 	public Simulator() {
 		simulatorLogic = new SimulatorLogic(3, 6, 30);
 		
-		screen = new JFrame("SIm");
-		screen.setSize(1350, 925);
+		screen = new JFrame("Parking garage simulator");
+		screen.setSize(1980, 1080);
 		screen.setResizable(false);
+		screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		screen.getContentPane().setLayout(null);
+		
 		carParkView = new CarParkView(simulatorLogic);
 		carParkView.setBounds(10, 120, 800, 400);
-		screen.getContentPane().add(carParkView);
 		carParkView.setBackground(Color.WHITE);
+		
+		screen.getContentPane().add(carParkView);
 		screen.setVisible(true);
-
 	}
 	
 	// Needs to be deleted when buttons are added.
