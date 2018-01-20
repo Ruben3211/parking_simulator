@@ -14,7 +14,7 @@ public class SubscriptionCar extends Car {
         this.setHasToPay(false);
     }
     
-    public Color getColor() {
+    public Color getColor(){
     	return COLOR;
     }
 }
