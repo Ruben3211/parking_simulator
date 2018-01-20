@@ -4,6 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import logic.*;
 
+@SuppressWarnings("serial")
 public class RunController extends AbstractController implements ActionListener {
 
 	private JButton step;

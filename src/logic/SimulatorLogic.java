@@ -196,7 +196,7 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     		handleExit();
     		notifyViews();
     		try {
-    			Thread.sleep(100);
+    			Thread.sleep(stepPause);
     		} catch (InterruptedException e) {
     			e.printStackTrace();
     		}
