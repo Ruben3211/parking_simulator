@@ -4,6 +4,7 @@ import java.awt.*;
 
 import logic.*;
 
+@SuppressWarnings("serial")
 public class CarParkView extends AbstractView {
 
 	private Dimension carParkImageSize;

@@ -4,6 +4,7 @@ import javax.swing.*;
 
 import logic.*;
 
+@SuppressWarnings("serial")
 public abstract class AbstractView extends JPanel {
 	
 	protected SimulatorLogic simulator;
