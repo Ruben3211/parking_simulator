@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class RegularCar extends Car {
 	
+	private static final String TYPE="1";
 	private static final Color COLOR=Color.red;
 	
     public RegularCar() {
@@ -14,6 +15,9 @@ public class RegularCar extends Car {
         this.setHasToPay(true);
     }
     
+    public String getType() {
+    	return TYPE;
+    }
     public Color getColor() {
     	return COLOR;
     }

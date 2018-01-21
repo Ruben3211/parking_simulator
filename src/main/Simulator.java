@@ -19,7 +19,7 @@ public class Simulator {
 		carParkView = new CarParkView(simulatorLogic);
 		runController = new RunController(simulatorLogic);
 		
-		screen = new JFrame("Parking garage simulator");
+		screen = new JFrame("Parking Garage Simulator");
 		screen.setSize(1980, 1080);
 		screen.setResizable(false);
 		screen.setLayout(null);

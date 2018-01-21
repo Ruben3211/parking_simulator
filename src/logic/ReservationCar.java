@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class ReservationCar extends Car {
 	
+	private static final String TYPE="3";
 	private static final Color COLOR=Color.yellow;
 	
 	public ReservationCar() {
@@ -14,6 +15,9 @@ public class ReservationCar extends Car {
 		this.setHasToPay(true);
 	}
 
+	public String getType() {
+		return TYPE;
+	}
 	public Color getColor() {
 		return COLOR;
 	}
