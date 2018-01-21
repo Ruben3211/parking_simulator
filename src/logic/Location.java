@@ -6,9 +6,6 @@ public class Location {
     private int row;
     private int place;
 
-    /**
-     * Constructor for objects of class Location.
-     */
     public Location(int floor, int row, int place) {
         this.floor = floor;
         this.row = row;
@@ -30,12 +27,6 @@ public class Location {
         }
     }
     
-    /**
-     * Method that returns a string consisting of the values 
-     * in floor, row and place and returns that string.
-     * 
-     * @return A string representation of the location.
-     */
     public String toString() {
         return floor + "," + row + "," + place;
     }
@@ -51,29 +42,14 @@ public class Location {
         return (floor << 20) + (row << 10) + place;
     }
 
-    /**
-     * Method that returns the value of the instance variable floor.
-     * 
-     * @return floor
-     */
     public int getFloor() {
         return floor;
     }
 
-    /**
-     * Method that returns the value of the instance variable row.
-     * 
-     * @return row.
-     */
     public int getRow() {
         return row;
     }
 
-    /**
-     * Method that returns the value of the instance variable place.
-     * 
-     * @return place.
-     */
     public int getPlace() {
         return place;
     }

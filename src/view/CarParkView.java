@@ -17,8 +17,6 @@ public class CarParkView extends AbstractView {
 		carParkImage = createImage(carParkImageSize.width, carParkImageSize.height);
 	}
 	
-	// This is all from the SimulatorView class under class CarParkView.
-	
 	public void paintComponent(Graphics g) {
 		
 		Dimension panelSize = getSize();

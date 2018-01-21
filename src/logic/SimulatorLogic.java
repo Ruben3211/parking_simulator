@@ -4,18 +4,12 @@ import java.util.*;
 
 public class SimulatorLogic extends AbstractModel implements Runnable {
 
-	// -----------------------------------------------------------
-	// These instance variables are from the SimulatorView class.
-	// -----------------------------------------------------------
     private int numberOfFloors;
     private int numberOfRows;
     private int numberOfPlaces;
     private int numberOfOpenSpots;
     private Car[][][] cars;
 	
-	// -----------------------------------------------------------
-	// These instance variables are from the Simulator class.
-	// -----------------------------------------------------------
 	private static final String REGULAR = "1";
 	private static final String SUBSCRIPTION = "2";
 	private static final String RESERVATION = "3";
@@ -32,41 +26,38 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     private int stepPause = 100;
 
     // Average number of cars arriving per hour.
-    int weekDayRegArrivals = 100;
-    int weekendRegArrivals = 200;
-    int eventRegArrivals = 0; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
-    int weekDaySubArrivals = 50;
-    int weekendSubArrivals = 5;
-    int eventSubArrivals = 0; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
-    int weekDayResArrivals = 50;
-    int weekendResArrivals = 5;
-    int eventResArrivals = 0; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int weekDayRegArrivals = 100;
+    private int weekendRegArrivals = 200;
+    private int eventRegArrivals = 0; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int weekDaySubArrivals = 50;
+    private int weekendSubArrivals = 5;
+    private int eventSubArrivals = 0; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int weekDayResArrivals = 50;
+    private int weekendResArrivals = 5;
+    private int eventResArrivals = 0; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
 
     // Number of cars that can enter/leave per minute.
-    int enterSpeed = 3;
-    int paymentSpeed = 7;
-    int exitSpeed = 5;
+    private int enterSpeed = 3;
+    private int paymentSpeed = 7;
+    private int exitSpeed = 5;
     
     // The prices the various cars have to pay.
-    int regPaymentAmount = 0;
-    int subPaymentAmount = 0;
-    int resPaymentAmount = 0;
+    private int regPaymentAmount = 0;
+    private int subPaymentAmount = 0;
+    private int resPaymentAmount = 0;
     
     // max amount of cars allowed at once.
-    int maxSubAllowed = 60;
-    int maxResAllowed = 60;
+    private int maxSubAllowed = 60;
+    private int maxResAllowed = 60;
     
     // lists the amount a cars per type that left, because the queue's were to long.
-    int regMissedAmount;
-    int subMissedAmount;
-    int resMissedAmount;
+    private int regMissedAmount;
+    private int subMissedAmount;
+    private int resMissedAmount;
     
     private int numberOfSteps;
     private boolean run;
     
-	// -----------------------------------------------------------
-	// This is the constructor from the SimulatorView class.
-	// -----------------------------------------------------------
     public SimulatorLogic(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
@@ -74,7 +65,6 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
         this.numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
         cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
         
-        // These are from the constructor in the Simulator class.
         entranceRegQueue = new CarQueue();
         entranceSubResQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
@@ -82,10 +72,7 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
         
         run = false;
     }
-    
-	// -----------------------------------------------------------
-	// These methods are from the SimulatorView class.
-	// -----------------------------------------------------------  
+     
     public int getNumberOfFloors() {
         return numberOfFloors;
     }
@@ -190,9 +177,6 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
         return true;
     }
     
-	// -----------------------------------------------------------
-	// These methods are from the Simulator class.
-	// -----------------------------------------------------------
     public void step() {
     	advanceTime();
     	handleExit();
