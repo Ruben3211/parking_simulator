@@ -19,6 +19,8 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     private CarQueue paymentCarQueue;
     private CarQueue exitCarQueue;
 
+    // used for time, needed for certain views.
+    private String[] weekDay = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
     private int day = 0;
     private int hour = 0;
     private int minute = 0;
