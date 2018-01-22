@@ -24,6 +24,7 @@ public class Simulator {
 		screen.setResizable(false);
 		screen.setLayout(null);
 		screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		screen.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		screen.getContentPane().add(carParkView);
 		screen.getContentPane().add(runController);
 		
