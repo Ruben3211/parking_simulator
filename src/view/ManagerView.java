@@ -13,7 +13,7 @@ public ManagerView(SimulatorLogic simulator) {
 	setLayout(new GridLayout(5,1));
 	
 	//Maak het tijd label
-	time = new JLabel("Its ......" +  "the time is......");
+	time = new JLabel("Its " + simulator.getDay() + " the time is......");
 	
 	//maak het normaal label
 	regularpayd = new JLabel("Payd by regular cars is:......" );
@@ -28,7 +28,7 @@ public ManagerView(SimulatorLogic simulator) {
 	resvpayd = new JLabel("Payd by reserverd cars is: ...........");
 	
 	// maak het totaal label aan
-	total = new JLabel("Payd in total is: ........");
+	total = new JLabel("Payd in total is: " + simulator.getTotalPayd());
 	
 	
 	

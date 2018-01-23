@@ -45,8 +45,8 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     private int enterSpeed = 3; // TODO: enterspeed says 3, but somethimes 4 enter.
     private int paymentSpeed = 7;
     private int exitSpeed = 5;
-    
-    // The prices the various cars have to pay.
+
+	// The prices the various cars have to pay.
     private int regPaymentAmount = 15;
     private int subPaymentAmount = 30;
     private int resPaymentAmount = 20;
@@ -553,4 +553,14 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
         	space.setType("regular");
         }
     } 
+    // vraag de dag op
+    public String getDay() {
+    	return weekDay[day];
+    }
+    //vraag het totaal wat betaald is op
+    public int getTotalPayd() {
+    	int total = 0;
+    	total = total + totalRegPaymentAmount + totalResPaymentAmount + totalSubPaymentAmount;
+    	return total;
+    }
 }
