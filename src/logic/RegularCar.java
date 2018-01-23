@@ -1,12 +1,10 @@
 package logic;
 
-import java.awt.Color;
 import java.util.Random;
 
 public class RegularCar extends Car {
 	
-	private static final String TYPE="1";
-	private static final Color COLOR=Color.red;
+	private static final String TYPE="regular";
 	
     public RegularCar() {
     	Random random = new Random();
@@ -17,8 +15,5 @@ public class RegularCar extends Car {
     
     public String getType() {
     	return TYPE;
-    }
-    public Color getColor() {
-    	return COLOR;
     }
 }

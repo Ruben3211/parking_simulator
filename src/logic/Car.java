@@ -1,7 +1,5 @@
 package logic;
 
-import java.awt.Color;
-
 public abstract class Car {
 
 	private Location location;
@@ -45,5 +43,4 @@ public abstract class Car {
     }
 
     public abstract String getType();
-    public abstract Color getColor();
 }

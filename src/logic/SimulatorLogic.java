@@ -4,15 +4,15 @@ import java.util.*;
 
 public class SimulatorLogic extends AbstractModel implements Runnable {
 
+    private Random random;
+
     private int numberOfFloors;
     private int numberOfRows;
     private int numberOfPlaces;
     private int numberOfOpenSpots;
-    private Car[][][] cars;
+    private ParkingSpace[][][] spaces;
 
-	private static final String REGULAR = "1";
-	private static final String SUBSCRIPTION = "2";
-	private static final String RESERVATION = "3";
+    private List<Reservation> reservationList;
 
 	private CarQueue entranceRegQueue;
     private CarQueue entranceSubResQueue;
@@ -55,15 +55,17 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     private int totalSubPaymentAmount;
     private int totalResPaymentAmount;
 
-    // max number of cars allowed at once.
+    // Max number of subscription cars allowed at once.
     private int maxSubAllowed = 60;
+
+    // Max number of reservations allowed at once.
     private int maxResAllowed = 60;
 
-    // lists the number of cars per type that left, because the queues were too long.
+    // The number of cars per type that left, because the queues were too long.
     private int numMissedReg;
     private int numMissedSub;
     private int numMissedRes;
-    
+
     private int numberOfSteps;
     private boolean run;
 
@@ -71,13 +73,52 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     private int numParkedResCars;
     private int numParkedSubCars;
 
-    public SimulatorLogic(int numberOfFloors, int numberOfRows, int numberOfPlaces) {
+    // TODO: These are not used internally and can be derived from other variables. Maybe instead of keeping
+    //       track of them we add a method to compute them whenever someone wants to know?
+    private int moneyMissedReg;
+    private int moneyMissedRes;
+    private int moneyMissedTotal;
+
+    private int moneyParkedReg;
+    private int moneyParkedRes;
+    private int moneyParkedTotal;
+
+    public SimulatorLogic(int numberOfFloors, int numberOfRows, int numberOfPlaces)
+    {
+        this.random = new Random();
+
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
         this.numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
-        cars = new Car[numberOfFloors][numberOfRows][numberOfPlaces];
-        
+
+        spaces = new ParkingSpace[numberOfFloors][numberOfRows][numberOfPlaces];
+
+        for (int floor = 0; floor < numberOfFloors; floor++) {
+            for (int row = 0; row < numberOfRows; row++) {
+                for (int place = 0; place < numberOfPlaces; place++) {
+                	spaces[floor][row][place] = new ParkingSpace();
+                }
+            }
+        }
+
+	    reservationList = new ArrayList<>();
+
+        /* allocate subscription parking spaces */
+        int floor = 0, row = 0, place = 0;
+        for(int spaceIndex = 0; spaceIndex < maxSubAllowed; spaceIndex++) {
+        	spaces[floor][row][place].setType("subscription");
+        	place++;
+        	if(place >= numberOfPlaces) {
+        		place = 0;
+        		row++;
+        		if(row >= numberOfRows) {
+        			row = 0;
+        			floor++;
+        		}
+        	}
+        }
+
         entranceRegQueue = new CarQueue();
         entranceSubResQueue = new CarQueue();
         paymentCarQueue = new CarQueue();
@@ -102,48 +143,81 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     	return numberOfOpenSpots;
     }
     
-    public Car getCarAt(Location location) {
-        if (!locationIsValid(location)) {
-            return null;
-        }
-        return cars[location.getFloor()][location.getRow()][location.getPlace()];
+	public ParkingSpace getParkingSpaceAt(Location location) {
+		if(!locationIsValid(location)) {
+			return null;
+		}
+		return spaces[location.getFloor()][location.getRow()][location.getPlace()];
+	}
+
+	public Car getCarAt(Location location) {
+    	ParkingSpace space = getParkingSpaceAt(location);
+    	if(space == null) {
+    		return null;
+    	}
+   		return space.getCar();
     }
-    
+
     public boolean setCarAt(Location location, Car car) {
-        if (!locationIsValid(location)) {
-            return false;
-        }
-        Car oldCar = getCarAt(location);
+    	ParkingSpace space = getParkingSpaceAt(location);
+    	if(space == null) {
+    		return false;
+    	}
+        Car oldCar = space.getCar();
         if (oldCar == null) {
-            cars[location.getFloor()][location.getRow()][location.getPlace()] = car;
+        	space.setCar(car);
             car.setLocation(location);
             numberOfOpenSpots--;
             return true;
         }
         return false;
     }
-    
+
     public Car removeCarAt(Location location) {
-        if (!locationIsValid(location)) {
-            return null;
-        }
-        Car car = getCarAt(location);
+    	ParkingSpace space = getParkingSpaceAt(location);
+    	if(space == null) {
+    		return null;
+    	}
+        Car car = space.getCar();
         if (car == null) {
-            return null;
+            return null;	
         }
-        cars[location.getFloor()][location.getRow()][location.getPlace()] = null;
+        space.setCar(null);
         car.setLocation(null);
         numberOfOpenSpots++;
         return car;
     }
-    
-    public Location getFirstFreeLocation() {
+
+    public int countFreeParkingSpaces(String type)
+    {
+    	int count = 0;
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
-                    if (getCarAt(location) == null) {
-                        return location;
+                    ParkingSpace space = getParkingSpaceAt(location);
+                    if(space != null && space.getType() == type) {
+                    	if (space.getCar() == null) {
+                    		count++;
+                    	}
+                    }
+                }
+            }
+        }
+        return count;	
+    }
+
+    public Location getFirstFreeParkingSpace(String type)
+    {
+        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
+            for (int row = 0; row < getNumberOfRows(); row++) {
+                for (int place = 0; place < getNumberOfPlaces(); place++) {
+                    Location location = new Location(floor, row, place);
+                    ParkingSpace space = getParkingSpaceAt(location);
+                    if(space != null && space.getType() == type) {
+                    	if (space.getCar() == null) {
+                    		return location;
+                    	}
                     }
                 }
             }
@@ -241,17 +315,29 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
             day -= 7;
         }
     }
-    
+
+    private void updateMoneyInGarageCounts()
+    {
+        moneyParkedReg = numParkedRegCars * regPaymentAmount;
+        moneyParkedRes = numParkedResCars * resPaymentAmount;
+        moneyParkedTotal = moneyParkedReg + moneyParkedRes;
+    }
+
     private void handleEntrance() {
     	carsArriving();
+    	makeReservations();
+    	checkReservations();
+    	moneyMissedTotal = moneyMissedReg + moneyMissedRes;
     	carsEntering(entranceSubResQueue);
-    	carsEntering(entranceRegQueue);  	
+    	carsEntering(entranceRegQueue);
+    	updateMoneyInGarageCounts();
     }
     
     private void handleExit() {
         carsReadyToLeave();
         carsPaying();
         carsLeaving();
+    	updateMoneyInGarageCounts();
     }
 
     private int getMissedCars(CarQueue queue, int numCars, int maxCars)
@@ -266,49 +352,129 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     {
     	int numberOfCars, numberOfMissedCars;
 
+    	/* regular cars */
     	numberOfCars = getNumberOfCarsArriving(weekDayRegArrivals, weekendRegArrivals, eventRegArrivals);
     	numberOfMissedCars = getMissedCars(entranceRegQueue, numberOfCars, entranceRegQueueMax);
     	for (int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
         	entranceRegQueue.addCar(new RegularCar());
         }
     	numMissedReg += numberOfMissedCars;
+        moneyMissedReg = numMissedReg * regPaymentAmount;
 
+    	/* subscription cars */
         numberOfCars = getNumberOfCarsArriving(weekDaySubArrivals, weekendSubArrivals, eventSubArrivals);
     	numberOfMissedCars = getMissedCars(entranceSubResQueue, numberOfCars, entranceSubResQueueMax);
         for (int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
     		entranceSubResQueue.addCar(new SubscriptionCar());
         }
     	numMissedSub += numberOfMissedCars;
- 
-        numberOfCars = getNumberOfCarsArriving(weekDayResArrivals, weekendResArrivals, eventResArrivals);
-    	numberOfMissedCars = getMissedCars(entranceSubResQueue, numberOfCars, entranceSubResQueueMax);
-   		for (int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
-   			entranceSubResQueue.addCar(new ReservationCar());
-    	}
-    	numMissedRes += numberOfMissedCars;
     }
 
-    private void carsEntering(CarQueue queue) {
+    private int computeReservationArrivalTime() {
+    	double value;
+    	double min = 2.0;
+    	double average = 15.0;
+    	double standardDeviation = 50.0;
+    	do {
+    	  value = random.nextGaussian() * standardDeviation + average;
+    	} while(value <= min);
+    	return (int)Math.round(value);
+    }
+
+    private void makeReservations()
+    {
+    	int numberOfReservations = getNumberOfCarsArriving(weekDayResArrivals, weekendResArrivals, eventResArrivals);
+    	int numberOfMissedReservations = 0;
+    	int numberOfFreeSpaces = countFreeParkingSpaces("regular");
+    	int numberOfAdditionalReservationsAllowed = maxResAllowed - reservationList.size();
+
+    	if(numberOfReservations > numberOfAdditionalReservationsAllowed) {
+    		numberOfMissedReservations += numberOfReservations - numberOfAdditionalReservationsAllowed;
+    		numberOfReservations = numberOfAdditionalReservationsAllowed;
+    	}
+    	if(numberOfReservations > numberOfFreeSpaces) {
+    		numberOfMissedReservations += numberOfReservations - numberOfFreeSpaces;
+    		numberOfReservations = numberOfFreeSpaces;
+    	}
+
+    	numMissedRes += numberOfMissedReservations;
+    	moneyMissedRes = numMissedRes * resPaymentAmount;
+
+    	int curMinute = 24*60*day + 60*hour + minute;
+
+    	for(int i = 0; i < numberOfReservations; i++)
+    	{
+            Location freeLocation = getFirstFreeParkingSpace("regular");
+
+            int timeOfArrival = computeReservationArrivalTime();
+            int timeOfExpiration = curMinute + 30;
+            Reservation reservation = new Reservation(freeLocation, timeOfArrival, timeOfExpiration);
+
+            reservationList.add(reservation);
+
+            ParkingSpace space = getParkingSpaceAt(freeLocation);
+            space.setType("reservation");
+    	}
+    }
+
+    private void checkReservations()
+    {
+    	int curMinute = 24*60*day + 60*hour + minute;
+
+	    Iterator<Reservation> iterator = reservationList.iterator();
+	    while(iterator.hasNext())
+	    {
+	    	Reservation reservation = iterator.next();
+
+	    	if(reservation.getArrivalTime() <= curMinute)
+	    	{
+	    		ReservationCar car = new ReservationCar();
+	    		entranceSubResQueue.addCar(car);
+	    		car.setLocation(reservation.getLocation());
+				iterator.remove();
+	    	}
+	    	else if(reservation.getExpirationTime() <= curMinute)
+	    	{
+	    		ParkingSpace space = getParkingSpaceAt(reservation.getLocation());
+	    		space.setType("regular");
+	    		iterator.remove();
+	    	}
+	    }
+    }
+
+    private void carsEntering(CarQueue queue)
+    {
         int i = 0;
-    	while (queue.carsInQueue() > 0 && 
-    			getNumberOfOpenSpots() > 0 && 
-    			i < enterSpeed) {
-            Car car = queue.removeCar();
-            Location freeLocation = getFirstFreeLocation();
+    	while (queue.carsInQueue() > 0 && i < enterSpeed)
+    	{
+    		Car car = queue.peekCar();
+
+            Location freeLocation;
+            if(car.getType() == "subscription")
+            	freeLocation = getFirstFreeParkingSpace("subscription");
+            else if(car.getType() == "reservation")
+            	freeLocation = car.getLocation();
+            else
+            	freeLocation = getFirstFreeParkingSpace("regular");
+
+            if(freeLocation == null)
+            	break;
+
+            car = queue.removeCar();
             setCarAt(freeLocation, car);
             i++;
 
             String carType = car.getType();
-            if(carType == "1") {
-            	this.numParkedRegCars++;
-            } else if(carType == "2") {
-            	this.numParkedSubCars++;
-            } else if(carType ==  "3") {
-            	this.numParkedResCars++;
+            if(carType == "regular") {
+            	numParkedRegCars++;
+            } else if(carType == "subscription") {
+            	numParkedSubCars++;
+            } else if(carType ==  "reservation") {
+            	numParkedResCars++;
             }
         }
     }
-    
+
     private void carsReadyToLeave() {
         Car car = getFirstLeavingCar();
         while (car != null) {
@@ -331,9 +497,9 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
             // TODO Handle payment.
             if(car.getHasToPay())
             {
-            	if(carType == "1") {
+            	if(carType == "regular") {
             	    this.totalRegPaymentAmount += this.regPaymentAmount;
-            	} else if(carType == "3") { 
+            	} else if(carType == "reservation") { 
             	    this.totalResPaymentAmount += this.resPaymentAmount;
             	}
             }
@@ -349,11 +515,9 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
             i++;
     	}	
     }
-    
+
     private int getNumberOfCarsArriving(int weekDay, int weekend, int event)
     {
-        Random random = new Random();
-
         int averageNumberOfCarsPerHour;
 
         // Thursday/Friday/Saturday 18:00-24:00 and Sunday 12:00-18:00.
@@ -374,16 +538,20 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
 
     private void carLeavesSpot(Car car)
     {
-    	removeCarAt(car.getLocation());
+    	Location location = car.getLocation();
+
+    	removeCarAt(location);
         exitCarQueue.addCar(car);
 
         String carType = car.getType();
-        if(carType == "1") {
-        	this.numParkedRegCars--;
-        } else if(carType == "2") {
-        	this.numParkedSubCars--;
-        } else if(carType ==  "3") {
-        	this.numParkedResCars--;
+        if(carType == "regular") {
+        	numParkedRegCars--;
+        } else if(carType == "subscription") {
+        	numParkedSubCars--;
+        } else if(carType ==  "reservation") {
+        	numParkedResCars--;
+        	ParkingSpace space = getParkingSpaceAt(location);
+        	space.setType("regular");
         }
     } 
 }

@@ -16,23 +16,48 @@ public class CarParkView extends AbstractView {
 		carParkImageSize = new Dimension(800, 500);
 		carParkImage = createImage(carParkImageSize.width, carParkImageSize.height);
 	}
-	
+
+	public Color getParkingSpaceColor(String spaceType) {
+		//if(spaceType == "regular")
+			//return new Color(96, 0, 0); // dark red
+		if(spaceType == "reservation")
+			return new Color(255, 255, 153); // dark yellow
+		else if(spaceType == "subscription")
+			return new Color(153, 153, 255); // dark blue
+		return new Color(255, 255, 255); // grey
+	}
+
+	public Color getCarColor(String carType) {
+		if(carType == "regular")
+			return new Color(255, 0, 0); // bright red
+		else if(carType == "reservation")
+			return new Color(255, 255, 0); // bright yellow
+		else if(carType == "subscription")
+			return new Color(0, 0, 255); // bright blue
+		return new Color(255, 255, 255); // white
+	}
+
 	public void paintComponent(Graphics g) {
-		
+	
 		Dimension panelSize = getSize();
 
 		if(!carParkImageSize.equals(panelSize)) {
 			carParkImageSize = panelSize; 
             carParkImage = createImage(panelSize.width, panelSize.height);
         }
-        
+
         Graphics graphics = carParkImage.getGraphics();
         for(int floor = 0; floor < simulator.getNumberOfFloors(); floor++) {
             for(int row = 0; row < simulator.getNumberOfRows(); row++) {
                 for(int place = 0; place < simulator.getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
-                    Car car = simulator.getCarAt(location);
-                    Color color = car == null ? Color.white : car.getColor();
+                	ParkingSpace space = simulator.getParkingSpaceAt(location);
+                	Car car = space.getCar();
+                    Color color;
+                    if(car == null)
+                   		color = getParkingSpaceColor(space.getType());
+                    else
+                    	color = getCarColor(car.getType());
                     drawPlace(graphics, location, color);
                 }
             }

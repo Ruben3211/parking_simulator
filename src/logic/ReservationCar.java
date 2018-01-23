@@ -1,12 +1,10 @@
 package logic;
 
-import java.awt.Color;
 import java.util.Random;
 
 public class ReservationCar extends Car {
 	
-	private static final String TYPE="3";
-	private static final Color COLOR=Color.yellow;
+	private static final String TYPE="reservation";
 	
 	public ReservationCar() {
 		Random random = new Random();
@@ -17,8 +15,5 @@ public class ReservationCar extends Car {
 
 	public String getType() {
 		return TYPE;
-	}
-	public Color getColor() {
-		return COLOR;
 	}
 }
