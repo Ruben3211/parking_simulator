@@ -10,16 +10,16 @@ public abstract class AbstractView extends JPanel implements Observer {
 	
 	private static Observable observable;
 	
+	public AbstractView(Observable observable) {
+		observe(observable);
+	}
+	
 	public static Observable getObservable() {
 		return observable;
 	}
 	
 	public static void setObservable(Observable observable) {
 		AbstractView.observable = observable;
-	}
-	
-	public AbstractView(Observable observable) {
-		observe(observable);
 	}
 	
 	public void observe(Observable observable) {
