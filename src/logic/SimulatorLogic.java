@@ -59,7 +59,7 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     private int maxSubAllowed = 60;
 
     // Max number of reservations allowed at once.
-    private int maxResAllowed = 60;
+    private int maxResAllowed = 60; // TODO: doenst work, fix it.
 
     // The number of cars per type that left, because the queues were too long.
     private int numMissedReg;
