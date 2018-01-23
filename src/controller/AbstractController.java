@@ -20,7 +20,7 @@ public abstract class AbstractController extends JPanel implements ActionListene
 	protected SimulatorLogic simulator;
 	
 	/**
-	 * Constructor for this class.
+	 * The constructor for this class.
 	 * 
 	 * @param simulator the model
 	 */
