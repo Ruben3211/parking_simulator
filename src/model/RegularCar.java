@@ -1,4 +1,4 @@
-package logic;
+package model;
 
 import java.util.Random;
 
@@ -10,6 +10,7 @@ import java.util.Random;
  * @author Rick Zwaneveld
  * @version 23-01-2018
  */
+
 public class RegularCar extends Car {
 	
 	private static final String TYPE="regular";

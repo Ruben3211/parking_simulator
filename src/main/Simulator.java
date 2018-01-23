@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 
 import controller.*;
-import logic.SimulatorLogic;
+import model.SimulatorModel;
 import view.*;
 
 /**
@@ -22,14 +22,14 @@ public class Simulator {
 	private JFrame screen;
 	private AbstractView carParkView;
 	private AbstractView managerView;
-	private SimulatorLogic simulatorLogic;
+	private SimulatorModel simulatorLogic;
 	private AbstractController runController;	
 	
 	/**
 	 * The constructor for this class.
 	 */
 	public Simulator() {
-		simulatorLogic = new SimulatorLogic(3, 6, 30);
+		simulatorLogic = new SimulatorModel(3, 6, 30);
 		carParkView = new CarParkView(simulatorLogic);
 		managerView = new ManagerView(simulatorLogic);
 		runController = new RunController(simulatorLogic);

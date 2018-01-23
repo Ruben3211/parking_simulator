@@ -2,8 +2,8 @@ package view;
 
 import javax.swing.JPanel;
 
-import logic.Observable;
-import logic.SimulatorLogic;
+import model.Observable;
+import model.SimulatorModel;
 
 @SuppressWarnings("serial")
 public abstract class AbstractView extends JPanel implements Observer {
@@ -27,8 +27,8 @@ public abstract class AbstractView extends JPanel implements Observer {
 		getObservable().registerObserver(this);
 	}
 
-	public SimulatorLogic getModel() {
-		return(SimulatorLogic) getObservable();
+	public SimulatorModel getModel() {
+		return(SimulatorModel) getObservable();
 	}
 	
 	public void updateView() {

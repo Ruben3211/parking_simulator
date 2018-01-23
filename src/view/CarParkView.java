@@ -5,10 +5,10 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Image;
 
-import logic.Car;
-import logic.Location;
-import logic.ParkingSpace;
-import logic.SimulatorLogic;
+import model.Car;
+import model.Location;
+import model.ParkingSpace;
+import model.SimulatorModel;
 
 @SuppressWarnings("serial")
 public class CarParkView extends AbstractView {
@@ -16,7 +16,7 @@ public class CarParkView extends AbstractView {
 	private Dimension carParkImageSize;
 	private Image carParkImage;
 	
-	public CarParkView(SimulatorLogic simulator) {
+	public CarParkView(SimulatorModel simulator) {
 		super(simulator);
 		
 		carParkImageSize = new Dimension(800, 500);

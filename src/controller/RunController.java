@@ -5,7 +5,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 
-import logic.SimulatorLogic;
+import model.SimulatorModel;
 
 /**
  * This class is responsible for setting up the buttons needed to control the
@@ -31,7 +31,7 @@ public class RunController extends AbstractController {
 	 * 
 	 * @param simulator the model
 	 */
-	public RunController(SimulatorLogic simulator) {
+	public RunController(SimulatorModel simulator) {
 		super(simulator);
 		
 		setSize(450, 50);

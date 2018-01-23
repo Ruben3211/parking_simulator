@@ -1,11 +1,11 @@
-package logic;
+package model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-public class SimulatorLogic extends AbstractModel implements Runnable {
+public class SimulatorModel extends AbstractModel implements Runnable {
 
     private Random random;
 
@@ -86,7 +86,7 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     private int moneyParkedRes;
     private int moneyParkedTotal;
 
-    public SimulatorLogic(int numberOfFloors, int numberOfRows, int numberOfPlaces)
+    public SimulatorModel(int numberOfFloors, int numberOfRows, int numberOfPlaces)
     {
         this.random = new Random();
 

@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JPanel;
 
-import logic.SimulatorLogic;
+import model.SimulatorModel;
 
 /**
  * This class is responsible of adding a controller to the model. This means 
@@ -17,14 +17,14 @@ import logic.SimulatorLogic;
 @SuppressWarnings("serial")
 public abstract class AbstractController extends JPanel implements ActionListener {
 	
-	protected SimulatorLogic simulator;
+	protected SimulatorModel simulator;
 	
 	/**
 	 * The constructor for this class.
 	 * 
 	 * @param simulator the model
 	 */
-	public AbstractController(SimulatorLogic simulator) {
+	public AbstractController(SimulatorModel simulator) {
 		this.simulator = simulator;
 	}
 }

@@ -1,14 +1,14 @@
 package view;
-import logic.SimulatorLogic;
-
 import java.awt.GridLayout;
 
 import javax.swing.*;
+
+import model.SimulatorModel;
 @SuppressWarnings("serial")
 public class ManagerView extends AbstractView{
 
 	JLabel time, total,regularpayd, subpayd, resvpayd;
-public ManagerView(SimulatorLogic simulator) {	
+public ManagerView(SimulatorModel simulator) {	
 	super(simulator);
 	setLayout(new GridLayout(5,1));
 	

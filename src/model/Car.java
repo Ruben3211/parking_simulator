@@ -1,4 +1,4 @@
-package logic;
+package model;
 
 /**
  * This class is the super class that is required for the all different kinds
