@@ -1,8 +1,14 @@
 package view;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 
-import logic.*;
+import logic.Car;
+import logic.Location;
+import logic.ParkingSpace;
+import logic.SimulatorLogic;
 
 @SuppressWarnings("serial")
 public class CarParkView extends AbstractView {
@@ -45,11 +51,11 @@ public class CarParkView extends AbstractView {
         }
 
         Graphics graphics = carParkImage.getGraphics();
-        for(int floor = 0; floor < simulator.getNumberOfFloors(); floor++) {
-            for(int row = 0; row < simulator.getNumberOfRows(); row++) {
-                for(int place = 0; place < simulator.getNumberOfPlaces(); place++) {
+        for(int floor = 0; floor < getModel().getNumberOfFloors(); floor++) {
+            for(int row = 0; row < getModel().getNumberOfRows(); row++) {
+                for(int place = 0; place < getModel().getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
-                	ParkingSpace space = simulator.getParkingSpaceAt(location);
+                	ParkingSpace space = getModel().getParkingSpaceAt(location);
                 	Car car = space.getCar();
                     Color color;
                     if(car == null)

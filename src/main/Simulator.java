@@ -1,10 +1,12 @@
 package main;
 
-import java.awt.*;
-import javax.swing.*;
+import java.awt.Color;
+
+import javax.swing.JFrame;
+import javax.swing.WindowConstants;
 
 import controller.*;
-import logic.*;
+import logic.SimulatorLogic;
 import view.*;
 
 public class Simulator {

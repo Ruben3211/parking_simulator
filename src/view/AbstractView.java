@@ -1,24 +1,41 @@
 package view;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
-import logic.*;
+import logic.Observable;
+import logic.SimulatorLogic;
 
 @SuppressWarnings("serial")
-public abstract class AbstractView extends JPanel {
+public abstract class AbstractView extends JPanel implements Observer {
 	
-	protected SimulatorLogic simulator;
+	private static Observable observable;
 	
-	public AbstractView(SimulatorLogic simulator) {
-		this.simulator = simulator;
-		simulator.addView(this);
+	public static Observable getObservable() {
+		return observable;
 	}
 	
+	public static void setObservable(Observable observable) {
+		AbstractView.observable = observable;
+	}
+	
+	public AbstractView(Observable observable) {
+		observe(observable);
+	}
+	
+	public void observe(Observable observable) {
+		setObservable(observable);
+		getObservable().registerObserver(this);
+	}
+
 	public SimulatorLogic getModel() {
-		return simulator;
+		return(SimulatorLogic) getObservable();
 	}
 	
 	public void updateView() {
 		repaint();
+	}
+	
+	public void update() {
+		updateView();
 	}
 }

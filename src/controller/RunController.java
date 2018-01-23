@@ -1,12 +1,14 @@
 package controller;
 
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.event.ActionEvent;
 
-import logic.*;
+import javax.swing.JButton;
+import javax.swing.JTextField;
+
+import logic.SimulatorLogic;
 
 @SuppressWarnings("serial")
-public class RunController extends AbstractController implements ActionListener {
+public class RunController extends AbstractController {
 
 	private JButton step;
 	private JTextField steps;

@@ -1,11 +1,13 @@
 package controller;
 
-import javax.swing.*;
+import java.awt.event.ActionListener;
 
-import logic.*;
+import javax.swing.JPanel;
+
+import logic.SimulatorLogic;
 
 @SuppressWarnings("serial")
-public abstract class AbstractController extends JPanel {
+public abstract class AbstractController extends JPanel implements ActionListener {
 	
 	protected SimulatorLogic simulator;
 	

@@ -1,6 +1,9 @@
 package logic;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Random;
 
 public class SimulatorLogic extends AbstractModel implements Runnable {
 
@@ -271,7 +274,7 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     	advanceTime();
     	handleExit();
     	tickCars();
-    	notifyViews();
+    	notifyObservers();
     	handleEntrance();
     }
     
@@ -290,7 +293,7 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     		advanceTime();
     		handleExit();
     		tickCars();
-    		notifyViews();
+    		notifyObservers();
     		try {
     			Thread.sleep(stepPause);
     		} catch (InterruptedException e) {

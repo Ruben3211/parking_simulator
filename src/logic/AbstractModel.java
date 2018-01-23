@@ -1,22 +1,25 @@
 package logic;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-import view.*;
+import view.Observer;
 
-public abstract class AbstractModel {
+public abstract class AbstractModel implements Observable {
 	
-	private List<AbstractView> views;
+	private List<Observer> observers;
 	
 	public AbstractModel() {
-		views = new ArrayList<AbstractView>();
+		this.observers = new ArrayList<Observer>();
 	}
 	
-	public void addView(AbstractView view) {
-		views.add(view);
+	public void registerObserver(Observer observer) {
+		this.observers.add(observer);
 	}
 	
-	public void notifyViews() {
-		for(AbstractView v: views) v.updateView();
+	public void notifyObservers() {
+		for(Observer o: this.observers) {
+			o.update();
+		}
 	}
 }
