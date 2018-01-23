@@ -18,23 +18,21 @@ public class CarParkView extends AbstractView {
 	}
 
 	public Color getParkingSpaceColor(String spaceType) {
-		//if(spaceType == "regular")
-			//return new Color(96, 0, 0); // dark red
 		if(spaceType == "reservation")
-			return new Color(255, 255, 153); // dark yellow
+			return new Color(255, 255, 204);
 		else if(spaceType == "subscription")
-			return new Color(153, 153, 255); // dark blue
-		return new Color(255, 255, 255); // grey
+			return new Color(204, 204, 255);
+		return new Color(255, 255, 255);
 	}
 
 	public Color getCarColor(String carType) {
 		if(carType == "regular")
-			return new Color(255, 0, 0); // bright red
+			return new Color(255, 0, 0);
 		else if(carType == "reservation")
-			return new Color(255, 255, 0); // bright yellow
+			return new Color(255, 255, 0);
 		else if(carType == "subscription")
-			return new Color(0, 0, 255); // bright blue
-		return new Color(255, 255, 255); // white
+			return new Color(0, 0, 255);
+		return new Color(255, 255, 255);
 	}
 
 	public void paintComponent(Graphics g) {

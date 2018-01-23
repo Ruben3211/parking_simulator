@@ -494,7 +494,6 @@ public class SimulatorLogic extends AbstractModel implements Runnable {
     	while (paymentCarQueue.carsInQueue() > 0 && i < paymentSpeed){
             Car car = paymentCarQueue.removeCar();
             String carType = car.getType();
-            // TODO Handle payment.
             if(car.getHasToPay())
             {
             	if(carType == "regular") {
