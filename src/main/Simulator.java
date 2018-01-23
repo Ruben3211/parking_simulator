@@ -11,14 +11,14 @@ public class Simulator {
 	
 	private JFrame screen;
 	private AbstractView carParkView;
-	private AbstractView textualView;
+	private AbstractView managerView;
 	private SimulatorLogic simulatorLogic;
 	private AbstractController runController;	
 	
 	public Simulator() {
 		simulatorLogic = new SimulatorLogic(3, 6, 30);
 		carParkView = new CarParkView(simulatorLogic);
-		textualView = new TextualView(simulatorLogic);
+		managerView = new ManagerView(simulatorLogic);
 		runController = new RunController(simulatorLogic);
 		
 		screen = new JFrame("Parking Garage Simulator");
@@ -28,12 +28,12 @@ public class Simulator {
 		screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		screen.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		screen.getContentPane().add(carParkView);
-		screen.getContentPane().add(textualView);
+		screen.getContentPane().add(managerView);
 		screen.getContentPane().add(runController);
 		
 		carParkView.setBounds(10, 120, 800, 400);
 		carParkView.setBackground(Color.WHITE);
-		textualView.setBounds(820, 250, 200, 210);
+		managerView.setBounds(1000,60, 600, 100);
 		runController.setBounds(10, 60, 800, 400);
 		
 		screen.setVisible(true);
