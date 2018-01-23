@@ -84,7 +84,6 @@ public class RunController extends AbstractController {
 	 * 
 	 * @return integer made from the string input in the "steps" text field
 	 */
-	
 	private int parseSteps() {
 		return Integer.parseInt(numberOfSteps.getText());
 	}
