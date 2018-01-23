@@ -5,16 +5,13 @@ import javax.swing.*;
 
 import model.SimulatorModel;
 @SuppressWarnings("serial")
-public class ManagerView extends AbstractView{
+public class FinancialView extends AbstractView{
 
-	JLabel time, total,regularpayd, subpayd, resvpayd;
-public ManagerView(SimulatorModel simulator) {	
+	JLabel total,regularpayd, subpayd, resvpayd;
+public FinancialView(SimulatorModel simulator) {	
 	super(simulator);
 	setLayout(new GridLayout(5,1));
-	
-	//Maak het tijd label
-	time = new JLabel("Its " + simulator.getDay() + " the time is......");
-	
+		
 	//maak het normaal label
 	regularpayd = new JLabel("Payd by regular cars is:......" );
 	
@@ -34,7 +31,6 @@ public ManagerView(SimulatorModel simulator) {
 	
 	
 	// voeg de labels toe
-	add(time);
 	add(regularpayd);
 	add(subpayd);
 	add(resvpayd);

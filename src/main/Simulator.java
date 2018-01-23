@@ -31,7 +31,7 @@ public class Simulator {
 	public Simulator() {
 		simulatorLogic = new SimulatorModel(3, 6, 30);
 		carParkView = new CarParkView(simulatorLogic);
-		managerView = new ManagerView(simulatorLogic);
+		managerView = new FinancialView(simulatorLogic);
 		runController = new RunController(simulatorLogic);
 		
 		screen = new JFrame("Parking Garage Simulator");
