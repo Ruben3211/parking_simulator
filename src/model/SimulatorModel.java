@@ -567,6 +567,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     public String getDay() {
     	return weekDay[day];
     }
+    
     //vraag het totaal wat betaald is op
     public static int getTotalPayed() {
     	totalPayed = totalRegPaymentAmount + totalResPaymentAmount + totalSubPaymentAmount;

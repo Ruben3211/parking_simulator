@@ -27,7 +27,7 @@ public FinancialView(SimulatorModel simulator) {
 	resvpayed = new JLabel("Payed by reserverd cars is: " + SimulatorModel.getPayedByRes());
 	
 	// maak het totaal label aan
-	total = new JLabel("Payed in total is: " + simulator.getTotalPayed());
+	total = new JLabel("Payed in total is: " + SimulatorModel.getTotalPayed());
 	
 	
 	
