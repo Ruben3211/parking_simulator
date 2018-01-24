@@ -78,7 +78,7 @@ public class RunController extends AbstractController {
 	 * This method is needed to convert the string of text in the "steps" text
 	 * field to and integer.
 	 * 
-	 * @return integer made from the string input in the "steps" text field
+	 * @return integer converted from the string input in the "steps" text field
 	 */
 	private int parseSteps() {
 		return Integer.parseInt(numberOfSteps.getText());
