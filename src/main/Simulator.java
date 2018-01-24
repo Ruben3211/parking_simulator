@@ -21,8 +21,8 @@ public class Simulator {
 	
 	private JFrame screen;
 	private AbstractView carParkView;
-	private AbstractView managerView;
 	private AbstractView carQueueView;
+	private AbstractView financialView;
 	private AbstractView timeView;
 	private SimulatorModel simulatorLogic;
 	private AbstractController runController;	
@@ -33,8 +33,8 @@ public class Simulator {
 	public Simulator() {
 		simulatorLogic = new SimulatorModel(3, 6, 30);
 		carParkView = new CarParkView(simulatorLogic);
-		managerView = new FinancialView(simulatorLogic);
 		carQueueView = new CarQueueView(simulatorLogic);
+		financialView = new FinancialView(simulatorLogic);
 		timeView = new TimeView(simulatorLogic);
 		runController = new RunController(simulatorLogic);
 		
@@ -48,10 +48,10 @@ public class Simulator {
 		screen.getContentPane().add(carParkView);
 		carParkView.setBounds(10, 120, 800, 400);
 
-		screen.getContentPane().add(managerView);
-		managerView.setBounds(1000,60, 600, 100);
-		
 		screen.getContentPane().add(carQueueView);
+		
+		screen.getContentPane().add(financialView);
+		financialView.setBounds(1000,60, 600, 100);
 		
 		screen.getContentPane().add(timeView);
 		timeView.setBounds(10, 600, 100, 25);
