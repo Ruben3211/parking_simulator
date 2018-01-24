@@ -581,7 +581,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     
     /**
      * This method returns a string with the current weekday. Which day it is, is
-     * calculated by using the day in numbers and a modulo.
+     * calculated by using the day in numbers and a modulo, this number will
+     * correspond with the position of the day within the string.
      * 
      * @return String a string with the current weekday
      */
