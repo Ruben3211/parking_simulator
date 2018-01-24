@@ -563,10 +563,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         	space.setType("regular");
         }
     } 
-    // vraag de dag op
-    public String getDay() {
-    	return weekDay[day];
-    }
     
     //vraag het totaal wat betaald is op
     public static int getTotalPayed() {
@@ -581,5 +577,25 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     }
     public static int getPayedBySub() {
     	return totalSubPaymentAmount;
+    }
+    
+    public String getDay() {
+    	return weekDay[day % 7];
+    }
+    
+    public String getTime() {
+    	String stringMinute = ("" + minute);
+    	String stringHour = ("" + hour);
+    	if(minute < 10) {
+    		stringMinute = ("0" + stringMinute);
+    	}
+    	if(hour < 10) {
+    		stringHour = ("0" + stringHour);
+    	}
+    	return (stringHour + ":" + stringMinute);
+    	
+    	
+    	
+    	
     }
 }
