@@ -24,6 +24,7 @@ public class Simulator {
 	private AbstractView managerView;
 	private SimulatorModel simulatorLogic;
 	private AbstractController runController;	
+	private AbstractView carqueuedisplay;
 	
 	/**
 	 * The constructor for this class.
@@ -33,6 +34,7 @@ public class Simulator {
 		carParkView = new CarParkView(simulatorLogic);
 		managerView = new FinancialView(simulatorLogic);
 		runController = new RunController(simulatorLogic);
+		carqueuedisplay = new CarQueueDisplay(simulatorLogic);
 		
 		screen = new JFrame("Parking Garage Simulator");
 		screen.setSize(1980, 1080);
@@ -46,6 +48,8 @@ public class Simulator {
 
 		screen.getContentPane().add(managerView);
 		managerView.setBounds(1000,60, 600, 100);
+		
+		screen.getContentPane().add(carqueuedisplay);
 
 		screen.getContentPane().add(runController);
 		runController.setBounds(10, 60, 800, 400);
