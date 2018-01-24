@@ -1,11 +1,18 @@
 package view;
 
 import java.awt.*;
+
 import java.awt.event.*;
 
 import javax.swing.JLabel;
 
 import model.SimulatorModel;
+
+/*
+ * This class makes Jlabel and assigns a text to it that keeps track of the number of cars in the queue.
+ * When the update method is called it takes the queue and calls the carInQueue method that returns the size of the array. 
+ *  
+ */
 
 @SuppressWarnings("serial")
 public class CarQueueView extends AbstractView  {
@@ -17,15 +24,13 @@ public class CarQueueView extends AbstractView  {
 	public CarQueueView(SimulatorModel simulator) {
 		super(simulator);
 		setSize(600, 50);
+		
 		//setup labels
 		regCarQueue = new JLabel("Regular cars in queue: 0");
 		subCarQueue = new JLabel("Cars with subscription in queue: 0");
 		exitCarQueue = new JLabel("Queue for leaving the garage: 0");
 		
-		//aanpassen labels:
-	//	regCarQueue.setText("Regular cars in queue: " + SimulatorLogic.entranceRegQueue.carsInQueue());
-	//	subCarQueue.setText("Cars with subscription in queue: " + SimulatorLogic.entranceRegQueue.carsInQueue());
-	//	exitCarQueue.setText("Queue for leaving the garage: " + SimulatorLogic.entranceRegQueue.carsInQueue());
+		
 		
 		this.setLayout(null);
 		add(regCarQueue);
@@ -39,7 +44,10 @@ public class CarQueueView extends AbstractView  {
 		exitCarQueue.setVisible(true);
 		
 	}
-	
+	/*
+	 * Updates the queue in the view when this method is called. 
+	 * This update is static so it can be called by SimulatorModel.
+	 */
 	public static void updateQueue () {
 		regCarQueue.setText("Regular cars in queue: " + SimulatorModel.entranceRegQueue.carsInQueue());
 		subCarQueue.setText("Cars with subscription in queue: " + SimulatorModel.entranceSubResQueue.carsInQueue());
