@@ -1,7 +1,7 @@
 package model;
 
 import java.util.ArrayList;
-import view.CarQueueDisplay;
+import view.CarQueueView;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -335,7 +335,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	carsEntering(entranceSubResQueue);
     	carsEntering(entranceRegQueue);
     	updateMoneyInGarageCounts();
-    	CarQueueDisplay.updateQueue();
+    	CarQueueView.updateQueue();
     }
     
     private void handleExit() {
@@ -343,7 +343,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         carsPaying();
         carsLeaving();
     	updateMoneyInGarageCounts();
-    	CarQueueDisplay.updateQueue();
+    	CarQueueView.updateQueue();
     }
 
     private int getMissedCars(CarQueue queue, int numCars, int maxCars)

@@ -8,13 +8,13 @@ import javax.swing.JLabel;
 import model.SimulatorModel;
 
 @SuppressWarnings("serial")
-public class CarQueueDisplay extends AbstractView  {
+public class CarQueueView extends AbstractView  {
 	
 	public static JLabel regCarQueue;
 	public static JLabel subCarQueue;
 	public static JLabel exitCarQueue;
 
-	public CarQueueDisplay(SimulatorModel simulator) {
+	public CarQueueView(SimulatorModel simulator) {
 		super(simulator);
 		setSize(600, 50);
 		//setup labels
