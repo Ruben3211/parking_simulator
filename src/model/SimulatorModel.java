@@ -579,10 +579,23 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return totalSubPaymentAmount;
     }
     
+    /**
+     * This method returns a string with the current weekday. Which day it is, is
+     * calculated by using the day in numbers and a modulo.
+     * 
+     * @return String a string with the current weekday
+     */
     public String getDay() {
     	return weekDay[day % 7];
     }
     
+    /**
+     * This method will create a string for the minutes and hours. If the minutes and
+     * hours are under 10, a 0 will be appended to the number. This will make sure
+     * that the time is displayed in a 24 hour (24:00) format.
+     * 
+     * @return String a string with the hours and minutes in a 24 hour format
+     */
     public String getTime() {
     	String stringMinute = ("" + minute);
     	String stringHour = ("" + hour);
@@ -593,9 +606,5 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     		stringHour = ("0" + stringHour);
     	}
     	return (stringHour + ":" + stringMinute);
-    	
-    	
-    	
-    	
     }
 }
