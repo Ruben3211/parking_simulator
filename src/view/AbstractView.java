@@ -10,6 +10,11 @@ public abstract class AbstractView extends JPanel implements Observer {
 	
 	private static Observable observable;
 	
+	/**
+	 * The constructor for this class.
+	 * 
+	 * @param observable register an object to be observed
+	 */
 	public AbstractView(Observable observable) {
 		observe(observable);
 	}
