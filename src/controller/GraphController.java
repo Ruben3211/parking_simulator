@@ -14,5 +14,4 @@ public class GraphController extends AbstractController {
 	public void actionPerformed(ActionEvent e) {
 		
 	}
-
 }
