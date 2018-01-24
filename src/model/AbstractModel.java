@@ -8,7 +8,7 @@ import view.Observer;
 /**
  * This class is an abstract class used for the model. It will implement the
  * Observable interface, which means it's methods can be used. These methods include
- * the registration of an observer to a model and notifying all observers of changes.
+ * the registration of an observer to a model and notifying all observers of changes
  * 
  * @author Rick Zwaneveld
  * @version 24-01-2018
