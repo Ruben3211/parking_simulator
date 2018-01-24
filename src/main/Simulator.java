@@ -54,10 +54,10 @@ public class Simulator {
 		screen.getContentPane().add(carQueueView);
 		
 		screen.getContentPane().add(timeView);
-		timeView.setBounds(10, 600, 100, 100);
+		timeView.setBounds(10, 600, 100, 25);
 
 		screen.getContentPane().add(runController);
-		runController.setBounds(10, 60, 800, 400);
+		runController.setBounds(10, 60, 300, 25);
 
 		screen.setVisible(true);
 	}

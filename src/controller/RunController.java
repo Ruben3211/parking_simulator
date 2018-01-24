@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
@@ -35,27 +36,23 @@ public class RunController extends AbstractController {
 		super(simulator);
 		
 		setSize(450, 50);
-		this.setLayout(null);
+		setLayout(new GridLayout(0, 4));
 		
 		start = new JButton("Start");
 		start.addActionListener(this);
 		add(start);
-		start.setBounds(50, 10, 70, 30);
 		
 		numberOfSteps = new JFormattedTextField("0");
 		numberOfSteps.addActionListener(this);
 		add(numberOfSteps);
-		numberOfSteps.setBounds(140, 10, 70, 30);
 		
 		steps = new JButton("Steps");
 		steps.addActionListener(this);
 		add(steps);
-		steps.setBounds(230, 10, 70, 30);
 		
 		stop = new JButton("Stop");
 		stop.addActionListener(this);
 		add(stop);
-		stop.setBounds(320, 10, 70 ,30);	
 	}
 	
 	/**
