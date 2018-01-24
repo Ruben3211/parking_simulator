@@ -35,7 +35,6 @@ public class RunController extends AbstractController {
 	public RunController(SimulatorModel simulator) {
 		super(simulator);
 		
-		setSize(450, 50);
 		setLayout(new GridLayout(0, 4));
 		
 		start = new JButton("Start");
