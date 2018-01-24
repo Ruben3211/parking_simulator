@@ -593,7 +593,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     /**
      * This method will create a string for the minutes and hours. If the minutes and
      * hours are under 10, a 0 will be appended to the number. This will make sure
-     * that the time is displayed in a 24 hour (24:00) format.
+     * that the time is displayed in a 24 hour (00:00) format.
      * 
      * @return String a string with the hours and minutes in a 24 hour format
      */
