@@ -40,10 +40,10 @@ public FinancialView(SimulatorModel simulator) {
 	
 }
 	public static void updateFinancialView() {
-		regularpayed.setText("Payed by regular cars is: " + SimulatorModel.getPayedByReg());
-		resvpayed.setText("Payed by resevation cars is: " + SimulatorModel.getPayedByRes());
-		subpayed.setText("Payed by Subscription cars is: " + SimulatorModel.getPayedBySub());
-		total.setText("Payed in total is: " + SimulatorModel.getTotalPayed() );
+		regularpayed.setText("Payed by regular cars is: €" + SimulatorModel.getPayedByReg());
+		resvpayed.setText("Payed by resevation cars is: €" + SimulatorModel.getPayedByRes());
+		subpayed.setText("Payed by Subscription cars is: €" + SimulatorModel.getPayedBySub());
+		total.setText("Payed in total is: €" + SimulatorModel.getTotalPayed() );
 
 	}
 	
