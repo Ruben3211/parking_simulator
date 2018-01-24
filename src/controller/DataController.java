@@ -2,19 +2,25 @@ package controller;
 
 
 import java.awt.event.ActionEvent;
+import java.awt.*;
 
+import javax.swing.BoxLayout;
+import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+//import javafx.scene.shape.Box;
 import model.SimulatorModel;
 
 @SuppressWarnings("serial")
 public class DataController extends AbstractController {
 	
+	Box boxLayout = Box.createVerticalBox();
+	
 	JPanel jp = new JPanel();
 	public JLabel multiplierText = new JLabel("Multiplier (%)");
-	public JLabel reservationsText = new JLabel();
+	public JLabel reservationsText = new JLabel("Reservations");
 	public JLabel subscribersText = new JLabel();
 	public JLabel retardText = new JLabel();
 	public JLabel normalPriceText = new JLabel();
@@ -35,33 +41,73 @@ public class DataController extends AbstractController {
 
 			
 	public JTextField multiplier = new JTextField(5);
-	public JTextField reservations = new JTextField();
-	public JTextField subscribers = new JTextField();
-	public JTextField retards = new JTextField();
-	public JTextField normalPrice= new JTextField();
-	public JTextField reservationPrice = new JTextField();
-	public JTextField subscriberPrice = new JTextField();
-	public JTextField enterSpeed = new JTextField();
-	public JTextField paymentSpeed = new JTextField();
-	public JTextField exitSpeed = new JTextField();
-	public JTextField workDay = new JTextField();
-	public JTextField weekend = new JTextField();
-	public JTextField special = new JTextField();
-	public JTextField subWorkDay = new JTextField();
-	public JTextField subWeekend = new JTextField();
-	public JTextField subSpecial = new JTextField();
-	public JTextField reservationWorkDay = new JTextField();
-	public JTextField reservationWeekend = new JTextField();
-	public JTextField reservationSpecial = new JTextField();
+	public JTextField reservations = new JTextField(5);
+	public JTextField subscribers = new JTextField(5);
+	public JTextField retards = new JTextField(5);
+	public JTextField normalPrice= new JTextField(5);
+	public JTextField reservationPrice = new JTextField(5);
+	public JTextField subscriberPrice = new JTextField(5);
+	public JTextField enterSpeed = new JTextField(5);
+	public JTextField paymentSpeed = new JTextField(5);
+	public JTextField exitSpeed = new JTextField(5);
+	public JTextField workDay = new JTextField(5);
+	public JTextField weekend = new JTextField(5);
+	public JTextField special = new JTextField(5);
+	public JTextField subWorkDay = new JTextField(5);
+	public JTextField subWeekend = new JTextField(5);
+	public JTextField subSpecial = new JTextField(5);
+	public JTextField reservationWorkDay = new JTextField(5);
+	public JTextField reservationWeekend = new JTextField(5);
+	public JTextField reservationSpecial = new JTextField(5);
 	
 	public DataController(SimulatorModel simulator) {
 		super(simulator);
 		setSize(400, 200);
 		setVisible(true);
+	
+		add(boxLayout);
+		boxLayout.add(multiplierText);	
+		boxLayout.add(multiplier);
+		boxLayout.add(reservationsText);	
+		boxLayout.add(reservations);
+		boxLayout.add(subscribersText);
+		boxLayout.add(subscribers);
+		boxLayout.add(retardText);
+		boxLayout.add(retards);
+		boxLayout.add(normalPriceText);
+		boxLayout.add(normalPrice);
+		boxLayout.add(reservationPriceText);
+		boxLayout.add(reservationPrice);
+		boxLayout.add(subPriceText);
+		boxLayout.add(subscriberPrice);
+		boxLayout.add(enterSpeedText);
+		boxLayout.add(enterSpeed);
+		boxLayout.add(paymentSpeedText);
+		boxLayout.add(paymentSpeed);
+		boxLayout.add(exitSpeedText);
+		boxLayout.add(exitSpeed);
+		boxLayout.add(workDayText);
+		boxLayout.add(workDay);
+		boxLayout.add(weekendText);
+		boxLayout.add(weekend);
+		boxLayout.add(specialText);
+		boxLayout.add(special);
+		boxLayout.add(subWorkDayText);
+		boxLayout.add(subWorkDay);
+		boxLayout.add(subWeekendText);
+		boxLayout.add(subWeekend);
+		boxLayout.add(subSpecialText);
+		boxLayout.add(subSpecial);
+		boxLayout.add(reservationWorkDayText);
+		boxLayout.add(reservationWorkDay);
+		boxLayout.add(reservationWeekendText);
+		boxLayout.add(reservationWeekend);
+		boxLayout.add(reservationSpecialText);
+		boxLayout.add(reservationSpecial);
 		
-		jp.add(multiplierText);
-		jp.add(multiplier);
-		add(jp);
+		
+	
+		//add(jp);
 	}
 
 	public void actionPerformed(ActionEvent e) {
