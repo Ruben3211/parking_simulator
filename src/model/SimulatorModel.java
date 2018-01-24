@@ -5,6 +5,7 @@ import view.CarQueueView;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import view.FinancialView;
 
 public class SimulatorModel extends AbstractModel implements Runnable {
 
@@ -55,9 +56,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int subPaymentAmount = 30;
     private int resPaymentAmount = 20;
 
-    private int totalRegPaymentAmount;
-    private int totalSubPaymentAmount;
-    private int totalResPaymentAmount;
+    private static int totalRegPaymentAmount;
+    private static int totalSubPaymentAmount;
+    private static int totalResPaymentAmount;
+	public static int totalPayed;
+
 
     // Max number of subscription cars allowed at once.
     private int maxSubAllowed = 60;
@@ -336,6 +339,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	carsEntering(entranceRegQueue);
     	updateMoneyInGarageCounts();
     	CarQueueView.updateQueue();
+    	FinancialView.updateFinancialView();
     }
     
     private void handleExit() {
@@ -563,10 +567,19 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     public String getDay() {
     	return weekDay[day];
     }
+    
     //vraag het totaal wat betaald is op
-    public int getTotalPayd() {
-    	int total = 0;
-    	total = total + totalRegPaymentAmount + totalResPaymentAmount + totalSubPaymentAmount;
-    	return total;
+    public static int getTotalPayed() {
+    	totalPayed = totalRegPaymentAmount + totalResPaymentAmount + totalSubPaymentAmount;
+    	return totalPayed;
+    }
+    public static int getPayedByReg() {
+    	return totalRegPaymentAmount;
+    }
+    public static int getPayedByRes() {
+    	return totalResPaymentAmount;
+    }
+    public static int getPayedBySub() {
+    	return totalSubPaymentAmount;
     }
 }
