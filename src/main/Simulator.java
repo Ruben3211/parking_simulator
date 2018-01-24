@@ -34,7 +34,7 @@ public class Simulator {
 		carParkView = new CarParkView(simulatorLogic);
 		managerView = new FinancialView(simulatorLogic);
 		runController = new RunController(simulatorLogic);
-		carqueuedisplay = new CarQueueDisplay(simulatorLogic);
+		carqueuedisplay = new CarQueueView(simulatorLogic);
 		
 		screen = new JFrame("Parking Garage Simulator");
 		screen.setSize(1980, 1080);
