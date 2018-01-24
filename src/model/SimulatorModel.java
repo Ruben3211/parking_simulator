@@ -338,12 +338,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	carsEntering(entranceSubResQueue);
     	carsEntering(entranceRegQueue);
     	updateMoneyInGarageCounts();
-<<<<<<< HEAD
-    	CarQueueDisplay.updateQueue();
-    	FinancialView.updateFinancialView();
-=======
     	CarQueueView.updateQueue();
->>>>>>> branch 'master' of https://github.com/rickzwaneveld/parking_simulator
+    	FinancialView.updateFinancialView();
     }
     
     private void handleExit() {
