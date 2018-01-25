@@ -30,6 +30,7 @@ public class Simulator {
 	private AbstractController runController;	
 	private AbstractController datacontroller;
 	private AbstractView Chart;
+	private AbstractController sliderController;
 	/**
 	 * The constructor for this class.
 	 */
@@ -42,6 +43,7 @@ public class Simulator {
 		runController = new RunController(simulatorLogic);
 		datacontroller = new DataController(simulatorLogic);
 		Chart = new BarChartView(simulatorLogic);
+		sliderController = new SliderController(simulatorLogic);
 		
 		
 		screen = new JFrame("Parking Garage Simulator");
@@ -69,6 +71,9 @@ public class Simulator {
 
 		screen.getContentPane().add(Chart);
 		Chart.setBounds(1000, 240, 600,600);
+		
+		screen.getContentPane().add(sliderController);
+		sliderController.setBounds(20, 60, 800, 400);
 		
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screen.setVisible(true);
