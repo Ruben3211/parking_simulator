@@ -293,15 +293,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	run = false;
     }
     
-    public void sleep(int mSeconds) {
-    	try {
-			Thread.sleep(mSeconds);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    }
-    
     public void run() {
     	for(int i = 0; i < numberOfSteps && run; i++) {
     		advanceTime();
@@ -652,4 +643,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     public int getTotalEmptySpots() {
     	return numberOfOpenSpots;
     }
+    public int setStepPause(int mSeconds) {
+    	stepPause = mSeconds;
+    	return mSeconds;
+    }
+
 }
