@@ -65,10 +65,12 @@ public class RunController extends AbstractController {
 		if (e.getSource() == steps) {
 			simulator.step();
 		}
+		
 		if (e.getSource() == start) {
 			int numberOfSteps = parseSteps();
 			simulator.start(numberOfSteps);
 		}
+		
 		if (e.getSource() == stop) {
 			simulator.stop();
 		}
