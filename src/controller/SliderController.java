@@ -39,7 +39,7 @@ public class SliderController extends AbstractController implements ChangeListen
 	public void changeTime() {
 		int value = changeSpeed.getValue();
 		if(value > 0 && value < 10) {
-			/*
+			
 			try {
 				   Thread.sleep(400);
 				}
@@ -47,10 +47,10 @@ public class SliderController extends AbstractController implements ChangeListen
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			*/
+			
 			    }
 			    
-		System.out.println(changeSpeed.getValue());
+		System.out.println(value);
 		}
 	
 	
