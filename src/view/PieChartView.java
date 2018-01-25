@@ -28,7 +28,9 @@ public class PieChartView extends AbstractView {
 		res = (int) (res * percentage);
 		empty = (int) (empty * percentage);
 		
-		g.setColor(Color.WHITE);
+		Color a = new Color(238, 238, 238);
+		
+		g.setColor(a);
 		g.fillRect(0, 0, 200, 200);
 	    g.setColor(Color.RED);
 	    g.fillArc(0, 0, 200, 200, 0, reg);
