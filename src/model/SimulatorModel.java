@@ -1,13 +1,11 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import view.CarQueueView;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
-import view.FinancialView;
 
 public class SimulatorModel extends AbstractModel implements Runnable {
 
@@ -53,6 +51,14 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int paymentSpeed = 7;
     private int exitSpeed = 5;
 
+    // Keeps track of the income per hour/day/week.
+    private List<Integer> incomeHourList;
+    private List<Integer> incomeDayList;
+    private List<Integer> incomeWeekList;
+    private int incomeLastHour;
+    private int incomeLastDay;
+    private int incomeLastWeek;
+    
 	// The prices the various cars have to pay.
     private int regPaymentAmount = 15;
     private int subPaymentAmount = 30;
@@ -626,6 +632,74 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     		stringHour = ("0" + stringHour);
     	}
     	return (stringHour + ":" + stringMinute);
+    }
+    
+    private void setIncomeHour(int incomeCounter) {
+    	int incomeLastMinute = incomeCounter;
+    	incomeLastHour = 0;
+    	if (incomeHourList.size() >= 60) {
+    		incomeHourList.remove(0);
+    		incomeHourList.add(incomeLastMinute);
+    	}
+    	else {
+    		incomeHourList.add(incomeLastMinute);
+    	}
+    	
+    	for(Integer countHour : incomeHourList) {
+    		incomeLastHour += countHour;
+    	}
+    	
+    	if (minute == 0) {
+    		setIncomeDay(incomeLastHour);
+    	}
+    }
+    
+    private void setIncomeDay(int incomeLastHourValue) {
+    	int incomeLastHour = incomeLastHourValue;
+    	incomeLastDay = 0;
+    	if (incomeDayList.size() >= 24) {
+    		incomeDayList.remove(0);
+    		incomeDayList.add(incomeLastHour);
+    	}
+    	else {
+    		incomeDayList.add(incomeLastHour);
+    	}
+    	
+    	for(Integer countDay : incomeDayList) {
+    		incomeLastDay += countDay;
+    	}
+    	
+    	if (hour == 0) {
+    		setIncomeWeek(incomeLastDay);
+    	}
+    }
+    
+    private void setIncomeWeek(int incomeLastDayValue) {
+    	int incomeLastDay = incomeLastDayValue;
+    	incomeLastWeek = 0;
+    	if (incomeWeekList.size() >= 7) {
+    		incomeWeekList.remove(0);
+    		incomeWeekList.add(incomeLastDay);
+    	}
+    	else {
+    		incomeWeekList.add(incomeLastDay);
+    	}
+    	
+    	for(Integer countWeek : incomeWeekList) {
+    		incomeLastWeek += countWeek;
+    	}
+    }
+    
+    public int getIncomeLastHour() {
+    	return incomeLastHour;
+    }
+    
+    public int getIncomeLastDay() {
+    	return incomeLastDay;
+    }
+    
+    public int getIncomeLastWeek() {
+    	return incomeLastWeek;
     }
     
     public int getTotalRegCars() {
