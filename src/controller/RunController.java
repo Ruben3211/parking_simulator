@@ -62,10 +62,10 @@ public class RunController extends AbstractController {
 	 * @param e the actionEvent given to the controller
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == start) {
+		if (e.getSource() == steps) {
 			simulator.step();
 		}
-		if (e.getSource() == steps) {
+		if (e.getSource() == start) {
 			int numberOfSteps = parseSteps();
 			simulator.start(numberOfSteps);
 		}
