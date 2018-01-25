@@ -21,21 +21,22 @@ public class Simulator {
 	
 	private JFrame screen;
 	private AbstractView carParkView;
-	private AbstractView managerView;
+	private AbstractView carQueueView;
+	private AbstractView financialView;
+	private AbstractView timeView;
 	private SimulatorModel simulatorLogic;
 	private AbstractController runController;	
-	private AbstractView carqueuedisplay;
 	private AbstractController datacontroller;
-	
 	/**
 	 * The constructor for this class.
 	 */
 	public Simulator() {
 		simulatorLogic = new SimulatorModel(3, 6, 30);
 		carParkView = new CarParkView(simulatorLogic);
-		managerView = new FinancialView(simulatorLogic);
+		carQueueView = new CarQueueView(simulatorLogic);
+		financialView = new FinancialView(simulatorLogic);
+		timeView = new TimeView(simulatorLogic);
 		runController = new RunController(simulatorLogic);
-		carqueuedisplay = new CarQueueView(simulatorLogic);
 		datacontroller = new DataController(simulatorLogic);
 		
 		screen = new JFrame("Parking Garage Simulator");
@@ -48,13 +49,16 @@ public class Simulator {
 		screen.getContentPane().add(carParkView);
 		carParkView.setBounds(10, 120, 800, 400);
 
-		screen.getContentPane().add(managerView);
-		managerView.setBounds(1000,60, 600, 100);
+		screen.getContentPane().add(carQueueView);
 		
-		screen.getContentPane().add(carqueuedisplay);
+		screen.getContentPane().add(financialView);
+		financialView.setBounds(1000, 60, 600, 100);
+		
+		screen.getContentPane().add(timeView);
+		timeView.setBounds(10, 600, 100, 25);
 
 		screen.getContentPane().add(runController);
-		runController.setBounds(10, 60, 800, 400);
+		runController.setBounds(10, 60, 300, 25);
 		
 		screen.getContentPane().add(datacontroller);
 		datacontroller.setBounds(-250, 600, 800, 900);

@@ -17,19 +17,22 @@ import model.SimulatorModel;
 public class DataController extends AbstractController {
 	
 	Box boxLayout = Box.createVerticalBox();
+	Box boxLayout2 = Box.createVerticalBox();
+	Box boxLayout3 = Box.createVerticalBox();
+	Box boxLayout4 = Box.createVerticalBox();
 	
 	JPanel jp = new JPanel();
 	public JLabel multiplierText = new JLabel("Multiplier (%)");
 	public JLabel reservationsText = new JLabel("Reservations");
-	public JLabel subscribersText = new JLabel();
-	public JLabel retardText = new JLabel();
-	public JLabel normalPriceText = new JLabel();
-	public JLabel reservationPriceText = new JLabel();
-	public JLabel subPriceText = new JLabel();
-	public JLabel enterSpeedText = new JLabel();
-	public JLabel paymentSpeedText = new JLabel();
-	public JLabel exitSpeedText = new JLabel();
-	public JLabel workDayText = new JLabel();
+	public JLabel subscribersText = new JLabel("Subscribers");
+	public JLabel retardText = new JLabel("Retards");
+	public JLabel normalPriceText = new JLabel("Normal price");
+	public JLabel reservationPriceText = new JLabel("Reservation price");
+	public JLabel subPriceText = new JLabel("Subscriber price");
+	public JLabel enterSpeedText = new JLabel("Enter speed");
+	public JLabel paymentSpeedText = new JLabel("Payment speed");
+	public JLabel exitSpeedText = new JLabel("Exit speed");
+	public JLabel workDayText = new JLabel("Work day");
 	public JLabel weekendText = new JLabel();
 	public JLabel specialText = new JLabel();
 	public JLabel subWorkDayText = new JLabel();
@@ -66,8 +69,12 @@ public class DataController extends AbstractController {
 		setVisible(true);
 	
 		add(boxLayout);
-		boxLayout.add(multiplierText);	
-		boxLayout.add(multiplier);
+		add(boxLayout2);
+		add(boxLayout3);
+		add(boxLayout4);
+
+		boxLayout2.add(multiplierText);	
+		boxLayout2.add(multiplier);
 		boxLayout.add(reservationsText);	
 		boxLayout.add(reservations);
 		boxLayout.add(subscribersText);
@@ -105,8 +112,6 @@ public class DataController extends AbstractController {
 		boxLayout.add(reservationSpecialText);
 		boxLayout.add(reservationSpecial);
 		
-		
-	
 		//add(jp);
 	}
 

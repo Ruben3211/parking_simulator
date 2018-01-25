@@ -19,10 +19,10 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private List<Reservation> reservationList;
 
-	public static CarQueue entranceRegQueue;
-    public static CarQueue entranceSubResQueue;
-    public static CarQueue paymentCarQueue;
-    public static CarQueue exitCarQueue;
+	private static CarQueue entranceRegQueue;
+    private static CarQueue entranceSubResQueue;
+    private static CarQueue paymentCarQueue;
+    private static CarQueue exitCarQueue;
 
     private int entranceRegQueueMax = 20;
     private int entranceSubResQueueMax = 20;
@@ -59,7 +59,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private static int totalRegPaymentAmount;
     private static int totalSubPaymentAmount;
     private static int totalResPaymentAmount;
-	public static int totalPayed;
+	private static int totalPayed;
 
 
     // Max number of subscription cars allowed at once.
@@ -563,10 +563,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         	space.setType("regular");
         }
     } 
-    // vraag de dag op
-    public String getDay() {
-    	return weekDay[day];
-    }
     
     //vraag het totaal wat betaald is op
     public static int getTotalPayed() {
@@ -581,5 +577,35 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     }
     public static int getPayedBySub() {
     	return totalSubPaymentAmount;
+    }
+    
+    /**
+     * This method returns a string with the current weekday. Which day it is, is
+     * calculated by using the day in numbers and a modulo, this number will
+     * correspond with the position of the day within the string array.
+     * 
+     * @return String a string with the current weekday
+     */
+    public String getDay() {
+    	return weekDay[day % 7];
+    }
+    
+    /**
+     * This method will create a string for the minutes and hours. If the minutes and
+     * hours are under 10, a 0 will be appended to the number. This will make sure
+     * that the time is displayed in a 24 hour (00:00) format.
+     * 
+     * @return String a string with the hours and minutes in a 24 hour format
+     */
+    public String getTime() {
+    	String stringMinute = ("" + minute);
+    	String stringHour = ("" + hour);
+    	if(minute < 10) {
+    		stringMinute = ("0" + stringMinute);
+    	}
+    	if(hour < 10) {
+    		stringHour = ("0" + stringHour);
+    	}
+    	return (stringHour + ":" + stringMinute);
     }
 }
