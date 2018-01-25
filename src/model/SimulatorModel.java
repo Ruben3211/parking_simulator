@@ -717,6 +717,19 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     public int getTotalEmptySpots() {
     	return numberOfOpenSpots;
     }
+    
+    public int getTotalParkedReg() {
+    	return numParkedRegCars;
+    }
+    
+    public int getTotalParkedRes() {
+    	return numParkedResCars;
+    }
+    
+    public int getTotalParkedSub() {
+    	return numParkedSubCars;
+    }
+    
     public int setStepPause(int mSeconds) {
     	stepPause = mSeconds;
     	return mSeconds;
