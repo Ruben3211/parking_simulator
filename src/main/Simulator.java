@@ -58,7 +58,7 @@ public class Simulator {
 		screen.getContentPane().add(carQueueView);
 		
 		screen.getContentPane().add(financialView);
-		financialView.setBounds(1000, 60, 600, 100);
+		financialView.setBounds(1000, 60, 425, 100);
 		
 		screen.getContentPane().add(timeView);
 		timeView.setBounds(10, 600, 100, 25);
