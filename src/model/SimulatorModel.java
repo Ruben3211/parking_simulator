@@ -579,6 +579,26 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return totalSubPaymentAmount;
     }
     
+    /*
+     * Return queues
+     */
+    
+   public static int getRegCarQueue () {
+	   return entranceRegQueue.carsInQueue();
+   }
+   
+   public static int getSubCarQueue () {
+	   return entranceSubResQueue.carsInQueue();
+   }
+   
+   public static int getExitCarQueue () {
+	   return exitCarQueue.carsInQueue();
+   }
+   
+   public static int getPaymentCarQueue () {
+	   return paymentCarQueue.carsInQueue();
+   }
+    
     /**
      * This method returns a string with the current weekday. Which day it is, is
      * calculated by using the day in numbers and a modulo, this number will
