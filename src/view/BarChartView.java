@@ -3,9 +3,9 @@ package view;
 import model.SimulatorModel;
 
 @SuppressWarnings("serial")
-public class BarGraphView extends AbstractView {
+public class BarChartView extends AbstractView {
 	
-	public BarGraphView(SimulatorModel simulator) {
+	public BarChartView(SimulatorModel simulator) {
 		super(simulator);
 	}
 }
