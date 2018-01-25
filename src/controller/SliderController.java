@@ -17,11 +17,11 @@ public class SliderController extends AbstractController implements ChangeListen
 		super(simulator);
 		
 		this.setLayout(null);
-		changeSpeed = new JSlider(0,60,30);
+		changeSpeed = new JSlider(10,200,100);
 		changeSpeed.addChangeListener(this);
 		
 		changeSpeed.setMinorTickSpacing(4);  
-		changeSpeed.setMajorTickSpacing(20);  
+		changeSpeed.setMajorTickSpacing(40);  
 		changeSpeed.setPaintTicks(true);  
 		changeSpeed.setPaintLabels(true);
 		add(changeSpeed);
@@ -32,19 +32,10 @@ public class SliderController extends AbstractController implements ChangeListen
 	}
 
 	public void stateChanged(ChangeEvent e) {
-		changeSpeed.setValue(changeSpeed.getValue());
-		changeTime();
-		}
-	
-	public void changeTime() {
 		int value = changeSpeed.getValue();
-		if(value > 0 && value < 10) {
-			simulator.sleep(400);
-	    }
-			    
-		System.out.println(value);
+		simulator.setStepPause(value);
+		
 	}
-	
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
