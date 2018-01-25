@@ -26,7 +26,7 @@ public class Simulator {
 	private AbstractView timeView;
 	private SimulatorModel simulatorLogic;
 	private AbstractController runController;	
-	
+	private AbstractController datacontroller;
 	/**
 	 * The constructor for this class.
 	 */
@@ -37,6 +37,7 @@ public class Simulator {
 		financialView = new FinancialView(simulatorLogic);
 		timeView = new TimeView(simulatorLogic);
 		runController = new RunController(simulatorLogic);
+		datacontroller = new DataController(simulatorLogic);
 		
 		screen = new JFrame("Parking Garage Simulator");
 		screen.setSize(1980, 1080);
@@ -58,6 +59,9 @@ public class Simulator {
 
 		screen.getContentPane().add(runController);
 		runController.setBounds(10, 60, 300, 25);
+		
+		screen.getContentPane().add(datacontroller);
+		datacontroller.setBounds(-250, 600, 800, 900);
 
 		screen.setVisible(true);
 	}

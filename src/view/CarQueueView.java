@@ -53,10 +53,10 @@ public class CarQueueView extends AbstractView  {
 	 * This update is static so it can be called by SimulatorModel.
 	 */
 	public static void updateQueue () {
-		regCarQueue.setText("Regular cars in queue: " + SimulatorModel.entranceRegQueue.carsInQueue());
-		subCarQueue.setText("Cars with subscription in queue: " + SimulatorModel.entranceSubResQueue.carsInQueue());
-		exitCarQueue.setText("Queue for leaving the garage: " + SimulatorModel.exitCarQueue.carsInQueue());
-		paymentCarQueue.setText("Queue for paying: " + SimulatorModel.paymentCarQueue.carsInQueue());
+		regCarQueue.setText("Regular cars in queue: " + SimulatorModel.getRegCarQueue());
+		subCarQueue.setText("Cars with subscription in queue: " + SimulatorModel.getSubCarQueue());
+		exitCarQueue.setText("Queue for leaving the garage: " + SimulatorModel.getExitCarQueue());
+		paymentCarQueue.setText("Queue for paying: " + SimulatorModel.getPaymentCarQueue());
 	}
 
 }

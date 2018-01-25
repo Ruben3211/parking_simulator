@@ -21,10 +21,10 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private List<Reservation> reservationList;
 
-	public static CarQueue entranceRegQueue;
-    public static CarQueue entranceSubResQueue;
-    public static CarQueue paymentCarQueue;
-    public static CarQueue exitCarQueue;
+	private static CarQueue entranceRegQueue;
+    private static CarQueue entranceSubResQueue;
+    private static CarQueue paymentCarQueue;
+    private static CarQueue exitCarQueue;
 
     private int entranceRegQueueMax = 20;
     private int entranceSubResQueueMax = 20;
@@ -62,7 +62,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int totalSubPaymentAmount;
     private int totalResPaymentAmount;
 	private int totalPaymentAmount;
-
 
     // Max number of subscription cars allowed at once.
     private int maxSubAllowed = 60;
@@ -578,6 +577,26 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     public int getResPaidAmount() {
     	return totalResPaymentAmount;
     }
+    
+    /*
+     * Return queues
+     */
+    
+   public static int getRegCarQueue () {
+	   return entranceRegQueue.carsInQueue();
+   }
+   
+   public static int getSubCarQueue () {
+	   return entranceSubResQueue.carsInQueue();
+   }
+   
+   public static int getExitCarQueue () {
+	   return exitCarQueue.carsInQueue();
+   }
+   
+   public static int getPaymentCarQueue () {
+	   return paymentCarQueue.carsInQueue();
+   }
     
     /**
      * This method returns a string with the current weekday. Which day it is, is
