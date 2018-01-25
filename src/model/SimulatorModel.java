@@ -647,7 +647,5 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	stepPause = mSeconds;
     	return mSeconds;
     }
-    public int getStepPause(){
-    	return stepPause;
-    }
+
 }
