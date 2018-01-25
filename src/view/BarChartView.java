@@ -7,5 +7,6 @@ public class BarChartView extends AbstractView {
 	
 	public BarChartView(SimulatorModel simulator) {
 		super(simulator);
+		
 	}
 }

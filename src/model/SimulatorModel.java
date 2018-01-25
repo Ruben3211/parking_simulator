@@ -19,10 +19,10 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private List<Reservation> reservationList;
 
-	public static CarQueue entranceRegQueue;
-    public static CarQueue entranceSubResQueue;
-    public static CarQueue paymentCarQueue;
-    public static CarQueue exitCarQueue;
+	private static CarQueue entranceRegQueue;
+    private static CarQueue entranceSubResQueue;
+    private static CarQueue paymentCarQueue;
+    private static CarQueue exitCarQueue;
 
     private int entranceRegQueueMax = 20;
     private int entranceSubResQueueMax = 20;
@@ -59,7 +59,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private static int totalRegPaymentAmount;
     private static int totalSubPaymentAmount;
     private static int totalResPaymentAmount;
-	public static int totalPayed;
+	private static int totalPayed;
 
 
     // Max number of subscription cars allowed at once.
