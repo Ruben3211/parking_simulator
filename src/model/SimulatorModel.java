@@ -1,6 +1,8 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
 import view.CarQueueView;
 import java.util.Iterator;
 import java.util.List;
@@ -56,10 +58,10 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int subPaymentAmount = 30;
     private int resPaymentAmount = 20;
 
-    private static int totalRegPaymentAmount;
-    private static int totalSubPaymentAmount;
-    private static int totalResPaymentAmount;
-	public static int totalPayed;
+    private int totalRegPaymentAmount;
+    private int totalSubPaymentAmount;
+    private int totalResPaymentAmount;
+	private int totalPaymentAmount;
 
 
     // Max number of subscription cars allowed at once.
@@ -339,7 +341,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	carsEntering(entranceRegQueue);
     	updateMoneyInGarageCounts();
     	CarQueueView.updateQueue();
-    	FinancialView.updateFinancialView();
     }
     
     private void handleExit() {
@@ -564,19 +565,18 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     } 
     
-    //vraag het totaal wat betaald is op
-    public static int getTotalPayed() {
-    	totalPayed = totalRegPaymentAmount + totalResPaymentAmount + totalSubPaymentAmount;
-    	return totalPayed;
+    public int getTotalPaidAmount() {
+    	totalPaymentAmount = totalRegPaymentAmount + totalResPaymentAmount + totalSubPaymentAmount;
+    	return totalPaymentAmount;
     }
-    public static int getPayedByReg() {
+    public int getRegPaidAmount() {
     	return totalRegPaymentAmount;
     }
-    public static int getPayedByRes() {
-    	return totalResPaymentAmount;
-    }
-    public static int getPayedBySub() {
+    public int getSubPaidAmount() {
     	return totalSubPaymentAmount;
+    }
+    public int getResPaidAmount() {
+    	return totalResPaymentAmount;
     }
     
     /**
@@ -607,5 +607,21 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     		stringHour = ("0" + stringHour);
     	}
     	return (stringHour + ":" + stringMinute);
+    }
+    
+    public int getTotalRegCars() {
+    	return numParkedRegCars;
+    }
+    
+    public int getTotalSubCars() {
+    	return numParkedSubCars;
+    }
+    
+    public int getTotalResCars() {
+    	return numParkedResCars;
+    }
+    
+    public int getTotalEmptySpots() {
+    	return numberOfOpenSpots;
     }
 }

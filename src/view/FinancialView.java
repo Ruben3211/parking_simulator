@@ -1,51 +1,50 @@
 package view;
+
+import java.awt.Graphics;
 import java.awt.GridLayout;
 
+import javax.swing.JLabel;
 
-import javax.swing.*;
-
-import main.Simulator;
 import model.SimulatorModel;
+
 @SuppressWarnings("serial")
 public class FinancialView extends AbstractView{
 
-public static JLabel total,regularpayed, subpayed, resvpayed;
-public FinancialView(SimulatorModel simulator) {	
-	super(simulator);
-	setLayout(new GridLayout(5,1));
+	private JLabel regPaidLabel, regPaidData;
+	private JLabel subPaidLabel, subPaidData;
+	private JLabel resPaidLabel, resPaidData;
+	private JLabel totalPaidLabel, totalPaidData;
+	
+	public FinancialView(SimulatorModel simulator) {	
+		super(simulator);
 		
-	//maak het normaal label
-	regularpayed = new JLabel("Payed by regular cars is: " + SimulatorModel.getPayedByReg());
-
+		setLayout(new GridLayout(4,2));
+		
+		regPaidLabel = new JLabel("Regular cars: ");
+		regPaidData = new JLabel("0");
+		subPaidLabel = new JLabel("Subscription cars: ");
+		subPaidData = new JLabel("0");
+		resPaidLabel = new JLabel("Reservered cars: ");
+		resPaidData = new JLabel("0");
+		totalPaidLabel = new JLabel("Total: ");
+		totalPaidData = new JLabel("0");
 	
-	
-	// maak het subscription label
-	subpayed = new JLabel("Payed by subscription cars is: " + SimulatorModel.getPayedBySub());
-	
-	
-	// maak het reseverings label
-	resvpayed = new JLabel("Payed by reserverd cars is: " + SimulatorModel.getPayedByRes());
-	
-	// maak het totaal label aan
-	total = new JLabel("Payed in total is: " + SimulatorModel.getTotalPayed());
-	
-	
-	
-	
-	// voeg de labels toe
-	add(regularpayed);
-	add(subpayed);
-	add(resvpayed);
-	add(total);
-	
-}
-	public static void updateFinancialView() {
-		regularpayed.setText("Payed by regular cars is: €" + SimulatorModel.getPayedByReg());
-		resvpayed.setText("Payed by resevation cars is: €" + SimulatorModel.getPayedByRes());
-		subpayed.setText("Payed by Subscription cars is: €" + SimulatorModel.getPayedBySub());
-		total.setText("Payed in total is: €" + SimulatorModel.getTotalPayed() );
-
+		add(regPaidLabel);
+		add(regPaidData);
+		add(subPaidLabel);
+		add(subPaidData);
+		add(resPaidLabel);
+		add(resPaidData);
+		add(totalPaidLabel);
+		add(totalPaidData);
 	}
 	
-
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		regPaidData.setText(String.valueOf(getModel().getRegPaidAmount()));
+		subPaidData.setText(String.valueOf(getModel().getSubPaidAmount()));
+		resPaidData.setText(String.valueOf(getModel().getResPaidAmount()));
+		totalPaidData.setText(String.valueOf(getModel().getTotalPaidAmount()));
+	}
 }
