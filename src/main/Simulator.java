@@ -56,6 +56,7 @@ public class Simulator {
 		carParkView.setBounds(10, 120, 800, 400);
 
 		screen.getContentPane().add(carQueueView);
+		carQueueView.setBounds(500, 500, 200, 200);
 		
 		screen.getContentPane().add(financialView);
 		financialView.setBounds(1000, 60, 425, 100);

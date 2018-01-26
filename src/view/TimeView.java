@@ -30,7 +30,7 @@ public class TimeView extends AbstractView {
 	public TimeView(SimulatorModel simulator) {
 		super(simulator);
 		
-		setLayout(new GridLayout(0, 2));
+		setLayout(new GridLayout(1, 2));
 		
 		timeWeekDay = new JLabel("Monday");
 		timeMinuteHour = new JLabel("00:00");

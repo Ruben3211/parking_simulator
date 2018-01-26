@@ -1,8 +1,7 @@
 package view;
 
-import java.awt.*;
-
-import java.awt.event.*;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 
@@ -17,46 +16,51 @@ import model.SimulatorModel;
 @SuppressWarnings("serial")
 public class CarQueueView extends AbstractView  {
 	
-	private JLabel regCarQueue;
-	private JLabel subCarQueue;
-	private JLabel exitCarQueue;
-	private JLabel paymentCarQueue;
+	private JLabel entranceOne, entranceOneQueue;
+	private JLabel entranceTwo, entranceTwoQueue;
+	private JLabel payment, paymentQueue;
+	private JLabel exit, exitQueue;
 
 	public CarQueueView(SimulatorModel simulator) {
 		super(simulator);
-		setSize(600, 50);
 		
-		//setup labels
-		regCarQueue = new JLabel("Regular cars in queue: 0");
-		subCarQueue = new JLabel("Cars with subscription in queue: 0");
-		exitCarQueue = new JLabel("Queue for leaving the garage: 0");
-		paymentCarQueue = new JLabel("Queue for paying: 0");
+		setLayout(new GridLayout(4, 2));
 		
+		entranceOne = new JLabel("Entrance one: ");
+		entranceOneQueue = new JLabel("0");
 		
-		this.setLayout(null);
-		add(regCarQueue);
-		add(subCarQueue);
-		add(exitCarQueue);
-		add(paymentCarQueue);
-		regCarQueue.setBounds(400,10, 300, 30);
-		subCarQueue.setBounds(400,20, 300, 30);
-		exitCarQueue.setBounds(400,40, 300, 10);
-		paymentCarQueue.setBounds(400,0, 300, 30);
-		regCarQueue.setVisible(true);
-		subCarQueue.setVisible(true);
-		exitCarQueue.setVisible(true);
-		paymentCarQueue.setVisible(true);
+		entranceTwo = new JLabel("Entrance two: ");
+		entranceTwoQueue = new JLabel("0");
 		
+		payment = new JLabel("Payment: ");
+		paymentQueue = new JLabel("0");
+		
+		exit = new JLabel("Exit");
+		exitQueue = new JLabel("0");
+		
+		add(entranceOne);
+		add(entranceOneQueue);
+		
+		add(entranceTwo);
+		add(entranceTwoQueue);
+		
+		add(payment);
+		add(paymentQueue);
+		
+		add(exit);
+		add(exitQueue);
 	}
+	
 	/*
 	 * Updates the queue in the view when this method is called. 
 	 * This update is static so it can be called by SimulatorModel.
 	 */
-	public void updateQueue () {
-		regCarQueue.setText("Regular cars in queue: " + getModel().getRegCarQueue());
-		subCarQueue.setText("Cars with subscription in queue: " + getModel().getSubCarQueue());
-		exitCarQueue.setText("Queue for leaving the garage: " + getModel().getExitCarQueue());
-		paymentCarQueue.setText("Queue for paying: " + getModel().getPaymentCarQueue());
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
+		entranceOneQueue.setText(String.valueOf(getModel().getRegCarQueue()));
+		entranceTwoQueue.setText(String.valueOf(getModel().getSubCarQueue()));
+		paymentQueue.setText(String.valueOf(getModel().getPaymentCarQueue()));
+		exitQueue.setText(String.valueOf(getModel().getExitCarQueue()));
 	}
-
 }
