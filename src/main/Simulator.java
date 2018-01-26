@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 import controller.*;
@@ -54,12 +53,13 @@ public class Simulator {
 		sliderController = new SliderController(simulatorLogic);
 		
 		screen = new JFrame("Parking Garage Simulator");
+		
 		try {
 			screen.setIconImage(ImageIO.read(new File("res/images/car_icon.png")));
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		screen.setSize(1980, 1080);
 		screen.setResizable(false);
 		screen.getContentPane().setLayout(null);
