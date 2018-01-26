@@ -73,7 +73,7 @@ public class Simulator {
 		datacontroller.setBounds(-250, 600, 800, 900);
 
 		screen.getContentPane().add(BarChart);
-		BarChart.setBounds(1000, 240, 600,600);
+		BarChart.setBounds(1400, 500, 600,600);
 		
 		screen.getContentPane().add(sliderController);
 		sliderController.setBounds(20, 60, 800, 400);
