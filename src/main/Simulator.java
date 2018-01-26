@@ -1,8 +1,6 @@
 package main;
 
-
 import javax.swing.JFrame;
-import javax.swing.WindowConstants;
 
 import controller.*;
 import model.SimulatorModel;
@@ -20,30 +18,34 @@ import view.*;
 
 public class Simulator {
 	
+	private SimulatorModel simulatorLogic;
+	
 	private JFrame screen;
+	
+	private AbstractView barChartView;
 	private AbstractView carParkView;
 	private AbstractView carQueueView;
 	private AbstractView financialView;
 	private AbstractView pieChartView;
 	private AbstractView timeView;
-	private SimulatorModel simulatorLogic;
+	
+	private AbstractController dataController;
 	private AbstractController runController;	
-	private AbstractController datacontroller;
-	private AbstractView BarChart;
 	private AbstractController sliderController;
+	
 	/**
 	 * The constructor for this class.
 	 */
 	public Simulator() {
 		simulatorLogic = new SimulatorModel(3, 6, 30);
+		barChartView = new BarChartView(simulatorLogic);
 		carParkView = new CarParkView(simulatorLogic);
 		carQueueView = new CarQueueView(simulatorLogic);
 		financialView = new FinancialView(simulatorLogic);
 		pieChartView = new PieChartView(simulatorLogic);
 		timeView = new TimeView(simulatorLogic);
+		dataController = new DataController(simulatorLogic);
 		runController = new RunController(simulatorLogic);
-		datacontroller = new DataController(simulatorLogic);
-		BarChart = new BarChartView(simulatorLogic);
 		sliderController = new SliderController(simulatorLogic);
 		
 		screen = new JFrame("Parking Garage Simulator");
@@ -51,33 +53,25 @@ public class Simulator {
 		screen.setResizable(false);
 		screen.setLayout(null);
 		screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		screen.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE); 
+		
+		screen.getContentPane().add(barChartView);
 		screen.getContentPane().add(carParkView);
-		carParkView.setBounds(10, 120, 800, 400);
-
 		screen.getContentPane().add(carQueueView);
-		carQueueView.setBounds(700, 500, 235, 200);
-		
 		screen.getContentPane().add(financialView);
-		financialView.setBounds(1000, 60, 425, 100);
-		
 		screen.getContentPane().add(pieChartView);
-		pieChartView.setBounds(1000, 300, 200, 200);
-		
 		screen.getContentPane().add(timeView);
-		timeView.setBounds(10, 600, 100, 25);
-
+		screen.getContentPane().add(dataController);
 		screen.getContentPane().add(runController);
-		runController.setBounds(10, 60, 300, 25);
-		
-		screen.getContentPane().add(datacontroller);
-		datacontroller.setBounds(-250, 600, 800, 900);
-
-		screen.getContentPane().add(BarChart);
-		BarChart.setBounds(1400, 500, 600,600);
-
-		
 		screen.getContentPane().add(sliderController);
+		
+		barChartView.setBounds(1400, 500, 600,600);
+		carParkView.setBounds(10, 120, 800, 400);
+		carQueueView.setBounds(700, 500, 235, 200);
+		financialView.setBounds(1000, 60, 425, 100);
+		pieChartView.setBounds(1000, 300, 200, 200);
+		timeView.setBounds(10, 600, 100, 25);
+		runController.setBounds(10, 60, 300, 25);
+		dataController.setBounds(-250, 600, 800, 900);
 		sliderController.setBounds(20, 60, 800, 400);
 		
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
