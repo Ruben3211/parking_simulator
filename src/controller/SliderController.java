@@ -1,65 +1,65 @@
 package controller;
 
-import javax.swing.*;
-import model.SimulatorModel;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.util.Hashtable;
 
-import java.awt.event.*;
+import javax.swing.JLabel;
+import javax.swing.JSlider;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-@SuppressWarnings("serial")
+import model.SimulatorModel;
+
 /**
  * This class is responsible for creating a slider controller that changes the speed of the simulation.
  * It implements a changelistener that calls a method when the value of the slider gets changed.
  * 
  * @author Detmer Struiksma
  * @version 26-01-2018
- *
  */
 
+@SuppressWarnings("serial")
 public class SliderController extends AbstractController implements ChangeListener{
-	// Instance variables.
+
 	private JSlider changeSpeed;
+	private Hashtable<Integer, JLabel> labels;
+
 	/**
-	 * Constructor for the class.
+	 * The constructor for the class SliderController.
 	 * 
-	 * @param simulator Takes an object of type SimulatorModel to call methods the SimulatorModel class.
+	 * @param simulator the model
 	 */
 	public SliderController(SimulatorModel simulator) {
 		super(simulator);
 		
-		this.setLayout(null);
-		changeSpeed = new JSlider(10,200,100);
-		changeSpeed.addChangeListener(this);
+		changeSpeed = new JSlider(JSlider.HORIZONTAL, 1, 999, (1000 - simulator.getStepPause()));
+		changeSpeed.addChangeListener(e -> {
+			simulator.setStepPause(1000 - (changeSpeed.getValue()));
+			revalidate();
+		});
 		
-		changeSpeed.setMinorTickSpacing(4); 
-		changeSpeed.setMajorTickSpacing(40);
+		changeSpeed.setMajorTickSpacing(998);
 		changeSpeed.setPaintTicks(true);
-		changeSpeed.setInverted(true);
+		
+		labels = new Hashtable<Integer, JLabel>();
+		labels.put(1, new JLabel("Slow"));
+		labels.put(999, new JLabel("Fast"));
+		
+		changeSpeed.setLabelTable(labels);
+		changeSpeed.setPaintLabels(true);
+		
+		setLayout(new GridLayout(2, 1));
+		add(new JLabel("Speed", SwingConstants.CENTER));
 		add(changeSpeed);
-		
-
-		
-		
 	}
-    /**
-     * This method is responsible for the speed of the simulation.
-     * It takes the value of the slider and uses a setter for the variable setStepPause to change the speed of the simulation.
-     * 
-     * @param e Is used to notify when the state of the slider has changed.
-     * 
-     */
+
 	public void stateChanged(ChangeEvent e) {
-		int value = changeSpeed.getValue();
-		simulator.setStepPause(value);
-		
+
 	}
 	
-	@Override
-	public void actionPerformed(ActionEvent arg0) {
-			// TODO Auto-generated method stub
+	public void actionPerformed(ActionEvent a) {
 			
 	}
-	
 }
-

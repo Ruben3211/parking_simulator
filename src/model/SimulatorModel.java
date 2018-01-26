@@ -711,9 +711,12 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return numParkedSubCars;
     }
     
-    public int setStepPause(int mSeconds) {
-    	stepPause = mSeconds;
-    	return mSeconds;
+    public int getStepPause() {
+    	return stepPause;
+    }
+    
+    public void setStepPause(int stepPause) {
+    	this.stepPause = stepPause;
     }
 
 }

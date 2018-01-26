@@ -1,5 +1,7 @@
 package runner;
 
+import javax.swing.UIManager;
+
 import main.Simulator;
 
 /**
@@ -19,6 +21,11 @@ public class SimulatorRunner {
 	 * @param args no arguments are needed
 	 */
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		new Simulator();
 	}
 }

@@ -10,7 +10,7 @@ import model.SimulatorModel;
 @SuppressWarnings("serial")
 public class FinancialView extends AbstractView{
 
-	private JLabel category, lastHour, lastDay, lastWeek, totalAll;
+	private JLabel blank, lastHour, lastDay, lastWeek, totalAll;
 	private JLabel regLabel, regHourlyData, regDailyData, regWeeklyData ,regTotalData;
 	private JLabel subLabel, subHourlyData, subDailyData, subWeeklyData ,subTotalData;
 	private JLabel resLabel, resHourlyData, resDailyData, resWeeklyData ,resTotalData;
@@ -21,7 +21,7 @@ public class FinancialView extends AbstractView{
 		
 		setLayout(new GridLayout(5, 5));
 		
-		category = new JLabel("Category");
+		blank = new JLabel("");
 		lastHour = new JLabel("Last hour");
 		lastDay = new JLabel("Last Day");
 		lastWeek = new JLabel("Last Week");
@@ -51,7 +51,7 @@ public class FinancialView extends AbstractView{
 		totalWeeklyData = new JLabel("0");
 		totalTotalData = new JLabel("0");
 	
-		add(category);
+		add(blank);
 		add(lastHour);
 		add(lastDay);
 		add(lastWeek);

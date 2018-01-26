@@ -51,7 +51,7 @@ public class Simulator {
 		screen = new JFrame("Parking Garage Simulator");
 		screen.setSize(1980, 1080);
 		screen.setResizable(false);
-		screen.setLayout(null);
+		screen.getContentPane().setLayout(null);
 		screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		screen.getContentPane().add(barChartView);
@@ -69,10 +69,10 @@ public class Simulator {
 		carQueueView.setBounds(700, 500, 235, 200);
 		financialView.setBounds(1000, 60, 425, 100);
 		pieChartView.setBounds(1000, 300, 200, 200);
-		timeView.setBounds(10, 600, 100, 25);
-		runController.setBounds(10, 60, 300, 25);
+		timeView.setBounds(635, 60, 150, 25);
+		runController.setBounds(23, 60, 300, 25);
 		dataController.setBounds(-250, 600, 800, 900);
-		sliderController.setBounds(20, 60, 800, 400);
+		sliderController.setBounds(381, 26, 200, 80);
 		
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screen.setVisible(true);
