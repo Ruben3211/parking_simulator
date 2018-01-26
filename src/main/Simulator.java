@@ -29,7 +29,7 @@ public class Simulator {
 	private SimulatorModel simulatorLogic;
 	private AbstractController runController;	
 	private AbstractController datacontroller;
-	private AbstractView BarChart;
+	//private AbstractView BarChart;
 	private AbstractController sliderController;
 	/**
 	 * The constructor for this class.
@@ -43,7 +43,7 @@ public class Simulator {
 		timeView = new TimeView(simulatorLogic);
 		runController = new RunController(simulatorLogic);
 		datacontroller = new DataController(simulatorLogic);
-		BarChart = new BarChartView(simulatorLogic);
+		//BarChart = new BarChartView(simulatorLogic);
 		sliderController = new SliderController(simulatorLogic);
 		
 		screen = new JFrame("Parking Garage Simulator");
@@ -72,8 +72,8 @@ public class Simulator {
 		screen.getContentPane().add(datacontroller);
 		datacontroller.setBounds(-250, 600, 800, 900);
 
-		screen.getContentPane().add(BarChart);
-		BarChart.setBounds(1000, 240, 600,600);
+		//screen.getContentPane().add(BarChart);
+		//BarChart.setBounds(1000, 240, 600,600);
 		
 		screen.getContentPane().add(sliderController);
 		sliderController.setBounds(20, 60, 800, 400);

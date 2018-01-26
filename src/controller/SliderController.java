@@ -23,7 +23,7 @@ public class SliderController extends AbstractController implements ChangeListen
 		changeSpeed.setMinorTickSpacing(4);  
 		changeSpeed.setMajorTickSpacing(40);  
 		changeSpeed.setPaintTicks(true);  
-		changeSpeed.setPaintLabels(true);
+		changeSpeed.setInverted(true);
 		add(changeSpeed);
 		
 		changeSpeed.setBounds(400, 10, 200, 40);
