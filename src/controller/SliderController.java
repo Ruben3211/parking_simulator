@@ -18,7 +18,7 @@ import javax.swing.event.ChangeListener;
  */
 
 public class SliderController extends AbstractController implements ChangeListener{
-	
+	// Instance variables.
 	private JSlider changeSpeed;
 	/**
 	 * Constructor for the class.
