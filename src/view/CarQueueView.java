@@ -17,10 +17,10 @@ import model.SimulatorModel;
 @SuppressWarnings("serial")
 public class CarQueueView extends AbstractView  {
 	
-	public static JLabel regCarQueue;
-	public static JLabel subCarQueue;
-	public static JLabel exitCarQueue;
-	public static JLabel paymentCarQueue;
+	private JLabel regCarQueue;
+	private JLabel subCarQueue;
+	private JLabel exitCarQueue;
+	private JLabel paymentCarQueue;
 
 	public CarQueueView(SimulatorModel simulator) {
 		super(simulator);
@@ -52,11 +52,11 @@ public class CarQueueView extends AbstractView  {
 	 * Updates the queue in the view when this method is called. 
 	 * This update is static so it can be called by SimulatorModel.
 	 */
-	public static void updateQueue () {
-		regCarQueue.setText("Regular cars in queue: " + SimulatorModel.getRegCarQueue());
-		subCarQueue.setText("Cars with subscription in queue: " + SimulatorModel.getSubCarQueue());
-		exitCarQueue.setText("Queue for leaving the garage: " + SimulatorModel.getExitCarQueue());
-		paymentCarQueue.setText("Queue for paying: " + SimulatorModel.getPaymentCarQueue());
+	public void updateQueue () {
+		regCarQueue.setText("Regular cars in queue: " + getModel().getRegCarQueue());
+		subCarQueue.setText("Cars with subscription in queue: " + getModel().getSubCarQueue());
+		exitCarQueue.setText("Queue for leaving the garage: " + getModel().getExitCarQueue());
+		paymentCarQueue.setText("Queue for paying: " + getModel().getPaymentCarQueue());
 	}
 
 }

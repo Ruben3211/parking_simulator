@@ -19,10 +19,10 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private List<Reservation> reservationList;
 
-	private static CarQueue entranceRegQueue;
-    private static CarQueue entranceSubResQueue;
-    private static CarQueue paymentCarQueue;
-    private static CarQueue exitCarQueue;
+	private CarQueue entranceRegQueue;
+    private CarQueue entranceSubResQueue;
+    private CarQueue paymentCarQueue;
+    private CarQueue exitCarQueue;
 
     private int entranceRegQueueMax = 20;
     private int entranceSubResQueueMax = 20;
@@ -345,7 +345,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	carsEntering(entranceSubResQueue);
     	carsEntering(entranceRegQueue);
     	updateMoneyInGarageCounts();
-    	CarQueueView.updateQueue();
     }
     
     private void handleExit() {
@@ -353,7 +352,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         carsPaying();
         carsLeaving();
     	updateMoneyInGarageCounts();
-    	CarQueueView.updateQueue();
     }
 
     private int getMissedCars(CarQueue queue, int numCars, int maxCars)
@@ -569,40 +567,22 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         	space.setType("regular");
         }
     } 
-    
-    public int getTotalPaidAmount() {
-    	totalPaymentAmount = totalRegPaymentAmount + totalResPaymentAmount + totalSubPaymentAmount;
-    	return totalPaymentAmount;
-    }
-    public int getRegPaidAmount() {
-    	return totalRegPaymentAmount;
-    }
-    public int getSubPaidAmount() {
-    	return totalSubPaymentAmount;
-    }
-    public int getResPaidAmount() {
-    	return totalResPaymentAmount;
-    }
-    
-    /*
-     * Return queues
-     */
-    
-   public static int getRegCarQueue () {
+
+    public int getRegCarQueue () {
 	   return entranceRegQueue.carsInQueue();
-   }
+   	}
    
-   public static int getSubCarQueue () {
+   	public int getSubCarQueue () {
 	   return entranceSubResQueue.carsInQueue();
-   }
+   	}
    
-   public static int getExitCarQueue () {
+   	public int getExitCarQueue () {
 	   return exitCarQueue.carsInQueue();
-   }
+   	}
    
-   public static int getPaymentCarQueue () {
-	   return paymentCarQueue.carsInQueue();
-   }
+   	public int getPaymentCarQueue () {
+	   	return paymentCarQueue.carsInQueue();
+  	}
     
     /**
      * This method returns a string with the current weekday. Which day it is, is
