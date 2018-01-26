@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Color;
 import java.util.Random;
 
 /**
@@ -13,6 +14,7 @@ import java.util.Random;
 
 public class SubscriptionCar extends Car {
 	
+	private static final Color COLOR=Color.BLUE;
 	private static final String TYPE="subscription";
 	
 	/**
@@ -23,6 +25,10 @@ public class SubscriptionCar extends Car {
     	int stayMinutes = (int) (15 + random.nextFloat() * 3 * 60);
         this.setMinutesLeft(stayMinutes);
         this.setHasToPay(false);
+    }
+    
+    public Color getColor() {
+    	return COLOR;
     }
 
     /**

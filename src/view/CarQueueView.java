@@ -5,6 +5,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 
+import model.Car;
+import model.CarQueue;
 import model.SimulatorModel;
 
 /*
@@ -57,10 +59,30 @@ public class CarQueueView extends AbstractView  {
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		entranceOneQueue.setText(String.valueOf(getModel().getRegCarQueue()));
-		entranceTwoQueue.setText(String.valueOf(getModel().getSubCarQueue()));
-		paymentQueue.setText(String.valueOf(getModel().getPaymentCarQueue()));
-		exitQueue.setText(String.valueOf(getModel().getExitCarQueue()));
+		/**
+		setQueueColor(g, getModel().getRegCarQueue());
+		setQueueColor(g, getModel().getSubCarQueue());
+		setQueueColor(g, getModel().getPaymentCarQueue());
+		setQueueColor(g, getModel().getExitCarQueue());
+		*/
+		entranceOneQueue.setText(String.valueOf(getModel().getRegCarQueue().carsInQueue()));
+		entranceTwoQueue.setText(String.valueOf(getModel().getSubCarQueue().carsInQueue()));
+		paymentQueue.setText(String.valueOf(getModel().getPaymentCarQueue().carsInQueue()));
+		exitQueue.setText(String.valueOf(getModel().getExitCarQueue().carsInQueue()));
 	}
+	/**
+	private void setQueueColor(Graphics g, CarQueue queueData) {
+		int top = 0;
+		if(queueData == getModel().getRegCarQueue()); top = 0;
+		if(queueData == getModel().getSubCarQueue()); top = 33;
+		if(queueData == getModel().getPaymentCarQueue()); top = 66;
+		if(queueData == getModel().getExitCarQueue()); top = 99;
+		for(int i = 0; i < queueData.carsInQueue(); i++) {
+			if(queueData.peekCar(i) != null) {
+				Car car = queueData.peekCar(1);
+				g.setColor(car.getColor());
+				g.fillRect(0 + (i * 21), top, 20, 10);
+			}
+		}
+	}*/
 }

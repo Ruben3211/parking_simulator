@@ -1,5 +1,7 @@
 package model;
 
+import java.awt.Color;
+
 /**
  * This class is the super class that is required for the all different kinds
  * of cars that are created for the simulation. This class will provide a 
@@ -103,6 +105,8 @@ public abstract class Car {
     public void tick() {
         minutesLeft--;
     }
+    
+    public abstract Color getColor();
 
     /**
      * This method will return a String consisting of the type that belongs to a car

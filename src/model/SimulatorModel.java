@@ -37,13 +37,13 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     // Average number of cars arriving per hour.
     private int weekDayRegArrivals = 100;
     private int weekendRegArrivals = 200;
-    private int eventRegArrivals = 0; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int eventRegArrivals = 300; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
     private int weekDaySubArrivals = 50;
     private int weekendSubArrivals = 5;
-    private int eventSubArrivals = 0; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int eventSubArrivals = 300; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
     private int weekDayResArrivals = 50;
     private int weekendResArrivals = 5;
-    private int eventResArrivals = 0; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int eventResArrivals = 300; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
 
     // Number of cars that can enter/leave per minute.
     private int enterSpeed = 3; // TODO: enterspeed says 3, but somethimes 4 enter.
@@ -567,20 +567,20 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     } 
 
-    public int getRegCarQueue () {
-	   return entranceRegQueue.carsInQueue();
+    public CarQueue getRegCarQueue () {
+	   return entranceRegQueue;
    	}
    
-   	public int getSubCarQueue () {
-	   return entranceSubResQueue.carsInQueue();
+   	public CarQueue getSubCarQueue () {
+	   return entranceSubResQueue;
    	}
    
-   	public int getExitCarQueue () {
-	   return exitCarQueue.carsInQueue();
+   	public CarQueue getExitCarQueue () {
+	   return exitCarQueue;
    	}
    
-   	public int getPaymentCarQueue () {
-	   	return paymentCarQueue.carsInQueue();
+   	public CarQueue getPaymentCarQueue () {
+	   	return paymentCarQueue;
   	}
     
     /**
