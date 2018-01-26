@@ -1,6 +1,5 @@
 package main;
 
-import java.awt.Color;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -29,7 +28,7 @@ public class Simulator {
 	private SimulatorModel simulatorLogic;
 	private AbstractController runController;	
 	private AbstractController datacontroller;
-	private AbstractView Chart;
+	private AbstractView BarChart;
 	/**
 	 * The constructor for this class.
 	 */
@@ -41,7 +40,7 @@ public class Simulator {
 		timeView = new TimeView(simulatorLogic);
 		runController = new RunController(simulatorLogic);
 		datacontroller = new DataController(simulatorLogic);
-		Chart = new BarChartView(simulatorLogic);
+		BarChart = new BarChartView(simulatorLogic);
 		
 		
 		screen = new JFrame("Parking Garage Simulator");
@@ -67,8 +66,8 @@ public class Simulator {
 		screen.getContentPane().add(datacontroller);
 		datacontroller.setBounds(-250, 600, 800, 900);
 
-		screen.getContentPane().add(Chart);
-		Chart.setBounds(1000, 240, 600,600);
+	screen.getContentPane().add(BarChart);
+		BarChart.setBounds(1000, 240, 600,600);
 		
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screen.setVisible(true);
