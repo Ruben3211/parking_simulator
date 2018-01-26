@@ -38,7 +38,7 @@ public class SliderController extends AbstractController implements ChangeListen
 		changeSpeed.setInverted(true);
 		add(changeSpeed);
 		
-		changeSpeed.setBounds(400, 10, 200, 40);
+
 		
 		
 	}
