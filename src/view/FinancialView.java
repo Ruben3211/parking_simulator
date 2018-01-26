@@ -84,10 +84,5 @@ public class FinancialView extends AbstractView{
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		
-		regTotalData.setText(String.valueOf(getModel().getRegPaidAmount()));
-		subTotalData.setText(String.valueOf(getModel().getSubPaidAmount()));
-		resTotalData.setText(String.valueOf(getModel().getResPaidAmount()));
-		totalTotalData.setText(String.valueOf(getModel().getTotalPaidAmount()));
 	}
 }

@@ -7,7 +7,7 @@ import model.SimulatorModel;
 
 @SuppressWarnings("serial")
 public class PieChartView extends AbstractView {
-	
+		
 	public PieChartView(SimulatorModel simulator) {
 		super(simulator);
 	}
@@ -18,9 +18,6 @@ public class PieChartView extends AbstractView {
 		int res = getModel().getTotalParkedRes();
 		int empty = getModel().getNumberOfOpenSpots();
 		
-		
-		int sum = 0;
-		
 		double percentage = 360.0 / 540;
 		
 		reg = (int) (reg * percentage);
@@ -28,21 +25,25 @@ public class PieChartView extends AbstractView {
 		res = (int) (res * percentage);
 		empty = (int) (empty * percentage);
 		
-		Color a = new Color(238, 238, 238);
+		Color background = new Color(238, 238, 238);
 		
-		g.setColor(a);
+		g.setColor(background);
 		g.fillRect(0, 0, 200, 200);
+		
+		int sum = 0;
 	    g.setColor(Color.RED);
 	    g.fillArc(0, 0, 200, 200, 0, reg);
+	    
 	    sum += reg;
 	    g.setColor(Color.BLUE);
 	    g.fillArc(0, 0, 200, 200, sum, sub);
+	    
 	    sum += sub;
 	    g.setColor(Color.YELLOW);
 	    g.fillArc(0, 0, 200, 200, sum, res);
+	    
 	    sum += res;
 	    g.setColor(Color.WHITE);
 	    g.fillArc(0, 0, 200, 200, sum, empty);
-
 	}
 }
