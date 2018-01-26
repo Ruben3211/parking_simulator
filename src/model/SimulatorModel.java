@@ -280,13 +280,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return true;
     }
     
-    public void step() {
-    	advanceTime();
-    	handleExit();
-    	tickCars();
-    	notifyObservers();
-    	handleEntrance();
-    }
+    
     
     public void start(int numberOfSteps) {
     	this.numberOfSteps = numberOfSteps;
@@ -297,19 +291,44 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     public void stop() {
     	run = false;
     }
+ 
+    private void firstAction() {
+    	advanceTime();
+    	checkReservations();
+    	carsArriving();
+    	carsReadyToLeave();
+    	carsPaying();
+    	tickCars();
+    }
+    
+    private void secondAction() {
+    	carsLeaving();
+    	carsEntering(entranceRegQueue);
+    	carsEntering(entranceSubResQueue);
+    	makeReservations();
+    }
+    
+    /**
+    private void handleEntrances() {
+    	moneyMissedTotal = moneyMissedReg + moneyMissedRes;
+    	updateMoneyInGarageCounts();
+    }
+    
+    private void handleExit() {
+    	updateMoneyInGarageCounts();
+    }
+    */
     
     public void run() {
     	for(int i = 0; i < numberOfSteps && run; i++) {
-    		advanceTime();
-    		handleExit();
-    		tickCars();
-    		notifyObservers();
+    		firstAction();
     		try {
     			Thread.sleep(stepPause);
     		} catch (InterruptedException e) {
     			e.printStackTrace();
     		}
-    		handleEntrance();
+    		secondAction();
+    		notifyObservers();
     	}
     	run = false;
     }
@@ -334,23 +353,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         moneyParkedReg = numParkedRegCars * regPaymentAmount;
         moneyParkedRes = numParkedResCars * resPaymentAmount;
         moneyParkedTotal = moneyParkedReg + moneyParkedRes;
-    }
-
-    private void handleEntrance() {
-    	carsArriving();
-    	makeReservations();
-    	checkReservations();
-    	moneyMissedTotal = moneyMissedReg + moneyMissedRes;
-    	carsEntering(entranceSubResQueue);
-    	carsEntering(entranceRegQueue);
-    	updateMoneyInGarageCounts();
-    }
-    
-    private void handleExit() {
-        carsReadyToLeave();
-        carsPaying();
-        carsLeaving();
-    	updateMoneyInGarageCounts();
     }
 
     private int getMissedCars(CarQueue queue, int numCars, int maxCars)
@@ -571,7 +573,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 	   return entranceRegQueue;
    	}
    
-   	public CarQueue getSubCarQueue () {
+   	public CarQueue getSubResCarQueue () {
 	   return entranceSubResQueue;
    	}
    
