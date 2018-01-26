@@ -24,11 +24,13 @@ public class Simulator {
 	private AbstractView carParkView;
 	private AbstractView carQueueView;
 	private AbstractView financialView;
+	private AbstractView pieChartView;
 	private AbstractView timeView;
 	private SimulatorModel simulatorLogic;
 	private AbstractController runController;	
 	private AbstractController datacontroller;
 	private AbstractView BarChart;
+	private AbstractController sliderController;
 	/**
 	 * The constructor for this class.
 	 */
@@ -37,11 +39,12 @@ public class Simulator {
 		carParkView = new CarParkView(simulatorLogic);
 		carQueueView = new CarQueueView(simulatorLogic);
 		financialView = new FinancialView(simulatorLogic);
+		pieChartView = new PieChartView(simulatorLogic);
 		timeView = new TimeView(simulatorLogic);
 		runController = new RunController(simulatorLogic);
 		datacontroller = new DataController(simulatorLogic);
 		BarChart = new BarChartView(simulatorLogic);
-		
+		sliderController = new SliderController(simulatorLogic);
 		
 		screen = new JFrame("Parking Garage Simulator");
 		screen.setSize(1980, 1080);
@@ -55,7 +58,10 @@ public class Simulator {
 		screen.getContentPane().add(carQueueView);
 		
 		screen.getContentPane().add(financialView);
-		financialView.setBounds(1000, 60, 600, 100);
+		financialView.setBounds(1000, 60, 425, 100);
+		
+		screen.getContentPane().add(pieChartView);
+		pieChartView.setBounds(1000, 300, 200, 200);
 		
 		screen.getContentPane().add(timeView);
 		timeView.setBounds(10, 600, 100, 25);
@@ -66,8 +72,11 @@ public class Simulator {
 		screen.getContentPane().add(datacontroller);
 		datacontroller.setBounds(-250, 600, 800, 900);
 
-	screen.getContentPane().add(BarChart);
+		screen.getContentPane().add(BarChart);
 		BarChart.setBounds(1000, 240, 600,600);
+		
+		screen.getContentPane().add(sliderController);
+		sliderController.setBounds(20, 60, 800, 400);
 		
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screen.setVisible(true);
