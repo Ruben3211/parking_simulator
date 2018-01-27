@@ -107,6 +107,10 @@ public class SimulatorModel extends AbstractModel implements Runnable {
             }
         }
 
+        
+    	maxSubscriptions = 60;
+        maxReservations = 60;
+        
 	    reservationList = new ArrayList<>();
 
         /* allocate subscription parking spaces */
@@ -155,8 +159,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         subscriptionFee = 30;
         reservationFee = 20;
         
-    	maxSubscriptions = 60;
-        maxReservations = 60;
+
         
         run = false;
     }
