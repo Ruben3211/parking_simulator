@@ -32,7 +32,7 @@ public class PieChartView extends AbstractView {
 		
 		int sum = 0;
 	    g.setColor(Color.RED);
-	    g.fillArc(0, 0, 200, 200, 0, reg);
+	    g.fillArc(0, 0, 200, 200, sum, reg);
 	    
 	    sum += reg;
 	    g.setColor(Color.BLUE);

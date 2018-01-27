@@ -1,12 +1,10 @@
 package controller;
 
-import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.util.Hashtable;
 
 import javax.swing.JLabel;
 import javax.swing.JSlider;
-import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
@@ -49,9 +47,7 @@ public class SliderController extends AbstractController implements ChangeListen
 		
 		changeSpeed.setLabelTable(labels);
 		changeSpeed.setPaintLabels(true);
-		
-		setLayout(new GridLayout(2, 1));
-		add(new JLabel("Speed", SwingConstants.CENTER));
+
 		add(changeSpeed);
 	}
 
