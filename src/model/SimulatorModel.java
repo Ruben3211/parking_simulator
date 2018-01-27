@@ -53,34 +53,41 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int subscriptionFee;
     private int reservationFee;
 
-    private int totalRegPaymentAmount;
-    private int totalSubPaymentAmount;
-    private int totalResPaymentAmount;
-	private int totalPaymentAmount;
+    private int totalRegularIncome;
+    private int totalSubscriptionIncome;
+    private int totalReservationIncome;
+	private int totalIncome;
 
-	private int maxSubAllowed = 60;
-    private int maxResAllowed = 60;
+	private int maxSubscriptions;
+    private int maxReservations;
 
     // The number of cars per type that left, because the queues were too long.
-    private int numMissedReg;
-    private int numMissedSub;
-    private int numMissedRes;
+    private int missedRegularCars;
+    private int missedSubscriptionCars;
+    private int missedReservationCars;
 
     private int numberOfSteps;
     private boolean run;
 
-    private int numParkedRegCars;
-    private int numParkedResCars;
-    private int numParkedSubCars;
-
-    private int moneyMissedReg;
-    private int moneyMissedRes;
-    private int moneyMissedTotal;
+    private int totalParkedRegulars;
+    private int totalParkedSubscriptions;
+    private int totalParkedReservations;
+    
+    private int missedRegularIncome;
+    private int missedReservationIncome;
+    private int missedIncome;
 
     private int moneyParkedReg;
     private int moneyParkedRes;
     private int moneyParkedTotal;
 
+    /**
+     * The constructor for the class SimulatorModel.
+     * 
+     * @param numberOfFloors the number of floors
+     * @param numberOfRows the number of rows
+     * @param numberOfPlaces the number of places
+     */
     public SimulatorModel(int numberOfFloors, int numberOfRows, int numberOfPlaces)
     {
         this.random = new Random();
@@ -104,7 +111,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
         /* allocate subscription parking spaces */
         int floor = 0, row = 0, place = 0;
-        for(int spaceIndex = 0; spaceIndex < maxSubAllowed; spaceIndex++) {
+        for(int spaceIndex = 0; spaceIndex < maxSubscriptions; spaceIndex++) {
         	spaces[floor][row][place].setType("subscription");
         	place++;
         	if(place >= numberOfPlaces) {
@@ -147,6 +154,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         regularFee = 15;
         subscriptionFee = 30;
         reservationFee = 20;
+        
+    	maxSubscriptions = 60;
+        maxReservations = 60;
         
         run = false;
     }
@@ -340,8 +350,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private void updateMoneyInGarageCounts()
     {
-        moneyParkedReg = numParkedRegCars * regularFee;
-        moneyParkedRes = numParkedResCars * reservationFee;
+        moneyParkedReg = totalParkedRegulars * regularFee;
+        moneyParkedRes = totalParkedReservations * reservationFee;
         moneyParkedTotal = moneyParkedReg + moneyParkedRes;
     }
 
@@ -363,8 +373,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	for (int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
         	entranceOneQueue.addCar(new RegularCar());
         }
-    	numMissedReg += numberOfMissedCars;
-        moneyMissedReg = numMissedReg * regularFee;
+    	missedRegularCars += numberOfMissedCars;
+        missedRegularIncome = missedRegularCars * regularFee;
 
     	/* subscription cars */
         numberOfCars = getNumberOfCarsArriving(weekDaySubscriptionArrivals, weekendSubscriptionArrivals, eventSubscriptionArrivals);
@@ -372,7 +382,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         for (int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
     		entranceTwoQueue.addCar(new SubscriptionCar());
         }
-    	numMissedSub += numberOfMissedCars;
+    	missedSubscriptionCars += numberOfMissedCars;
     }
 
     private int computeReservationArrivalTime() {
@@ -391,7 +401,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	int numberOfReservations = getNumberOfCarsArriving(weekDayReservationArrivals, weekendReservationArrivals, eventReservationArrivals);
     	int numberOfMissedReservations = 0;
     	int numberOfFreeSpaces = countFreeParkingSpaces("regular");
-    	int numberOfAdditionalReservationsAllowed = maxResAllowed - reservationList.size();
+    	int numberOfAdditionalReservationsAllowed = maxReservations - reservationList.size();
 
     	if(numberOfReservations > numberOfAdditionalReservationsAllowed) {
     		numberOfMissedReservations += numberOfReservations - numberOfAdditionalReservationsAllowed;
@@ -402,8 +412,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     		numberOfReservations = numberOfFreeSpaces;
     	}
 
-    	numMissedRes += numberOfMissedReservations;
-    	moneyMissedRes = numMissedRes * reservationFee;
+    	missedReservationCars += numberOfMissedReservations;
+    	missedReservationIncome = missedReservationCars * reservationFee;
 
     	int curMinute = 24*60*day + 60*hour + minute;
 
@@ -471,11 +481,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
             String carType = car.getType();
             if(carType == "regular") {
-            	numParkedRegCars++;
+            	totalParkedRegulars++;
             } else if(carType == "subscription") {
-            	numParkedSubCars++;
+            	totalParkedSubscriptions++;
             } else if(carType ==  "reservation") {
-            	numParkedResCars++;
+            	totalParkedReservations++;
             }
         }
     }
@@ -502,9 +512,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
             if(car.getHasToPay())
             {
             	if(carType == "regular") {
-            	    this.totalRegPaymentAmount += this.regularFee;
+            	    this.totalRegularIncome += this.regularFee;
             	} else if(carType == "reservation") { 
-            	    this.totalResPaymentAmount += this.reservationFee;
+            	    this.totalReservationIncome += this.reservationFee;
             	}
             }
             carLeavesSpot(car);
@@ -542,7 +552,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     
     private void setSubIncome() {
     	if(day == 6 && hour == 23 && minute == 59) {
-    		totalSubPaymentAmount = maxSubAllowed * subscriptionFee;
+    		totalSubscriptionIncome = maxSubscriptions * subscriptionFee;
     	}
     }
 
@@ -555,29 +565,35 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
         String carType = car.getType();
         if(carType == "regular") {
-        	numParkedRegCars--;
+        	totalParkedRegulars--;
         } else if(carType == "subscription") {
-        	numParkedSubCars--;
+        	totalParkedSubscriptions--;
         } else if(carType ==  "reservation") {
-        	numParkedResCars--;
+        	totalParkedReservations--;
         	ParkingSpace space = getParkingSpaceAt(location);
         	space.setType("regular");
         }
     } 
 
-    public CarQueue getRegCarQueue () {
+    //----------------------------------------------------------------------------------------------------------------
+    // Place all the getters and setters, that are to be used in the controllers	
+    // and views, here. If a getter and setter use the same variable place the
+    // setter first and then the getter. Comment them appropriately.
+    //----------------------------------------------------------------------------------------------------------------
+    
+    public CarQueue getEntranceOneQueue () {
 	   return entranceOneQueue;
    	}
    
-   	public CarQueue getSubResCarQueue () {
+   	public CarQueue getEntranceTwoQueue () {
 	   return entranceTwoQueue;
    	}
    
-   	public CarQueue getExitCarQueue () {
+   	public CarQueue getExitQueue () {
 	   return exitQueue;
    	}
    
-   	public CarQueue getPaymentCarQueue () {
+   	public CarQueue getPaymentQueue () {
 	   	return paymentQueue;
   	}
     
@@ -624,7 +640,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    }
    
    public int getNumberOfOpenSpots() {
-   	return numberOfOpenSpots;
+   		return numberOfOpenSpots;
    }
     
     public int getTotalParkedIncome() {
@@ -632,38 +648,38 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     }
 	
 	public int getTotalRegIncome() {
-		return totalRegPaymentAmount;
+		return totalRegularIncome;
 	}
 	
 	public int getTotalSubIncome() {
-		return totalSubPaymentAmount;
+		return totalSubscriptionIncome;
 	}
 	
 	public int getTotalResIncome() {
-		return totalResPaymentAmount;
+		return totalReservationIncome;
 	}
 	
 	public void setTotalIncome() {
-		totalPaymentAmount =
-	    totalRegPaymentAmount +
-	    totalSubPaymentAmount +
-	    totalResPaymentAmount;
+		totalIncome =
+	    totalRegularIncome +
+	    totalSubscriptionIncome +
+	    totalReservationIncome;
 	}
 	
 	public int getTotalIncome() {
-		return totalRegPaymentAmount;
+		return totalIncome;
 	}
     
     public int getTotalRegCars() {
-    	return numParkedRegCars;
+    	return totalParkedRegulars;
     }
     
     public int getTotalSubCars() {
-    	return numParkedSubCars;
+    	return totalParkedSubscriptions;
     }
     
     public int getTotalResCars() {
-    	return numParkedResCars;
+    	return totalParkedReservations;
     }
     
     public int getTotalEmptySpots() {
@@ -671,15 +687,15 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     }
     
     public int getTotalParkedReg() {
-    	return numParkedRegCars;
+    	return totalParkedRegulars;
     }
     
     public int getTotalParkedRes() {
-    	return numParkedResCars;
+    	return totalParkedReservations;
     }
     
     public int getTotalParkedSub() {
-    	return numParkedSubCars;
+    	return totalParkedSubscriptions;
     }
     
     public int getStepPause() {
@@ -688,5 +704,33 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     
     public void setStepPause(int stepPause) {
     	this.stepPause = stepPause;
+    }
+    
+    public int getMissedRegularCars() {
+    	return missedRegularCars;
+    }
+    
+    public int getMissedSubscriptionCars() {
+    	return missedSubscriptionCars;
+    }
+    
+    public int getMissedReservationCars() {
+    	return missedReservationCars;
+    }
+    
+    public int getMissedRegularIncome() {
+    	return missedRegularIncome;
+    }
+    
+    public int getMissedReservationIncome() {
+    	return missedReservationIncome;
+    }
+    
+    public void setMissedIncome() {
+    	missedIncome = missedRegularIncome + missedReservationIncome;
+    }
+    
+    public int getMissedIncome() {
+    	return missedIncome;
     }
 }

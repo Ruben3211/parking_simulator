@@ -76,10 +76,10 @@ public class CarQueueView extends AbstractView  {
 		setQueueColor(g, getModel().getPaymentCarQueue());
 		setQueueColor(g, getModel().getExitCarQueue());
 		*/
-		entranceOneData.setText(String.valueOf(getModel().getRegCarQueue().carsInQueue()));
-		entranceTwoData.setText(String.valueOf(getModel().getSubResCarQueue().carsInQueue()));
-		paymentData.setText(String.valueOf(getModel().getPaymentCarQueue().carsInQueue()));
-		exitData.setText(String.valueOf(getModel().getExitCarQueue().carsInQueue()));
+		entranceOneData.setText(String.valueOf(getModel().getEntranceOneQueue().carsInQueue()));
+		entranceTwoData.setText(String.valueOf(getModel().getEntranceTwoQueue().carsInQueue()));
+		paymentData.setText(String.valueOf(getModel().getPaymentQueue().carsInQueue()));
+		exitData.setText(String.valueOf(getModel().getExitQueue().carsInQueue()));
 	}
 	/**
 	private void setQueueColor(Graphics g, CarQueue queueData) {
