@@ -4,85 +4,62 @@ import java.awt.Graphics;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
+import javax.swing.border.TitledBorder;
 
 import model.SimulatorModel;
 
 @SuppressWarnings("serial")
 public class FinancialView extends AbstractView{
 
-	private JLabel blank, lastHour, lastDay, lastWeek, totalAll;
-	private JLabel regLabel, regHourlyData, regDailyData, regWeeklyData ,regTotalData;
-	private JLabel subLabel, subHourlyData, subDailyData, subWeeklyData ,subTotalData;
-	private JLabel resLabel, resHourlyData, resDailyData, resWeeklyData ,resTotalData;
-	private JLabel totalLabel, totalHourlyData, totalDailyData, totalWeeklyData ,totalTotalData;
+	private JLabel regLabel, regTotalData;
+	private JLabel subLabel, subTotalData;
+	private JLabel resLabel, resTotalData;
+	private JLabel totalLabel, totalTotalData;
+	private JLabel parkedLabel, parkedData;
 	
 	public FinancialView(SimulatorModel simulator) {	
 		super(simulator);
 		
-		setLayout(new GridLayout(5, 5));
-		
-		blank = new JLabel("");
-		lastHour = new JLabel("Last hour");
-		lastDay = new JLabel("Last Day");
-		lastWeek = new JLabel("Last Week");
-		totalAll = new JLabel("Total");
+		setLayout(new GridLayout(6, 2));
 		
 		regLabel = new JLabel("Regular:");
-		regHourlyData = new JLabel("0");
-		regDailyData = new JLabel("0");
-		regWeeklyData = new JLabel("0");
 		regTotalData = new JLabel("0");
 		
 		subLabel = new JLabel("Subscription:");
-		subHourlyData = new JLabel("");
-		subDailyData = new JLabel("");
-		subWeeklyData = new JLabel("0");
 		subTotalData = new JLabel("0");
 		
 		resLabel = new JLabel("Reservation:");
-		resHourlyData = new JLabel("0");
-		resDailyData = new JLabel("0");
-		resWeeklyData = new JLabel("0");
 		resTotalData = new JLabel("0");
 		
 		totalLabel = new JLabel("Total:");
-		totalHourlyData = new JLabel("0");
-		totalDailyData = new JLabel("0");
-		totalWeeklyData = new JLabel("0");
 		totalTotalData = new JLabel("0");
-	
-		add(blank);
-		add(lastHour);
-		add(lastDay);
-		add(lastWeek);
-		add(totalAll);
 		
+		parkedLabel = new JLabel("Parked income:");
+		parkedData = new JLabel("0");
+
 		add(regLabel);
-		add(regHourlyData);
-		add(regDailyData);
-		add(regWeeklyData);
 		add(regTotalData);
 		
 		add(subLabel);
-		add(subHourlyData);
-		add(subDailyData);
-		add(subWeeklyData);
 		add(subTotalData);
 		
 		add(resLabel);
-		add(resHourlyData);
-		add(resDailyData);
-		add(resWeeklyData);
 		add(resTotalData);
 		
 		add(totalLabel);
-		add(totalHourlyData);
-		add(totalDailyData);
-		add(totalWeeklyData);
 		add(totalTotalData);
+		
+		add(parkedLabel);
+		add(parkedData);
 	}
 	
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		
+		regTotalData.setText(String.valueOf(getModel().getTotalRegIncome()));
+		subTotalData.setText(String.valueOf(getModel().getTotalSubIncome()));
+		resTotalData.setText(String.valueOf(getModel().getTotalResIncome()));
+		totalTotalData.setText(String.valueOf(getModel().getTotalIncome()));
+		parkedData.setText(String.valueOf(getModel().getTotalParkedIncome()));
 	}
 }

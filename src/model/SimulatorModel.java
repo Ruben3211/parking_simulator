@@ -298,6 +298,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	carsArriving();
     	carsReadyToLeave();
     	carsPaying();
+    	setSubIncome();
+    	updateMoneyInGarageCounts();
     	tickCars();
     }
     
@@ -548,7 +550,13 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         double standardDeviation = averageNumberOfCarsPerHour * 0.3;
         double numberOfCarsPerHour = averageNumberOfCarsPerHour + random.nextGaussian() * standardDeviation;
         return (int)Math.round(numberOfCarsPerHour / 60);	
-    }    
+    }   
+    
+    private void setSubIncome() {
+    	if(day == 6 && hour == 23 && minute == 59) {
+    		totalSubPaymentAmount = maxSubAllowed * subPaymentAmount;
+    	}
+    }
 
     private void carLeavesSpot(Car car)
     {
@@ -615,61 +623,32 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return (stringHour + ":" + stringMinute);
     }
     
-    private void setIncomeHour(int incomeCounter) {
-    	int incomeLastMinute = incomeCounter;
-    	incomeLastHour = 0;
-    	if (incomeHourList.size() >= 60) {
-    		incomeHourList.remove(0);
-    		incomeHourList.add(incomeLastMinute);
-    	}
-    	else {
-    		incomeHourList.add(incomeLastMinute);
-    	}
-    	
-    	for(Integer countHour : incomeHourList) {
-    		incomeLastHour += countHour;
-    	}
-    	
-    	if (minute == 0) {
-    		setIncomeDay(incomeLastHour);
-    	}
+    public int getTotalParkedIncome() {
+    	return moneyParkedTotal;
     }
-    
-    private void setIncomeDay(int incomeLastHourValue) {
-    	int incomeLastHour = incomeLastHourValue;
-    	incomeLastDay = 0;
-    	if (incomeDayList.size() >= 24) {
-    		incomeDayList.remove(0);
-    		incomeDayList.add(incomeLastHour);
-    	}
-    	else {
-    		incomeDayList.add(incomeLastHour);
-    	}
-    	
-    	for(Integer countDay : incomeDayList) {
-    		incomeLastDay += countDay;
-    	}
-    	
-    	if (hour == 0) {
-    		setIncomeWeek(incomeLastDay);
-    	}
-    }
-    
-    private void setIncomeWeek(int incomeLastDayValue) {
-    	int incomeLastDay = incomeLastDayValue;
-    	incomeLastWeek = 0;
-    	if (incomeWeekList.size() >= 7) {
-    		incomeWeekList.remove(0);
-    		incomeWeekList.add(incomeLastDay);
-    	}
-    	else {
-    		incomeWeekList.add(incomeLastDay);
-    	}
-    	
-    	for(Integer countWeek : incomeWeekList) {
-    		incomeLastWeek += countWeek;
-    	}
-    }
+	
+	public int getTotalRegIncome() {
+		return totalRegPaymentAmount;
+	}
+	
+	public int getTotalSubIncome() {
+		return totalSubPaymentAmount;
+	}
+	
+	public int getTotalResIncome() {
+		return totalResPaymentAmount;
+	}
+	
+	public void setTotalIncome() {
+		totalPaymentAmount =
+	    totalRegPaymentAmount +
+	    totalSubPaymentAmount +
+	    totalResPaymentAmount;
+	}
+	
+	public int getTotalIncome() {
+		return totalRegPaymentAmount;
+	}
     
     public int getIncomeLastHour() {
     	return incomeLastHour;

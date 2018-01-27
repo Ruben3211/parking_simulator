@@ -1,18 +1,12 @@
 package main;
 
-import java.awt.Image;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JTabbedPane;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
 
 import controller.*;
 import model.SimulatorModel;
@@ -35,14 +29,14 @@ public class Simulator {
 	private JFrame screen;
 	private JTabbedPane graphPane;
 	
-	private AbstractView barChartView;
+	//private AbstractView barChartView;
 	private AbstractView carParkView;
-	private AbstractView carQueueView;
-	private AbstractView financialView;
-	private AbstractView pieChartView;
-	private AbstractView timeView;
+	//private AbstractView carQueueView;
+	//private AbstractView financialView;
+	//private AbstractView pieChartView;
+	//private AbstractView timeView;
 	
-	private AbstractController dataController;
+	//private AbstractController dataController;
 	private AbstractController runController;	
 	private AbstractController sliderController;
 	
@@ -51,13 +45,13 @@ public class Simulator {
 	 */
 	public Simulator() {
 		simulatorLogic = new SimulatorModel(3, 6, 30);
-		barChartView = new BarChartView(simulatorLogic);
+		//barChartView = new BarChartView(simulatorLogic);
 		carParkView = new CarParkView(simulatorLogic);
-		carQueueView = new CarQueueView(simulatorLogic);
-		financialView = new FinancialView(simulatorLogic);
-		pieChartView = new PieChartView(simulatorLogic);
-		timeView = new TimeView(simulatorLogic);
-		dataController = new DataController(simulatorLogic);
+		//carQueueView = new CarQueueView(simulatorLogic);
+		//financialView = new FinancialView(simulatorLogic);
+		//pieChartView = new PieChartView(simulatorLogic);
+		//timeView = new TimeView(simulatorLogic);
+		//dataController = new DataController(simulatorLogic);
 		runController = new RunController(simulatorLogic);
 		sliderController = new SliderController(simulatorLogic);
 		
@@ -80,12 +74,12 @@ public class Simulator {
 		screen.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		
 		screen.getContentPane().add(graphPane);
-		screen.getContentPane().add(barChartView);
+		//screen.getContentPane().add(barChartView);
 		screen.getContentPane().add(carParkView);
-		screen.getContentPane().add(carQueueView);
-		screen.getContentPane().add(financialView);
-		screen.getContentPane().add(timeView);
-		screen.getContentPane().add(dataController);
+		//screen.getContentPane().add(carQueueView);
+		//screen.getContentPane().add(financialView);
+		//screen.getContentPane().add(timeView);
+		//screen.getContentPane().add(dataController);
 		screen.getContentPane().add(runController);
 		screen.getContentPane().add(sliderController);
 				
@@ -93,16 +87,16 @@ public class Simulator {
 		graphPane.addTab("Bar Chart", barChartIcon, null, null);
 		graphPane.addTab("Line Graph", lineChartIcon, null, null);
 		
-		graphPane.setBounds(600, 500, 500, 500);
-		barChartView.setBounds(1400, 500, 600, 600);
-		carParkView.setBounds(10, 120, 800, 400);
-		carQueueView.setBounds(700, 500, 235, 200);
-		financialView.setBounds(1000, 60, 425, 100);
-		pieChartView.setBounds(1000, 300, 200, 200);
-		timeView.setBounds(635, 60, 150, 25);
-		runController.setBounds(23, 60, 300, 25);
-		dataController.setBounds(-250, 600, 800, 900);
-		sliderController.setBounds(381, 26, 200, 80);
+		graphPane.setBounds(1000, 40, 500, 500);
+		//barChartView.setBounds(1400, 500, 600, 600);
+		carParkView.setBounds(6, 6, 800, 400);
+		//carQueueView.setBounds(1333, 563, 235, 200);
+		//financialView.setBounds(914, 563, 186, 99);
+		//pieChartView.setBounds(1000, 300, 200, 200);
+		//timeView.setBounds(1061, 339, 150, 25);
+		runController.setBounds(80, 425, 300, 25);
+		//dataController.setBounds(-250, 600, 800, 900);
+		sliderController.setBounds(595, 410, 200, 55);
 		
 		screen.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		screen.setVisible(true);
