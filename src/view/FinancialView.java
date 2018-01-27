@@ -18,12 +18,19 @@ import model.SimulatorModel;
 
 @SuppressWarnings("serial")
 public class FinancialView extends AbstractView{
-
+	
+	private JLabel incomeLabel, blankOne;
 	private JLabel regularLabel, regularData;
 	private JLabel subscriptionLabel, subscriptionData;
 	private JLabel reservationLabel, reservationData;
 	private JLabel totalLabel, totalData;
-	private JLabel parkedLabel, parkedData;
+	
+	private JLabel blankTwo, blankThree;
+	
+	private JLabel parkedIncomeLabel, blankFour;
+	private JLabel parkedRegularLabel, parkedRegularData;
+	private JLabel parkedReservationLabel, parkedReservationData;
+	private JLabel parkedTotalLabel, parkedTotalData;
 	
 	/**
 	 * The constructor for the class FinancialView.
@@ -33,7 +40,10 @@ public class FinancialView extends AbstractView{
 	public FinancialView(SimulatorModel simulator) {	
 		super(simulator);
 		
-		setLayout(new GridLayout(6, 2));
+		setLayout(new GridLayout(10, 2));
+		
+		incomeLabel = new JLabel("<html><b>Income</b></html>");
+		blankOne = new JLabel("");
 		
 		regularLabel = new JLabel("Regular:");
 		regularData = new JLabel("0");
@@ -47,9 +57,24 @@ public class FinancialView extends AbstractView{
 		totalLabel = new JLabel("Total:");
 		totalData = new JLabel("0");
 		
-		parkedLabel = new JLabel("Parked income:");
-		parkedData = new JLabel("0");
+		blankTwo = new JLabel("");
+		blankThree = new JLabel("");
+		
+		parkedIncomeLabel = new JLabel("<html><b>Parked Income</b></html>");
+		blankFour = new JLabel("");
+		
+		parkedRegularLabel = new JLabel("Regular:");
+		parkedRegularData = new JLabel("0");
+		
+		parkedReservationLabel = new JLabel("Reservation:");
+		parkedReservationData = new JLabel("0");
+		
+		parkedTotalLabel = new JLabel("Total:");
+		parkedTotalData = new JLabel("0");
 
+		add(incomeLabel);
+		add(blankOne);
+		
 		add(regularLabel);
 		add(regularData);
 		
@@ -62,8 +87,20 @@ public class FinancialView extends AbstractView{
 		add(totalLabel);
 		add(totalData);
 		
-		add(parkedLabel);
-		add(parkedData);
+		add(blankTwo);
+		add(blankThree);
+		
+		add(parkedIncomeLabel);
+		add(blankFour);
+		
+		add(parkedRegularLabel);
+		add(parkedRegularData);
+		
+		add(parkedReservationLabel);
+		add(parkedReservationData);
+		
+		add(parkedTotalLabel);
+		add(parkedTotalData);
 	}
 	
 	/**
@@ -76,10 +113,12 @@ public class FinancialView extends AbstractView{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		regularData.setText(String.valueOf(getModel().getTotalRegIncome()));
-		subscriptionData.setText(String.valueOf(getModel().getTotalSubIncome()));
-		reservationData.setText(String.valueOf(getModel().getTotalResIncome()));
+		regularData.setText(String.valueOf(getModel().getTotalRegularIncome()));
+		subscriptionData.setText(String.valueOf(getModel().getTotalSubscriptionIncome()));
+		reservationData.setText(String.valueOf(getModel().getTotalReservationIncome()));
 		totalData.setText(String.valueOf(getModel().getTotalIncome()));
-		parkedData.setText(String.valueOf(getModel().getTotalParkedIncome()));
+		parkedRegularData.setText(String.valueOf(getModel().getParkedRegularIncome()));
+		parkedReservationData.setText(String.valueOf(getModel().getParkedReservationIncome()));
+		parkedTotalData.setText(String.valueOf(getModel().getParkedTotalIncome()));
 	}
 }

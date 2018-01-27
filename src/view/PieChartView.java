@@ -35,9 +35,9 @@ public class PieChartView extends AbstractView {
 	 * @param g the specified Graphics context
 	 */
 	public void paintComponent(Graphics g) {
-		int regular = getModel().getTotalParkedReg();
-		int subscription = getModel().getTotalParkedSub();
-		int reservation = getModel().getTotalParkedRes();
+		int regular = getModel().getTotalParkedRegular();
+		int subscription = getModel().getTotalParkedSubscription();
+		int reservation = getModel().getTotalParkedReservation();
 		int empty = getModel().getNumberOfOpenSpots();
 		
 		double percentage = 360.0 / 540;

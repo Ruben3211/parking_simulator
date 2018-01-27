@@ -7,6 +7,8 @@ import javax.swing.JTabbedPane;
 import controller.*;
 import model.SimulatorModel;
 import view.*;
+import javax.swing.JMenuBar;
+import javax.swing.JMenu;
 
 /**
  * This class is responsible for assembling the application. It creates an
@@ -27,10 +29,10 @@ public class Simulator {
 	
 	//private AbstractView barChartView;
 	private AbstractView carParkView;
-	//private AbstractView carQueueView;
-	//private AbstractView financialView;
+	private AbstractView carQueueView;
+	private AbstractView financialView;
 	//private AbstractView pieChartView;
-	//private AbstractView timeView;
+	private AbstractView timeView;
 	
 	//private AbstractController dataController;
 	private AbstractController resetController;
@@ -48,10 +50,10 @@ public class Simulator {
 		
 		//barChartView = new BarChartView(simulatorLogic);
 		carParkView = new CarParkView(simulatorLogic);
-		//carQueueView = new CarQueueView(simulatorLogic);
-		//financialView = new FinancialView(simulatorLogic);
+		carQueueView = new CarQueueView(simulatorLogic);
+		financialView = new FinancialView(simulatorLogic);
 		//pieChartView = new PieChartView(simulatorLogic);
-		//timeView = new TimeView(simulatorLogic);
+		timeView = new TimeView(simulatorLogic);
 		
 		//dataController = new DataController(simulatorLogic);
 		resetController = new ResetController(simulatorLogic);
@@ -73,9 +75,9 @@ public class Simulator {
 		screen.getContentPane().add(graphTabbedPane);
 		//screen.getContentPane().add(barChartView);
 		screen.getContentPane().add(carParkView);
-		//screen.getContentPane().add(carQueueView);
-		//screen.getContentPane().add(financialView);
-		//screen.getContentPane().add(timeView);
+		screen.getContentPane().add(carQueueView);
+		screen.getContentPane().add(financialView);
+		screen.getContentPane().add(timeView);
 		//screen.getContentPane().add(dataController);
 		screen.getContentPane().add(resetController);
 		screen.getContentPane().add(runController);
@@ -88,10 +90,10 @@ public class Simulator {
 		graphTabbedPane.setBounds(1000, 40, 500, 500);
 		//barChartView.setBounds(1400, 500, 600, 600);
 		carParkView.setBounds(6, 6, 800, 400);
-		//carQueueView.setBounds(1333, 563, 235, 200);
-		//financialView.setBounds(914, 563, 186, 99);
+		carQueueView.setBounds(1200, 610, 330, 176);
+		financialView.setBounds(1000, 610, 190, 160);
 		//pieChartView.setBounds(1000, 300, 200, 200);
-		//timeView.setBounds(1061, 339, 150, 25);
+		timeView.setBounds(1000, 575, 200, 25);
 		//dataController.setBounds(-250, 600, 800, 900);
 		runController.setBounds(80, 425, 300, 25);
 		resetController.setBounds(450, 419, 60, 35);

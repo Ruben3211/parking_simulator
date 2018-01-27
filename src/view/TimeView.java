@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 
@@ -35,6 +36,9 @@ public class TimeView extends AbstractView {
 		timeWeekDay = new JLabel("Monday");
 		timeMinuteHour = new JLabel("00:00");
 		
+		timeWeekDay.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		timeMinuteHour.setFont(new Font("SansSerif", Font.PLAIN, 16));
+
 		add(timeWeekDay);
 		add(timeMinuteHour);
 	}
