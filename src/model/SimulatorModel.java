@@ -77,9 +77,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int missedReservationIncome;
     private int missedIncome;
 
-    private int moneyParkedReg;
-    private int moneyParkedRes;
-    private int moneyParkedTotal;
+    private int parkedRegularIncome;
+    private int parkedReservationIncome;
+    private int parkedTotalIncome;
 
     /**
      * The constructor for the class SimulatorModel.
@@ -306,6 +306,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	carsPaying();
     	setSubIncome();
     	updateMoneyInGarageCounts();
+    	setTotalIncome();
     	tickCars();
     }
     
@@ -315,12 +316,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	carsEntering(entranceTwoQueue);
     	makeReservations();
     }
-    
-    /**
-    private void handleEntrances() {
-    	moneyMissedTotal = moneyMissedReg + moneyMissedRes;
-    }
-    */
     
     public void run() {
     	for(int i = 0; i < numberOfSteps && run; i++) {
@@ -353,9 +348,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private void updateMoneyInGarageCounts()
     {
-        moneyParkedReg = totalParkedRegulars * regularFee;
-        moneyParkedRes = totalParkedReservations * reservationFee;
-        moneyParkedTotal = moneyParkedReg + moneyParkedRes;
+        parkedRegularIncome = totalParkedRegulars * regularFee;
+        parkedReservationIncome = totalParkedReservations * reservationFee;
+        parkedTotalIncome = parkedRegularIncome + parkedReservationIncome;
     }
 
     private int getMissedCars(CarQueue queue, int numCars, int maxCars)
@@ -647,7 +642,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    }
     
     public int getTotalParkedIncome() {
-    	return moneyParkedTotal;
+    	return parkedTotalIncome;
     }
 	
 	public int getTotalRegIncome() {
