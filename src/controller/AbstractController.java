@@ -1,7 +1,5 @@
 package controller;
 
-import java.awt.event.ActionListener;
-
 import javax.swing.JPanel;
 
 import model.SimulatorModel;
@@ -11,16 +9,16 @@ import model.SimulatorModel;
  * that this controller knows of the models existence.
  * 
  * @author Rick Zwaneveld
- * @version 23-01-2018
+ * @version 27-01-2018
  */
 
 @SuppressWarnings("serial")
-public abstract class AbstractController extends JPanel implements ActionListener {
+public abstract class AbstractController extends JPanel {
 	
 	protected SimulatorModel simulator;
 	
 	/**
-	 * The constructor for this class.
+	 * The constructor for the class AbstractController.
 	 * 
 	 * @param simulator the model
 	 */

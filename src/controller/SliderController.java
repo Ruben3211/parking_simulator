@@ -1,28 +1,26 @@
 package controller;
 
-import java.awt.event.ActionEvent;
 import java.util.Hashtable;
 
 import javax.swing.JLabel;
 import javax.swing.JSlider;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import model.SimulatorModel;
 
 /**
- * This class is responsible for creating a slider controller that changes the speed of the simulation.
- * It implements a changelistener that calls a method when the value of the slider gets changed.
+ * This class is responsible for creating a slider that can be used to change 
+ * the speed of the simulation. It implements a changeListener that calls on the 
+ * appropriate methods when the value of the slider gets changed.
  * 
- * @author Detmer Struiksma
- * @version 26-01-2018
+ * @author Detmer Struiksma & Rick Zwaneveld
+ * @version 27-01-2018
  */
 
 @SuppressWarnings("serial")
-public class SliderController extends AbstractController implements ChangeListener{
+public class SliderController extends AbstractController {
 
 	private JSlider changeSpeed;
-	private Hashtable<Integer, JLabel> labels;
+	private Hashtable<Integer, JLabel> speedLabels;
 
 	/**
 	 * The constructor for the class SliderController.
@@ -41,21 +39,13 @@ public class SliderController extends AbstractController implements ChangeListen
 		changeSpeed.setMajorTickSpacing(998);
 		changeSpeed.setPaintTicks(true);
 		
-		labels = new Hashtable<Integer, JLabel>();
-		labels.put(1, new JLabel("Slow"));
-		labels.put(999, new JLabel("Fast"));
+		speedLabels = new Hashtable<Integer, JLabel>();
+		speedLabels.put(1, new JLabel("Slow"));
+		speedLabels.put(999, new JLabel("Fast"));
 		
-		changeSpeed.setLabelTable(labels);
+		changeSpeed.setLabelTable(speedLabels);
 		changeSpeed.setPaintLabels(true);
 
 		add(changeSpeed);
-	}
-
-	public void stateChanged(ChangeEvent e) {
-
-	}
-	
-	public void actionPerformed(ActionEvent a) {
-			
 	}
 }

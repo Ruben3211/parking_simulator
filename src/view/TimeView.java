@@ -14,7 +14,7 @@ import model.SimulatorModel;
  * It does this by calling on two methods in the model.
  * 
  * @author Rick Zwaneveld
- * @version 24-01-2018
+ * @version 27-01-2018
  */
 
 @SuppressWarnings("serial")
@@ -23,7 +23,7 @@ public class TimeView extends AbstractView {
 	private JLabel timeWeekDay, timeMinuteHour;
 	
 	/**
-	 * The constructor for this class.
+	 * The constructor for the class TimeView.
 	 * 
 	 * @param simulator the model
 	 */
@@ -40,8 +40,8 @@ public class TimeView extends AbstractView {
 	}
 	
 	/**
-	 * Responsible for keeping the day, hour and minute up to date as the time
-	 * within the simulator changes.
+	 * This method is responsible for keeping the day, hour and minute up to 
+	 * date as the time within the simulator changes.
 	 * 
 	 * @param g the specified Graphics context
 	 */

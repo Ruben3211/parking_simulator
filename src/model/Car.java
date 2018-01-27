@@ -3,13 +3,13 @@ package model;
 import java.awt.Color;
 
 /**
- * This class is the super class that is required for the all different kinds
+ * This class is the super class that is required for all the different kinds
  * of cars that are created for the simulation. This class will provide a 
- * multitude of methods that will set up the cars correctly. As well as keep track
- * of their location and payment status.
+ * multitude of methods that will set up the cars correctly. As well as keep 
+ * track of their location and payment status.
  * 
  * @author Rick Zwaneveld
- * @version 23-01-2018
+ * @version 27-01-2018
  */
 
 public abstract class Car {
@@ -20,9 +20,10 @@ public abstract class Car {
 	private boolean hasToPay;
 
 	/**
-	 * The constructor for this class.
+	 * The constructor for the class Car.
 	 */
 	public Car() {
+		
 	}
 	
 	/**
@@ -35,7 +36,7 @@ public abstract class Car {
     }
 	
 	/**
-	 * This method will set the location of where a car is parked.
+	 * This method will set the location of where a car is going to park.
 	 * 
 	 * @param location the location of the car
 	 */
@@ -44,7 +45,8 @@ public abstract class Car {
     }
 
     /**
-     * This method will return the amount of minutes that a car will remain parked.
+     * This method will return the the amount of minutes left, that a parked
+     * car still has left in the garage.
      * 
      * @return minutesLeft the amount of minutes the car has left in the garage
      */
@@ -81,7 +83,8 @@ public abstract class Car {
     }
 
     /**
-     * This method will determine if the vehicle is obligated to pay before leaving.
+     * This method will determine if the vehicle is obligated to pay before 
+     * leaving the garage.
      * 
      * @return hasToPay true if the vehicle must pay before exiting, false if not 
      */
@@ -99,19 +102,23 @@ public abstract class Car {
     }
 
     /**
-     * This method will decrease the time a car has left in a parking spot by a minute 
-     * each time it is called.
+     * This method will decrease the time a car has left in a parking spot by a 
+     * minute each time it is called.
      */
     public void tick() {
         minutesLeft--;
     }
     
+    /**
+     * This method will return the color that is given to a car object.
+     * 
+     * @return color the car assigned to the car object
+     */
     public abstract Color getColor();
 
     /**
-     * This method will return a String consisting of the type that belongs to a car
-     * object. Each of the subclasses has a different type, along with a getType() 
-     * method.
+     * This method will return a String consisting of the type that belongs to a 
+     * car object.
      * 
      * @return String the type that is set to a specific car object
      */

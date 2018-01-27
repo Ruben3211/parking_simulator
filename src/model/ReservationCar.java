@@ -4,12 +4,12 @@ import java.awt.Color;
 import java.util.Random;
 
 /**
- * This class uses the Car super class to set up a car of the type "reservation". 
- * This class will set a random amount of minutes the car will stay parked, and whether 
- * the car is obligated to pay or not.
+ * This class extends the Car class and will be used to create "reservation"
+ * cars. Every car will stay parked a random amount of minutes. Reservation 
+ * cars do have to pay when they leave the garage.
  * 
  * @author Rick Zwaneveld
- * @version 23-01-2018
+ * @version 27-01-2018
  */
 
 public class ReservationCar extends Car {
@@ -18,7 +18,7 @@ public class ReservationCar extends Car {
 	private static final String TYPE="reservation";
 	
 	/**
-	 * The constructor for this class.
+	 * The constructor for the class ReservationCar.
 	 */
 	public ReservationCar() {
 		Random random = new Random();
@@ -27,14 +27,21 @@ public class ReservationCar extends Car {
 		this.setHasToPay(true);
 	}
 	
+    /**
+     * This method returns the color set for reservation cars, which is set to
+     * the color yellow.
+     * 
+     * @return color returns the color for reservation car objects
+     */
 	public Color getColor() {
 		return COLOR;
 	}
 
     /**
-     * This method will return the type set to the car.
+     * This method will return the type set to the car, which is set to
+     * "reservation".
      * 
-     * @return TYPE a String with a type attached to it.
+     * @return type a String with a type attached to it.
      */
 	public String getType() {
 		return TYPE;

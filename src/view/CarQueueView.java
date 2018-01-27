@@ -9,54 +9,64 @@ import model.Car;
 import model.CarQueue;
 import model.SimulatorModel;
 
-/*
- * This class makes Jlabel and assigns a text to it that keeps track of the number of cars in the queue.
- * When the update method is called it takes the queue and calls the carInQueue method that returns the size of the array. 
+/**
+ * This class is used for keeping track of all the queues. It will display the
+ * amount of cars in each queue and will show a colored rectangle to display
+ * which type of cars these are.
  * 
+ * @author Ruben Bonga & Rick Zwaneveld
+ * @version 27-01-2018
  */
 
 @SuppressWarnings("serial")
 public class CarQueueView extends AbstractView  {
 	
-	private JLabel entranceOne, entranceOneQueue;
-	private JLabel entranceTwo, entranceTwoQueue;
-	private JLabel payment, paymentQueue;
-	private JLabel exit, exitQueue;
+	private JLabel entranceOneLabel, entranceOneData;
+	private JLabel entranceTwoLabel, entranceTwoData;
+	private JLabel paymentLabel, paymentData;
+	private JLabel exitLabel, exitData;
 
+	/**
+	 * The constructor for the class CarQueueView.
+	 * 
+	 * @param simulator the model
+	 */
 	public CarQueueView(SimulatorModel simulator) {
 		super(simulator);
 		
 		setSize(200, 200);
 		setLayout(new GridLayout(4, 2));
 		
-		entranceOne = new JLabel("Entrance one: ");
-		entranceOneQueue = new JLabel("0");
+		entranceOneLabel = new JLabel("Entrance one:");
+		entranceOneData = new JLabel("0");
 		
-		entranceTwo = new JLabel("Entrance two: ");
-		entranceTwoQueue = new JLabel("0");
+		entranceTwoLabel = new JLabel("Entrance two:");
+		entranceTwoData = new JLabel("0");
 		
-		payment = new JLabel("Payment: ");
-		paymentQueue = new JLabel("0");
+		paymentLabel = new JLabel("Payment:");
+		paymentData = new JLabel("0");
 		
-		exit = new JLabel("Exit");
-		exitQueue = new JLabel("0");
+		exitLabel = new JLabel("Exit:");
+		exitData = new JLabel("0");
 		
-		add(entranceOne);
-		add(entranceOneQueue);
+		add(entranceOneLabel);
+		add(entranceOneData);
 		
-		add(entranceTwo);
-		add(entranceTwoQueue);
+		add(entranceTwoLabel);
+		add(entranceTwoData);
 		
-		add(payment);
-		add(paymentQueue);
+		add(paymentLabel);
+		add(paymentData);
 		
-		add(exit);
-		add(exitQueue);
+		add(exitLabel);
+		add(exitData);
 	}
 	
-	/*
-	 * Updates the queue in the view when this method is called. 
-	 * This update is static so it can be called by SimulatorModel.
+	/**
+	 * This method retrieves the information needed for the queues and keeps 
+	 * this data up-to-date. 
+	 * 
+	 * @param g the specified Graphics context
 	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -66,10 +76,10 @@ public class CarQueueView extends AbstractView  {
 		setQueueColor(g, getModel().getPaymentCarQueue());
 		setQueueColor(g, getModel().getExitCarQueue());
 		*/
-		entranceOneQueue.setText(String.valueOf(getModel().getRegCarQueue().carsInQueue()));
-		entranceTwoQueue.setText(String.valueOf(getModel().getSubResCarQueue().carsInQueue()));
-		paymentQueue.setText(String.valueOf(getModel().getPaymentCarQueue().carsInQueue()));
-		exitQueue.setText(String.valueOf(getModel().getExitCarQueue().carsInQueue()));
+		entranceOneData.setText(String.valueOf(getModel().getRegCarQueue().carsInQueue()));
+		entranceTwoData.setText(String.valueOf(getModel().getSubResCarQueue().carsInQueue()));
+		paymentData.setText(String.valueOf(getModel().getPaymentCarQueue().carsInQueue()));
+		exitData.setText(String.valueOf(getModel().getExitCarQueue().carsInQueue()));
 	}
 	/**
 	private void setQueueColor(Graphics g, CarQueue queueData) {

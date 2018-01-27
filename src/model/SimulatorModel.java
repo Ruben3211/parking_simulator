@@ -18,61 +18,48 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private List<Reservation> reservationList;
 
-	private CarQueue entranceRegQueue;
-    private CarQueue entranceSubResQueue;
-    private CarQueue paymentCarQueue;
-    private CarQueue exitCarQueue;
+	private CarQueue entranceOneQueue;
+    private CarQueue entranceTwoQueue;
+    private CarQueue paymentQueue;
+    private CarQueue exitQueue;
 
-    private int entranceRegQueueMax = 20;
-    private int entranceSubResQueueMax = 20;
+    private int	maxEntranceQueue;
 
-    // used for time, needed for certain views.
     private String[] weekDay = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-    private int day = 0;
-    private int hour = 0;
-    private int minute = 0;
+    private int day;
+    private int hour;
+    private int minute;
 
-    private int stepPause = 100;
+    private int stepPause;
 
     // Average number of cars arriving per hour.
-    private int weekDayRegArrivals = 100;
-    private int weekendRegArrivals = 200;
-    private int eventRegArrivals = 300; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
-    private int weekDaySubArrivals = 50;
-    private int weekendSubArrivals = 5;
-    private int eventSubArrivals = 300; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
-    private int weekDayResArrivals = 50;
-    private int weekendResArrivals = 5;
-    private int eventResArrivals = 300; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int weekDayRegularArrivals;
+    private int weekendRegularArrivals;
+    private int eventRegularArrivals; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int weekDaySubscriptionArrivals;
+    private int weekendSubscriptionArrivals;
+    private int eventSubscriptionArrivals; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int weekDayReservationArrivals;
+    private int weekendReservationArrivals;
+    private int eventReservationArrivals; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
 
     // Number of cars that can enter/leave per minute.
-    private int enterSpeed = 3; // TODO: enterspeed says 3, but somethimes 4 enter.
-    private int paymentSpeed = 7;
-    private int exitSpeed = 5;
-
-    // Keeps track of the income per hour/day/week.
-    private List<Integer> incomeHourList;
-    private List<Integer> incomeDayList;
-    private List<Integer> incomeWeekList;
-    private int incomeLastHour;
-    private int incomeLastDay;
-    private int incomeLastWeek;
+    private int entranceSpeed;
+    private int paymentSpeed;
+    private int exitSpeed;
     
 	// The prices the various cars have to pay.
-    private int regPaymentAmount = 15;
-    private int subPaymentAmount = 30;
-    private int resPaymentAmount = 20;
+    private int regularFee;
+    private int subscriptionFee;
+    private int reservationFee;
 
     private int totalRegPaymentAmount;
     private int totalSubPaymentAmount;
     private int totalResPaymentAmount;
 	private int totalPaymentAmount;
 
-    // Max number of subscription cars allowed at once.
-    private int maxSubAllowed = 60;
-
-    // Max number of reservations allowed at once.
-    private int maxResAllowed = 60; // TODO: doenst work, fix it.
+	private int maxSubAllowed = 60;
+    private int maxResAllowed = 60;
 
     // The number of cars per type that left, because the queues were too long.
     private int numMissedReg;
@@ -86,8 +73,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int numParkedResCars;
     private int numParkedSubCars;
 
-    // TODO: These are not used internally and can be derived from other variables. Maybe instead of keeping
-    //       track of them we add a method to compute them whenever someone wants to know?
     private int moneyMissedReg;
     private int moneyMissedRes;
     private int moneyMissedTotal;
@@ -132,28 +117,38 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         	}
         }
 
-        entranceRegQueue = new CarQueue();
-        entranceSubResQueue = new CarQueue();
-        paymentCarQueue = new CarQueue();
-        exitCarQueue = new CarQueue();
+        
+        stepPause = 100;
+        maxEntranceQueue = 20;
+        
+        minute = 0;
+        hour = 0;
+        day = 0;
+        
+        entranceOneQueue = new CarQueue();
+        entranceTwoQueue = new CarQueue();
+        paymentQueue = new CarQueue();
+        exitQueue = new CarQueue();
+        
+        weekDayRegularArrivals = 100;
+        weekendRegularArrivals = 200;
+        eventRegularArrivals = 300;
+        weekDaySubscriptionArrivals = 50;
+        weekendSubscriptionArrivals = 5;
+        eventSubscriptionArrivals = 300;
+        weekDayReservationArrivals = 50;
+        weekendReservationArrivals = 5;
+        eventReservationArrivals = 300;
+        
+        entranceSpeed = 3;
+        paymentSpeed = 7;
+        exitSpeed = 5;
+        
+        regularFee = 15;
+        subscriptionFee = 30;
+        reservationFee = 20;
         
         run = false;
-    }
-     
-    public int getNumberOfFloors() {
-        return numberOfFloors;
-    }
-	
-    public int getNumberOfRows() {
-        return numberOfRows;
-    }
-    
-    public int getNumberOfPlaces() {
-        return numberOfPlaces;
-    }
-    
-    public int getNumberOfOpenSpots() {
-    	return numberOfOpenSpots;
     }
     
 	public ParkingSpace getParkingSpaceAt(Location location) {
@@ -280,8 +275,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return true;
     }
     
-    
-    
     public void start(int numberOfSteps) {
     	this.numberOfSteps = numberOfSteps;
     	run = true;
@@ -305,19 +298,14 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     
     private void secondAction() {
     	carsLeaving();
-    	carsEntering(entranceRegQueue);
-    	carsEntering(entranceSubResQueue);
+    	carsEntering(entranceOneQueue);
+    	carsEntering(entranceTwoQueue);
     	makeReservations();
     }
     
     /**
     private void handleEntrances() {
     	moneyMissedTotal = moneyMissedReg + moneyMissedRes;
-    	updateMoneyInGarageCounts();
-    }
-    
-    private void handleExit() {
-    	updateMoneyInGarageCounts();
     }
     */
     
@@ -352,8 +340,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private void updateMoneyInGarageCounts()
     {
-        moneyParkedReg = numParkedRegCars * regPaymentAmount;
-        moneyParkedRes = numParkedResCars * resPaymentAmount;
+        moneyParkedReg = numParkedRegCars * regularFee;
+        moneyParkedRes = numParkedResCars * reservationFee;
         moneyParkedTotal = moneyParkedReg + moneyParkedRes;
     }
 
@@ -370,19 +358,19 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	int numberOfCars, numberOfMissedCars;
 
     	/* regular cars */
-    	numberOfCars = getNumberOfCarsArriving(weekDayRegArrivals, weekendRegArrivals, eventRegArrivals);
-    	numberOfMissedCars = getMissedCars(entranceRegQueue, numberOfCars, entranceRegQueueMax);
+    	numberOfCars = getNumberOfCarsArriving(weekDayRegularArrivals, weekendRegularArrivals, eventRegularArrivals);
+    	numberOfMissedCars = getMissedCars(entranceOneQueue, numberOfCars, maxEntranceQueue);
     	for (int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
-        	entranceRegQueue.addCar(new RegularCar());
+        	entranceOneQueue.addCar(new RegularCar());
         }
     	numMissedReg += numberOfMissedCars;
-        moneyMissedReg = numMissedReg * regPaymentAmount;
+        moneyMissedReg = numMissedReg * regularFee;
 
     	/* subscription cars */
-        numberOfCars = getNumberOfCarsArriving(weekDaySubArrivals, weekendSubArrivals, eventSubArrivals);
-    	numberOfMissedCars = getMissedCars(entranceSubResQueue, numberOfCars, entranceSubResQueueMax);
+        numberOfCars = getNumberOfCarsArriving(weekDaySubscriptionArrivals, weekendSubscriptionArrivals, eventSubscriptionArrivals);
+    	numberOfMissedCars = getMissedCars(entranceTwoQueue, numberOfCars, maxEntranceQueue);
         for (int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
-    		entranceSubResQueue.addCar(new SubscriptionCar());
+    		entranceTwoQueue.addCar(new SubscriptionCar());
         }
     	numMissedSub += numberOfMissedCars;
     }
@@ -400,7 +388,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private void makeReservations()
     {
-    	int numberOfReservations = getNumberOfCarsArriving(weekDayResArrivals, weekendResArrivals, eventResArrivals);
+    	int numberOfReservations = getNumberOfCarsArriving(weekDayReservationArrivals, weekendReservationArrivals, eventReservationArrivals);
     	int numberOfMissedReservations = 0;
     	int numberOfFreeSpaces = countFreeParkingSpaces("regular");
     	int numberOfAdditionalReservationsAllowed = maxResAllowed - reservationList.size();
@@ -415,7 +403,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	}
 
     	numMissedRes += numberOfMissedReservations;
-    	moneyMissedRes = numMissedRes * resPaymentAmount;
+    	moneyMissedRes = numMissedRes * reservationFee;
 
     	int curMinute = 24*60*day + 60*hour + minute;
 
@@ -446,7 +434,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 	    	if(reservation.getArrivalTime() <= curMinute)
 	    	{
 	    		ReservationCar car = new ReservationCar();
-	    		entranceSubResQueue.addCar(car);
+	    		entranceTwoQueue.addCar(car);
 	    		car.setLocation(reservation.getLocation());
 				iterator.remove();
 	    	}
@@ -462,7 +450,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private void carsEntering(CarQueue queue)
     {
         int i = 0;
-    	while (queue.carsInQueue() > 0 && i < enterSpeed)
+    	while (queue.carsInQueue() > 0 && i < entranceSpeed)
     	{
     		Car car = queue.peekCar();
 
@@ -497,7 +485,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         while (car != null) {
         	if (car.getHasToPay()){
 	            car.setIsPaying(true);
-	            paymentCarQueue.addCar(car);
+	            paymentQueue.addCar(car);
         	}
         	else {
         		carLeavesSpot(car);
@@ -508,15 +496,15 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     
     private void carsPaying() {
     	int i = 0;
-    	while (paymentCarQueue.carsInQueue() > 0 && i < paymentSpeed){
-            Car car = paymentCarQueue.removeCar();
+    	while (paymentQueue.carsInQueue() > 0 && i < paymentSpeed){
+            Car car = paymentQueue.removeCar();
             String carType = car.getType();
             if(car.getHasToPay())
             {
             	if(carType == "regular") {
-            	    this.totalRegPaymentAmount += this.regPaymentAmount;
+            	    this.totalRegPaymentAmount += this.regularFee;
             	} else if(carType == "reservation") { 
-            	    this.totalResPaymentAmount += this.resPaymentAmount;
+            	    this.totalResPaymentAmount += this.reservationFee;
             	}
             }
             carLeavesSpot(car);
@@ -526,8 +514,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private void carsLeaving() {
     	int i = 0;
-    	while (exitCarQueue.carsInQueue() > 0 && i < exitSpeed){
-            exitCarQueue.removeCar();
+    	while (exitQueue.carsInQueue() > 0 && i < exitSpeed){
+            exitQueue.removeCar();
             i++;
     	}	
     }
@@ -554,7 +542,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     
     private void setSubIncome() {
     	if(day == 6 && hour == 23 && minute == 59) {
-    		totalSubPaymentAmount = maxSubAllowed * subPaymentAmount;
+    		totalSubPaymentAmount = maxSubAllowed * subscriptionFee;
     	}
     }
 
@@ -563,7 +551,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	Location location = car.getLocation();
 
     	removeCarAt(location);
-        exitCarQueue.addCar(car);
+        exitQueue.addCar(car);
 
         String carType = car.getType();
         if(carType == "regular") {
@@ -578,19 +566,19 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     } 
 
     public CarQueue getRegCarQueue () {
-	   return entranceRegQueue;
+	   return entranceOneQueue;
    	}
    
    	public CarQueue getSubResCarQueue () {
-	   return entranceSubResQueue;
+	   return entranceTwoQueue;
    	}
    
    	public CarQueue getExitCarQueue () {
-	   return exitCarQueue;
+	   return exitQueue;
    	}
    
    	public CarQueue getPaymentCarQueue () {
-	   	return paymentCarQueue;
+	   	return paymentQueue;
   	}
     
     /**
@@ -623,6 +611,22 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return (stringHour + ":" + stringMinute);
     }
     
+   public int getNumberOfFloors() {
+       return numberOfFloors;
+   }
+	
+   public int getNumberOfRows() {
+       return numberOfRows;
+   }
+   
+   public int getNumberOfPlaces() {
+       return numberOfPlaces;
+   }
+   
+   public int getNumberOfOpenSpots() {
+   	return numberOfOpenSpots;
+   }
+    
     public int getTotalParkedIncome() {
     	return moneyParkedTotal;
     }
@@ -649,18 +653,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 	public int getTotalIncome() {
 		return totalRegPaymentAmount;
 	}
-    
-    public int getIncomeLastHour() {
-    	return incomeLastHour;
-    }
-    
-    public int getIncomeLastDay() {
-    	return incomeLastDay;
-    }
-    
-    public int getIncomeLastWeek() {
-    	return incomeLastWeek;
-    }
     
     public int getTotalRegCars() {
     	return numParkedRegCars;
@@ -697,5 +689,4 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     public void setStepPause(int stepPause) {
     	this.stepPause = stepPause;
     }
-
 }

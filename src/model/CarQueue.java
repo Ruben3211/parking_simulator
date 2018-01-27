@@ -4,12 +4,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 
 /**
- * This class is responsible for the ability to create queues, that can hold car
- * objects. It provides a method to add, retrieve, remove cars from the queue, as
- * well as retrieving the total queue size.
+ * This class is responsible for the ability to create queues, these queues can 
+ * hold car objects. It provides a method to add, retrieve and remove cars from 
+ * the queue, as well as retrieving the total queue size.
  * 
  * @author Rick Zwaneveld
- * @version 23-01-2018
+ * @version 27 -01-2018
  */
 
 public class CarQueue {
@@ -19,7 +19,7 @@ public class CarQueue {
     /**
      * This method adds a car to the queue.
      * 
-     * @param car a car
+     * @param car a car object
      * @return true if a car is added successfully
      */
     public boolean addCar(Car car) {
@@ -31,13 +31,6 @@ public class CarQueue {
      * 
      * @return the first car if there is one, false if the queue is empty.
      */
-    public Car peekCar(int i) {
-    	if(((LinkedList<Car>) queue).get(i) != null) {
-        return ((LinkedList<Car>) queue).get(i);
-    	} 
-    	return null;
-    }
-    
     public Car peekCar() {
     	return queue.peek();
     }
