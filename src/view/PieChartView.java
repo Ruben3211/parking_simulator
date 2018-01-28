@@ -76,12 +76,12 @@ public class PieChartView extends AbstractView {
 		int reservation = getModel().getTotalParkedReservation();
 		int empty = getModel().getNumberOfOpenSpots();
 		
-		double percentage = 360.0 / 540;
+		double radius = 360.0 / 540;
 		
-		regular = (int) (regular * percentage);
-		subscription = (int) (subscription * percentage);
-		reservation = (int) (reservation * percentage);
-		empty = (int) (empty * percentage);
+		regular = (int) (regular * radius);
+		subscription = (int) (subscription * radius);
+		reservation = (int) (reservation * radius);
+		empty = (int) (empty * radius);
 		
 		Color background = new Color(214, 217, 223);
 		

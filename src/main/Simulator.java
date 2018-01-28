@@ -29,6 +29,7 @@ public class Simulator {
 	private AbstractView carParkView;
 	private AbstractView carQueueView;
 	private AbstractView financialView;
+	//private AbstractView lineGraphView;
 	private AbstractView pieChartView;
 	private AbstractView timeView;
 	
@@ -50,6 +51,7 @@ public class Simulator {
 		carParkView = new CarParkView(simulatorLogic);
 		carQueueView = new CarQueueView(simulatorLogic);
 		financialView = new FinancialView(simulatorLogic);
+		//lineGraphView = new LineGraphView(simulatorLogic);
 		pieChartView = new PieChartView(simulatorLogic);
 		timeView = new TimeView(simulatorLogic);
 		
