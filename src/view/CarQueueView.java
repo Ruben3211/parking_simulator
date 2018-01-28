@@ -43,44 +43,44 @@ public class CarQueueView extends AbstractView  {
 		setLayout(new GridLayout(11, 3));
 		
 		queueLabel = new JLabel("<html><b>Queues</b></html>");
-		blankOne = new JLabel("");
-		blankTwo = new JLabel("");
+		blankOne = new JLabel();
+		blankTwo = new JLabel();
 		
 		entranceOneLabel = new JLabel("Entrance one:");
-		entranceOneData = new JLabel("€ 0");
-		blankThree = new JLabel("");
+		entranceOneData = new JLabel();
+		blankThree = new JLabel();
 		
 		entranceTwoLabel = new JLabel("Entrance two:");
-		entranceTwoData = new JLabel("0");
-		blankFour = new JLabel("");
+		entranceTwoData = new JLabel();
+		blankFour = new JLabel();
 		
 		paymentLabel = new JLabel("Payment:");
-		paymentData = new JLabel("0");
-		blankFive = new JLabel("");
+		paymentData = new JLabel();
+		blankFive = new JLabel();
 		
 		exitLabel = new JLabel("Exit:");
-		exitData = new JLabel("0");
-		blankSix = new JLabel("");
+		exitData = new JLabel();
+		blankSix = new JLabel();
 		
-		blankSeven = new JLabel("");
-		blankEight = new JLabel("");
-		blankNine = new JLabel("");
+		blankSeven = new JLabel();
+		blankEight = new JLabel();
+		blankNine = new JLabel();
 		
 		missedCarLabel = new JLabel("<html><b>Missed Cars</b></html>");
-		blankTen = new JLabel("");
-		blankEleven = new JLabel("");
+		blankTen = new JLabel();
+		blankEleven = new JLabel();
 			
 		regularMissedLabel = new JLabel("Regular:");
-		regularMissedData = new JLabel("0");
-		regularMissedMoneyData = new JLabel("0");
+		regularMissedData = new JLabel();
+		regularMissedMoneyData = new JLabel();
 		
 		reservationMissedLabel = new JLabel("Reservation:");
-		reservationMissedData = new JLabel("0");
-		reservationMissedMoneyData = new JLabel("0");
+		reservationMissedData = new JLabel();
+		reservationMissedMoneyData = new JLabel();
 		
 		totalMissedLabel = new JLabel("Total:");
-		totalMissedData = new JLabel("0");
-		totalMissedMoneyData = new JLabel("0");
+		totalMissedData = new JLabel();
+		totalMissedMoneyData = new JLabel();
 		
 		add(queueLabel);
 		add(blankOne);
@@ -139,8 +139,8 @@ public class CarQueueView extends AbstractView  {
 		regularMissedData.setText(String.valueOf(getModel().getTotalRegularMissed()));
 		reservationMissedData.setText(String.valueOf(getModel().getTotalReservationMissed()));
 		totalMissedData.setText(String.valueOf(getModel().getTotalMissed()));
-		regularMissedMoneyData.setText(String.valueOf(getModel().getMissedRegularIncome()));
-		reservationMissedMoneyData.setText(String.valueOf(getModel().getMissedReservationIncome()));
-		totalMissedMoneyData.setText(String.valueOf(getModel().getMissedTotalIncome()));
+		regularMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedRegularIncome()));
+		reservationMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedReservationIncome()));
+		totalMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedTotalIncome()));
 	}
 }

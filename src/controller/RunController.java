@@ -64,7 +64,7 @@ public class RunController extends AbstractController implements ActionListener 
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == start) {
-			simulator.start(0);
+			simulator.start(40320);
 		}
 		
 		if (e.getSource() == steps) {

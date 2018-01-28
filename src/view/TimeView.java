@@ -33,8 +33,8 @@ public class TimeView extends AbstractView {
 		
 		setLayout(new GridLayout(1, 2));
 		
-		timeWeekDay = new JLabel("Monday");
-		timeMinuteHour = new JLabel("00:00");
+		timeWeekDay = new JLabel();
+		timeMinuteHour = new JLabel();
 		
 		timeWeekDay.setFont(new Font("SansSerif", Font.PLAIN, 16));
 		timeMinuteHour.setFont(new Font("SansSerif", Font.PLAIN, 16));

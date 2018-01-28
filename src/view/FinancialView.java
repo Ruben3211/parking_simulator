@@ -43,34 +43,34 @@ public class FinancialView extends AbstractView{
 		setLayout(new GridLayout(10, 2));
 		
 		incomeLabel = new JLabel("<html><b>Income</b></html>");
-		blankOne = new JLabel("");
+		blankOne = new JLabel();
 		
 		regularLabel = new JLabel("Regular:");
-		regularData = new JLabel("0");
+		regularData = new JLabel();
 		
 		subscriptionLabel = new JLabel("Subscription:");
-		subscriptionData = new JLabel("0");
+		subscriptionData = new JLabel();
 		
 		reservationLabel = new JLabel("Reservation:");
-		reservationData = new JLabel("0");
+		reservationData = new JLabel();
 		
 		totalLabel = new JLabel("Total:");
-		totalData = new JLabel("0");
+		totalData = new JLabel();
 		
-		blankTwo = new JLabel("");
-		blankThree = new JLabel("");
+		blankTwo = new JLabel();
+		blankThree = new JLabel();
 		
 		parkedIncomeLabel = new JLabel("<html><b>Parked Income</b></html>");
-		blankFour = new JLabel("");
+		blankFour = new JLabel();
 		
 		parkedRegularLabel = new JLabel("Regular:");
-		parkedRegularData = new JLabel("0");
+		parkedRegularData = new JLabel();
 		
 		parkedReservationLabel = new JLabel("Reservation:");
-		parkedReservationData = new JLabel("0");
+		parkedReservationData = new JLabel();
 		
 		parkedTotalLabel = new JLabel("Total:");
-		parkedTotalData = new JLabel("0");
+		parkedTotalData = new JLabel();
 
 		add(incomeLabel);
 		add(blankOne);
@@ -113,12 +113,12 @@ public class FinancialView extends AbstractView{
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		regularData.setText(String.valueOf(getModel().getTotalRegularIncome()));
-		subscriptionData.setText(String.valueOf(getModel().getTotalSubscriptionIncome()));
-		reservationData.setText(String.valueOf(getModel().getTotalReservationIncome()));
-		totalData.setText(String.valueOf(getModel().getTotalIncome()));
-		parkedRegularData.setText(String.valueOf(getModel().getParkedRegularIncome()));
-		parkedReservationData.setText(String.valueOf(getModel().getParkedReservationIncome()));
-		parkedTotalData.setText(String.valueOf(getModel().getParkedTotalIncome()));
+		regularData.setText("€" + String.valueOf(getModel().getTotalRegularIncome()));
+		subscriptionData.setText("€" + String.valueOf(getModel().getTotalSubscriptionIncome()));
+		reservationData.setText("€" + String.valueOf(getModel().getTotalReservationIncome()));
+		totalData.setText("€" + String.valueOf(getModel().getTotalIncome()));
+		parkedRegularData.setText("€" + String.valueOf(getModel().getParkedRegularIncome()));
+		parkedReservationData.setText("€" + String.valueOf(getModel().getParkedReservationIncome()));
+		parkedTotalData.setText("€" + String.valueOf(getModel().getParkedTotalIncome()));
 	}
 }
