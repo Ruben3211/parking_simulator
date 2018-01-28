@@ -52,6 +52,9 @@ public class PieChartView extends AbstractView {
 		g.setColor(background);
 		g.fillRect(0, 0, 500, 500);
 		
+		g.setColor(Color.WHITE);
+		g.fillArc(100, 100, 300, 300, 0, 360);
+		
 		int sum = 0;
 	    g.setColor(Color.RED);
 	    g.fillArc(100, 100, 300, 300, sum, regular);
