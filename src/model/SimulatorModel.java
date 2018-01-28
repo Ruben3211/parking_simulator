@@ -6,6 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 
+ * 
+ * @author Ruben Bonga, Joey Kroes, Detmer Struiksma & Rick Zwaneveld
+ * @version 28-01-2018
+ */
+
 public class SimulatorModel extends AbstractModel implements Runnable {
 
     private Random random;
@@ -545,14 +552,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         double standardDeviation = averageNumberOfCarsPerHour * 0.3;
         double numberOfCarsPerHour = averageNumberOfCarsPerHour + random.nextGaussian() * standardDeviation;
         return (int)Math.round(numberOfCarsPerHour / 60);	
-    }   
-    
-    private void setSubIncome() {
-    	if(day == 6 && hour == 23 && minute == 59) {
-    		totalSubscriptionIncome = maxSubscriptions * subscriptionFee;
-    	}
     }
-
+    
     private void carLeavesSpot(Car car)
     {
     	Location location = car.getLocation();
@@ -578,25 +579,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     // setter first and then the getter. Comment them appropriately.
     //----------------------------------------------------------------------------------------------------------------
     
-    public CarQueue getEntranceOneQueue () {
-	   return entranceOneQueue;
-   	}
-   
-   	public CarQueue getEntranceTwoQueue () {
-	   return entranceTwoQueue;
-   	}
-   
-   	public CarQueue getExitQueue () {
-	   return exitQueue;
-   	}
-   
-   	public CarQueue getPaymentQueue () {
-	   	return paymentQueue;
-  	}
-    
     /**
-     * This method returns a string with the current weekday. Which day it is, is
-     * calculated by using the day in numbers and a modulo, this number will
+     * This method returns a string with the current weekday. Which day it is, 
+     * is calculated by using the day in numbers and a modulo, this number will
      * correspond with the position of the day within the string array.
      * 
      * @return String a string with the current weekday
@@ -606,9 +591,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     }
     
     /**
-     * This method will create a string for the minutes and hours. If the minutes and
-     * hours are under 10, a 0 will be appended to the number. This will make sure
-     * that the time is displayed in a 24 hour (00:00) format.
+     * This method will create a string for the minutes and hours. If the minutes 
+     * and hours are under 10, a 0 will be appended to the number. This will make 
+     * sure that the time is displayed in a 24 hour (00:00) format.
      * 
      * @return String a string with the hours and minutes in a 24 hour format
      */
@@ -624,6 +609,121 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return (stringHour + ":" + stringMinute);
     }
     
+    /**
+     * This method will retrieve data from the entranceOneQueue. With the methods
+     * defined in the CarQueue class, this will allow access to the objects
+     * within this particular queue.
+     * 
+     * @return entranceOneQueue a LinkedList with objects within
+     */
+    public CarQueue getEntranceOneQueue () {
+	   return entranceOneQueue;
+   	}
+    
+    /**
+     * This method will retrieve data from the entranceTwoQueue. With the methods
+     * defined in the CarQueue class, this will allow access to the objects
+     * within this particular queue.
+     * 
+     * @return entranceTwoQueue a LinkedList with objects within
+     */
+   	public CarQueue getEntranceTwoQueue () {
+	   return entranceTwoQueue;
+   	}
+   	
+    /**
+     * This method will retrieve data from the paymentQueue. With the methods
+     * defined in the CarQueue class, this will allow access to the objects
+     * within this particular queue.
+     * 
+     * @return paymentQueue a LinkedList with objects within
+     */
+   	public CarQueue getPaymentQueue () {
+	   	return paymentQueue;
+  	}
+   	
+    /**
+     * This method will retrieve data from the exitQueue. With the methods
+     * defined in the CarQueue class, this will allow access to the objects
+     * within this particular queue.
+     * 
+     * @return exitQueue a LinkedList with objects within
+     */
+   	public CarQueue getExitQueue () {
+	   return exitQueue;
+   	}
+   	
+   	/**
+   	 * This method will return the total amount of income earned from the
+   	 * regular car objects.
+   	 * 
+   	 * @return totalRegularIncome a number with the total regular income
+   	 */
+   	public int getTotalRegularIncome() {
+		return totalRegularIncome;
+	}
+	
+    /**
+     * This method will set the total income from subscription cars. These cars
+     * pay a weekly fee. This fee is multiplied with the total amount of total 
+     * subscriptions allowed. These fees are paid on Sunday at 23:59 each week.
+     */
+    private void setSubIncome() {
+    	if(day == 6 && hour == 23 && minute == 59) {
+    		totalSubscriptionIncome = maxSubscriptions * subscriptionFee;
+    	}
+    }
+   	
+   	/**
+   	 * This method will return the total amount of income earned from the
+   	 * subscription car objects.
+   	 * 
+   	 * @return totalSubscriptionIncome a number with the total subscription income
+   	 */
+	public int getTotalSubscriptionIncome() {
+		return totalSubscriptionIncome;
+	}
+	
+   	/**
+   	 * This method will return the total amount of income earned from the
+   	 * reservation car objects.
+   	 * 
+   	 * @return totalReservationIncome a number with the total reservation income
+   	 */
+	public int getTotalReservationIncome() {
+		return totalReservationIncome;
+	}
+	
+	/**
+	 * This method will set the total income from all the cars that left the
+	 * garage and paid the fee required.
+	 */
+	private void setTotalIncome() {
+		totalIncome = totalRegularIncome + totalSubscriptionIncome + totalReservationIncome;
+	}
+	
+   	/**
+   	 * This method will return the total amount of income earned from the
+   	 * regular car objects.
+   	 * 
+   	 * @return totalIncome a number with the total income from all cars
+   	 */
+	public int getTotalIncome() {
+		return totalIncome;
+	}
+    
+   	public int getParkedRegularIncome() {
+   		return parkedRegularIncome;
+   	}
+   	
+   	public int getParkedReservationIncome() {
+   		return parkedReservationIncome;
+   	}
+    
+    public int getParkedTotalIncome() {
+    	return parkedTotalIncome;
+    }
+
     public int getNumberOfFloors() {
     	return numberOfFloors;
    	}
@@ -639,41 +739,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    	public int getNumberOfOpenSpots() {
 	   	return numberOfOpenSpots;
    	}
-   
-   	public int getParkedRegularIncome() {
-   		return parkedRegularIncome;
-   	}
-   	
-   	public int getParkedReservationIncome() {
-   		return parkedReservationIncome;
-   	}
-    
-    public int getParkedTotalIncome() {
-    	return parkedTotalIncome;
-    }
-	
-	public int getTotalRegularIncome() {
-		return totalRegularIncome;
-	}
-	
-	public int getTotalSubscriptionIncome() {
-		return totalSubscriptionIncome;
-	}
-	
-	public int getTotalReservationIncome() {
-		return totalReservationIncome;
-	}
-	
-	public void setTotalIncome() {
-		totalIncome =
-	    totalRegularIncome +
-	    totalSubscriptionIncome +
-	    totalReservationIncome;
-	}
-	
-	public int getTotalIncome() {
-		return totalIncome;
-	}
     
     public int getTotalParkedRegular() {
     	return totalParkedRegular;
