@@ -29,7 +29,7 @@ public class Simulator {
 	private AbstractView carParkView;
 	private AbstractView carQueueView;
 	private AbstractView financialView;
-	//private AbstractView pieChartView;
+	private AbstractView pieChartView;
 	private AbstractView timeView;
 	
 	//private AbstractController dataController;
@@ -50,7 +50,7 @@ public class Simulator {
 		carParkView = new CarParkView(simulatorLogic);
 		carQueueView = new CarQueueView(simulatorLogic);
 		financialView = new FinancialView(simulatorLogic);
-		//pieChartView = new PieChartView(simulatorLogic);
+		pieChartView = new PieChartView(simulatorLogic);
 		timeView = new TimeView(simulatorLogic);
 		
 		//dataController = new DataController(simulatorLogic);
@@ -81,7 +81,7 @@ public class Simulator {
 		screen.getContentPane().add(runController);
 		screen.getContentPane().add(sliderController);
 				
-		graphTabbedPane.addTab("Pie Chart", pieChartIcon, null, null);
+		graphTabbedPane.addTab("Pie Chart", pieChartIcon, pieChartView, null);
 		graphTabbedPane.addTab("Bar Chart", barChartIcon, null, null);
 		graphTabbedPane.addTab("Line Graph", lineChartIcon, null, null);
 		
@@ -90,7 +90,6 @@ public class Simulator {
 		carParkView.setBounds(6, 6, 800, 400);
 		carQueueView.setBounds(1200, 610, 275, 176);
 		financialView.setBounds(1000, 610, 190, 160);
-		//pieChartView.setBounds(1000, 300, 200, 200);
 		timeView.setBounds(1000, 575, 200, 25);
 		//dataController.setBounds(-250, 600, 800, 900);
 		runController.setBounds(80, 425, 300, 25);

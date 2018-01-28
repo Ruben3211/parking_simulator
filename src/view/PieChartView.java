@@ -50,22 +50,22 @@ public class PieChartView extends AbstractView {
 		Color background = new Color(214, 217, 223);
 		
 		g.setColor(background);
-		g.fillRect(0, 0, 200, 200);
+		g.fillRect(0, 0, 500, 500);
 		
 		int sum = 0;
 	    g.setColor(Color.RED);
-	    g.fillArc(0, 0, 200, 200, sum, regular);
+	    g.fillArc(100, 100, 300, 300, sum, regular);
 	    
 	    sum += regular;
 	    g.setColor(Color.BLUE);
-	    g.fillArc(0, 0, 200, 200, sum, subscription);
+	    g.fillArc(100, 100, 300, 300, sum, subscription);
 	    
 	    sum += subscription;
 	    g.setColor(Color.YELLOW);
-	    g.fillArc(0, 0, 200, 200, sum, reservation);
+	    g.fillArc(100, 100, 300, 300, sum, reservation);
 	    
 	    sum += reservation;
 	    g.setColor(Color.WHITE);
-	    g.fillArc(0, 0, 200, 200, sum, empty);
+	    g.fillArc(100, 100, 300, 300, sum, empty);
 	}
 }
