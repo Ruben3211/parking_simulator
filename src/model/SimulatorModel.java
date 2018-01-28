@@ -63,7 +63,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     // The number of cars per type that left, because the queues were too long.
     private int totalRegularMissed;
-    private int totalSubscriptionMissed;
     private int totalReservationMissed;
     private int totalCarsMissed;
 
@@ -381,7 +380,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         for (int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
     		entranceTwoQueue.addCar(new SubscriptionCar());
         }
-    	totalSubscriptionMissed += numberOfMissedCars;
     }
 
     private int computeReservationArrivalTime() {
@@ -720,16 +718,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     public void setTotalCarsMissed() {
     	totalCarsMissed =
     	totalRegularMissed +
-    	totalSubscriptionMissed +
     	totalReservationMissed;
     }
     
     public int getTotalRegularMissed() {
     	return totalRegularMissed;
-    }
-    
-    public int getTotalSubscriptionMissed() {
-    	return totalSubscriptionMissed;
     }
     
     public int getTotalReservationMissed() {
