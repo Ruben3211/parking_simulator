@@ -20,6 +20,7 @@ import model.SimulatorModel;
 @SuppressWarnings("serial")
 public class PieChartView extends AbstractView {
 	
+	private JLabel titleLabel;
 	private JLabel regularLabel;
 	private JLabel subscriptionLabel;
 	private JLabel reservationLabel;
@@ -35,6 +36,9 @@ public class PieChartView extends AbstractView {
 		
 		setLayout(null);
 		
+		titleLabel = new JLabel("<html><b><h2><i>Occupancy Rate</i></h></b></html>");
+		titleLabel.setBounds(103, 50, 144, 50);
+		
 		regularLabel = new JLabel("Regular Car");
 		regularLabel.setBounds(385, 213, 100, 15);
 		
@@ -46,6 +50,8 @@ public class PieChartView extends AbstractView {
 		
 		emptySpots = new JLabel("Empty Spots");
 		emptySpots.setBounds(385, 273, 100, 15);
+		
+		add(titleLabel);
 		
 		add(regularLabel);
 		
