@@ -712,14 +712,32 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 		return totalIncome;
 	}
     
+	/**
+	 * This method will retrieve the total amount of money that is currently
+	 * parked within the garage for all parked regular cars.
+	 * 
+	 * @return parkedRegularIncome the amount of money still parked for regulars
+	 */
    	public int getParkedRegularIncome() {
    		return parkedRegularIncome;
    	}
    	
+   	/**
+	 * This method will retrieve the total amount of money that is currently
+	 * parked within the garage for all parked reservation cars.
+   	 * 
+   	 * @return parkedReservationIncome the amount of money still parked for reservations
+   	 */
    	public int getParkedReservationIncome() {
    		return parkedReservationIncome;
    	}
     
+   	/**
+   	 * This method will retrieve the total amount of money that is currently
+	 * parked within the garage for all parked cars.
+   	 * 
+   	 * @return parkedTotalIncome the amount of money still parked in total
+   	 */
     public int getParkedTotalIncome() {
     	return parkedTotalIncome;
     }
