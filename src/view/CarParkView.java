@@ -24,20 +24,12 @@ public class CarParkView extends AbstractView {
 	}
 
 	public Color getParkingSpaceColor(String spaceType) {
-		if(spaceType == "reservation")
+		if(spaceType == "reservation") {
 			return new Color(255, 255, 204);
-		else if(spaceType == "subscription")
+		}	
+		else if(spaceType == "subscription") {
 			return new Color(204, 204, 255);
-		return new Color(255, 255, 255);
-	}
-
-	public Color getCarColor(String carType) {
-		if(carType == "regular")
-			return new Color(255, 0, 0);
-		else if(carType == "reservation")
-			return new Color(255, 255, 0);
-		else if(carType == "subscription")
-			return new Color(0, 0, 255);
+		}
 		return new Color(255, 255, 255);
 	}
 
@@ -61,12 +53,11 @@ public class CarParkView extends AbstractView {
                     if(car == null)
                    		color = getParkingSpaceColor(space.getType());
                     else
-                    	color = getCarColor(car.getType());
+                    	color = car.getColor();
                     drawPlace(graphics, location, color);
                 }
             }
         }
-        
         g.drawImage(carParkImage, 0, 0, null);
         g.dispose();
 	}
@@ -77,6 +68,6 @@ public class CarParkView extends AbstractView {
                 location.getFloor() * 260 + (1 + (int)Math.floor(location.getRow() * 0.5)) * 75 + (location.getRow() % 2) * 20,
                 60 + location.getPlace() * 10,
                 20 - 1,
-                10 - 1); // TODO use dynamic size or constants
+                10 - 1);
     }
 }
