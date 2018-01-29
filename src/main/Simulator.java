@@ -94,7 +94,7 @@ public class Simulator {
 		graphTabbedPane.setBounds(1000, 40, 500, 500);
 		//barChartView.setBounds(1400, 500, 600, 600);
 		carParkView.setBounds(6, 6, 800, 400);
-		carQueueView.setBounds(1200, 610, 275, 176);
+		carQueueView.setBounds(1200, 610, 275, 160);
 		financialView.setBounds(1000, 610, 190, 160);
 		timeView.setBounds(1000, 575, 200, 25);
 		//dataController.setBounds(-250, 600, 800, 900);

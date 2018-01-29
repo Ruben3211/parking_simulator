@@ -40,7 +40,7 @@ public class CarQueueView extends AbstractView  {
 	public CarQueueView(SimulatorModel simulator) {
 		super(simulator);
 		
-		setLayout(new GridLayout(11, 3));
+		setLayout(new GridLayout(10, 3));
 		
 		queueLabel = new JLabel("<html><b>Queues</b></html>");
 		add(queueLabel);
