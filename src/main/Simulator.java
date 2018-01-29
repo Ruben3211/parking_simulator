@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JTabbedPane;
 
 import controller.*;
+import model.Audio;
 import model.SimulatorModel;
 import view.*;
 
@@ -38,6 +39,8 @@ public class Simulator {
 	private AbstractController runController;	
 	private AbstractController sliderController;
 	private AbstractController dataController;
+	
+	private Audio audio;
 	
 	
 	/**
