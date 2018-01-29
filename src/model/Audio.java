@@ -25,7 +25,6 @@ public class Audio {
 			  FileInputStream file = new FileInputStream(fileName);
 			  Player playMP3 = new Player(file);
 			  playMP3.play();
-			  
 		}
 		  catch(Exception exc){
 			    exc.printStackTrace();
