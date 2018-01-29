@@ -3,13 +3,26 @@ package view;
 import model.SimulatorModel;
 import java.awt.*;
 import javax.swing.JLabel;
-
+/**
+ * This Class is responsible for creating and updating the bar chart. 
+ * The bar chart resembles the total amount of cars parked per type
+ * and the total amount of empty parking spots left.
+ * Under the bar chart you can see bar is which type and how many cars there are.
+ * @author Ruben Bonga
+ * @version 29-01-2018
+ */
 
 @SuppressWarnings("serial")
 public class BarChartView extends AbstractView{
 
 private JLabel Regcars, Subcars, Rescars, Empty;
-	
+
+/**
+ * The constructor for the class BarChartView.
+ * 
+ * @param simulator the model
+ */
+
 public BarChartView(SimulatorModel simulator) {
 		super(simulator);
 	    Regcars = new JLabel();
@@ -26,6 +39,13 @@ public BarChartView(SimulatorModel simulator) {
 		Empty.setBounds(400,0, 300, 30);
 		
 	}
+/**
+ * This method retrieves information needed to create and update a barchart
+ * from the model. it will do a calculation to show the correct height per bar.
+ * then it will draw the bar. this happens every tick or step.
+ * 
+ * @param g the specified Graphics context
+ */
 		public void paintComponent(Graphics g) {
 			int reg = getModel().getTotalParkedRegular();
 			int sub = getModel().getTotalParkedSubscription();

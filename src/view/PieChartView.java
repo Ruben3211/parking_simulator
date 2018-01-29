@@ -22,9 +22,7 @@ public class PieChartView extends AbstractView {
 	
 	private JLabel titleLabel;
 	private JLabel regularLabel;
-	private JLabel subscriptionLabel;
-	private JLabel reservationLabel;
-	private JLabel emptySpots;
+	private JLabel subscriptionLabel, reservationLabel, emptySpots;
 	
 	/**
 	 * The constructor for the class PieChartView.
