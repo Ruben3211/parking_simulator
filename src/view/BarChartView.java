@@ -54,7 +54,7 @@ public BarChartView(SimulatorModel simulator) {
 		    
 		    Regcars.setText("Reguluar "+ reg);
 		    Subcars.setText("Subscription "+ sub);
-		    Rescars.setText("Resevation "+ res);
+		     Rescars.setText("Resevation "+ res);
 		    Empty.setText("Empty "+ empty);
 		    
 		    
