@@ -568,41 +568,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         	space.setType("regular");
         }
     } 
-    
-    
-    public int getTotalPayed() {
-    	totalIncome = totalRegularIncome + totalReservationIncome + totalSubscriptionIncome;
-    	return totalIncome;
-    }
-    public int getPayedByReg() {
-    	return totalRegularIncome;
-    }
-    public int getPayedByRes() {
-    	return totalReservationIncome;
-    }
-    public int getPayedBySub() {
-    	return totalSubscriptionIncome;
-    }
-    
-    /*
-     * Return queues
-     */    
-   public int getRegCarQueue () {
-	   return entranceOneQueue.carsInQueue();
-   }
-   
-   public int getSubCarQueue () {
-	   return entranceTwoQueue.carsInQueue();
-   }
-   
-   public int getExitCarQueue () {
-	   return exitQueue.carsInQueue();
-   }
-   
-   public int getPaymentCarQueue () {
-	   return paymentQueue.carsInQueue();
-   }
-   
+
    public int getEnterSpeed () {
 	   return entranceSpeed;
    }
