@@ -741,6 +741,80 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     public int getParkedTotalIncome() {
     	return parkedTotalIncome;
     }
+    
+    /**
+     * This method returns the total amount of regular cars that were missed.
+     * These cars are missed because the queues were to long and the cars drove
+     * away.
+     * 
+     * @return totalRegularMissed the amount of regular cars missed
+     */
+    public int getTotalRegularMissed() {
+    	return totalRegularMissed;
+    }
+    
+    /**
+     * This method returns the total amount of reservation cars that were missed.
+     * These cars are missed because the queues were to long and the cars drove
+     * away.
+     * 
+     * @return totalReservationMissed the amount of reservation cars missed
+     */
+    public int getTotalReservationMissed() {
+    	return totalReservationMissed;
+    }
+    
+    /**
+     * This method sets the total amount of cars missed. It does this by added
+     * add the regular cars missed and the reservation cars missed.
+     */
+    private void setTotalCarsMissed() {
+    	totalCarsMissed = totalRegularMissed + totalReservationMissed;
+    }
+    
+    /**
+     * This method returns the total amount of all cars that were missed. These 
+     * cars are missed because the queues were to long and the cars drove away.
+     * 
+     * @return totalCarsMissed the amount of total cars missed
+     */
+    public int getTotalMissed() {
+    	return totalCarsMissed;
+    }
+
+    /**
+     * This method return the total amount of income missed for regular cars, 
+     * due to reservation cars leaving the queues.
+     * 
+     * @return missedRegularIncome the income missed from regular cars
+     */
+    public int getMissedRegularIncome() {
+    	return missedRegularIncome;
+    }
+    
+    /**
+     * This method return the total amount of income missed for reservations
+     * cars, due to reservation cars leaving the queues.
+     * 
+     * @return missedReservationIncome the income missed from reservation cars
+     */
+    public int getMissedReservationIncome() {
+    	return missedReservationIncome;
+    }
+    
+    public void setMissedIncome() {
+    	missedTotalIncome = missedRegularIncome + missedReservationIncome;
+    }
+    
+    /**
+     * This method returns the total amount of income missed from all cars
+     * combined. This income is missed because cars leave their queues.
+     * 
+     * @return missedTotalIncome the income missed from cars combined
+     */
+    public int getMissedTotalIncome() {
+    	return missedTotalIncome;
+    }
 
     public int getNumberOfFloors() {
     	return numberOfFloors;
@@ -780,39 +854,5 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     
     public void setStepPause(int stepPause) {
     	this.stepPause = stepPause;
-    }
-    
-    public int getMissedRegularIncome() {
-    	return missedRegularIncome;
-    }
-    
-    public int getMissedReservationIncome() {
-    	return missedReservationIncome;
-    }
-    
-    public void setMissedIncome() {
-    	missedTotalIncome = missedRegularIncome + missedReservationIncome;
-    }
-    
-    public int getMissedTotalIncome() {
-    	return missedTotalIncome;
-    }
-    
-    public void setTotalCarsMissed() {
-    	totalCarsMissed =
-    	totalRegularMissed +
-    	totalReservationMissed;
-    }
-    
-    public int getTotalRegularMissed() {
-    	return totalRegularMissed;
-    }
-    
-    public int getTotalReservationMissed() {
-    	return totalReservationMissed;
-    }
-    
-    public int getTotalMissed() {
-    	return totalCarsMissed;
     }
 }
