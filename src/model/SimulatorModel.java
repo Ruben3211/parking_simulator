@@ -39,23 +39,20 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private int stepPause;
 
-    // Average number of cars arriving per hour.
     private int weekDayRegularArrivals;
     private int weekendRegularArrivals;
-    private int eventRegularArrivals; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int eventRegularArrivals;
     private int weekDaySubscriptionArrivals;
     private int weekendSubscriptionArrivals;
-    private int eventSubscriptionArrivals; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int eventSubscriptionArrivals;
     private int weekDayReservationArrivals;
     private int weekendReservationArrivals;
-    private int eventReservationArrivals; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int eventReservationArrivals;
 
-    // Number of cars that can enter/leave per minute.
     private int entranceSpeed;
     private int paymentSpeed;
     private int exitSpeed;
     
-	// The prices the various cars have to pay.
     private int regularFee;
     private int subscriptionFee;
     private int reservationFee;
@@ -68,7 +65,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 	private int maxSubscriptions;
     private int maxReservations;
 
-    // The number of cars per type that left, because the queues were too long.
     private int totalRegularMissed;
     private int totalReservationMissed;
     private int totalCarsMissed;
@@ -572,13 +568,211 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         	space.setType("regular");
         }
     } 
-
-    //----------------------------------------------------------------------------------------------------------------
-    // Place all the getters and setters, that are to be used in the controllers	
-    // and views, here. If a getter and setter use the same variable place the
-    // setter first and then the getter. Comment them appropriately.
-    //----------------------------------------------------------------------------------------------------------------
     
+    
+    public int getTotalPayed() {
+    	totalIncome = totalRegularIncome + totalReservationIncome + totalSubscriptionIncome;
+    	return totalIncome;
+    }
+    public int getPayedByReg() {
+    	return totalRegularIncome;
+    }
+    public int getPayedByRes() {
+    	return totalReservationIncome;
+    }
+    public int getPayedBySub() {
+    	return totalSubscriptionIncome;
+    }
+    
+    /*
+     * Return queues
+     */    
+   public int getRegCarQueue () {
+	   return entranceOneQueue.carsInQueue();
+   }
+   
+   public int getSubCarQueue () {
+	   return entranceTwoQueue.carsInQueue();
+   }
+   
+   public int getExitCarQueue () {
+	   return exitQueue.carsInQueue();
+   }
+   
+   public int getPaymentCarQueue () {
+	   return paymentQueue.carsInQueue();
+   }
+   
+   public int getEnterSpeed () {
+	   return entranceSpeed;
+   }
+   
+   public int getPaymentSpeed() {
+	   return paymentSpeed;
+   }
+   
+   public int getExitSpeed () {
+	   return exitSpeed;
+   }
+   
+   public int getRegPayAmount () {
+	   return regularFee;
+   }
+   
+   public int getSubPayAmount () {
+	   return subscriptionFee;
+   }
+   
+   public int getResPayAmount () {
+	   return reservationFee;
+   }
+   
+   public int getMaxRes () {
+	   return maxReservations;
+   }
+   
+   public int getMaxSub () {
+	   return maxSubscriptions;
+   }
+   
+   public int getWeekDayReg () {
+	   return weekDayRegularArrivals;
+   }
+   
+   public int getWeekendReg () {
+	   return weekendRegularArrivals;
+   }
+   
+   public int getEventReg () {
+	   return eventRegularArrivals;
+   }
+   
+   public int getWeekDaySub () {
+	   return weekDaySubscriptionArrivals;
+   }
+   
+   public int getWeekendSub  () {
+	   return weekendSubscriptionArrivals;
+   }
+   
+   public int getEventSub  () {
+	   return eventSubscriptionArrivals;
+   }
+   
+   public int getWeekDayRes () {
+	   return weekDayReservationArrivals;
+   }
+   
+   public int getWeekendRes  () {
+	   return weekendReservationArrivals;
+   }
+   
+   public int getEventRes  () {
+	   return eventReservationArrivals;
+   }
+   
+   public void resetAllData () {
+	   maxReservations = 60;
+	   maxSubscriptions = 60;
+	   regularFee = 15;
+	   subscriptionFee = 30;
+	   reservationFee = 20;
+	   entranceSpeed = 3; 
+	   paymentSpeed = 7;
+	   exitSpeed = 5;
+	   weekDayRegularArrivals = 100;
+	   weekendRegularArrivals = 200;
+	   eventRegularArrivals = 0; 
+	   weekDaySubscriptionArrivals = 50;
+	   weekendSubscriptionArrivals = 5;
+	   eventSubscriptionArrivals = 0; 
+	   weekDayReservationArrivals = 50;
+	   weekendReservationArrivals = 5;
+	   eventReservationArrivals = 0;
+   }
+   
+   public void setIntFromDataController (String objectName, int value) {
+	   System.out.println("ObjectName is: " + objectName);
+	   switch (objectName) {
+	case "multiplier":
+		
+		break;
+	case "reservations":
+		maxReservations = value;
+		break;
+		
+	case "subcribers":
+		maxSubscriptions = value;
+		break;
+	
+	case "disabledPeople":
+		
+		break;
+		
+	case "normalPrice":
+		regularFee = value;
+		break;
+		
+	case "reservationPrice":
+		reservationFee = value;
+		break;
+		
+	case "subscriberPrice":
+		subscriptionFee = value;
+		break;
+		
+	case "enterSpeed":
+		entranceSpeed = value;
+		break;
+	
+	case "paymentSpeed":
+		paymentSpeed = value;
+		break;
+		
+	case "exitSpeed":
+		exitSpeed = value;
+		break;
+	case "workDay":
+		weekDayRegularArrivals = value;
+		break;
+		
+	case "weekend":
+		weekendRegularArrivals = value;
+		break;
+		
+	case "special":
+		eventRegularArrivals = value;
+		break;
+		
+	case "subWorkDay":
+		weekDaySubscriptionArrivals = value;
+		break;
+		
+	case "subWeekend":
+		weekendSubscriptionArrivals = value;
+		break;
+		
+	case "subSpecial":
+		eventSubscriptionArrivals = value;
+		break;
+		
+	case "reservationWorkDay":
+		weekDayReservationArrivals = value;
+		break;
+		
+	case "reservationWeekend":
+		weekendReservationArrivals = value;
+		break;
+		
+	case "reservationSpecial":
+		eventReservationArrivals = value;
+		break;
+
+	default:
+		break;
+	}
+   }
+
     /**
      * This method returns a string with the current weekday. Which day it is, 
      * is calculated by using the day in numbers and a modulo, this number will
@@ -741,78 +935,172 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     public int getParkedTotalIncome() {
     	return parkedTotalIncome;
     }
-
-    public int getNumberOfFloors() {
-    	return numberOfFloors;
-   	}
-	
-    public int getNumberOfRows() {
-    	return numberOfRows;
-   	}
-   
-   	public int getNumberOfPlaces() {
-   		return numberOfPlaces;
-   	}
-   
-   	public int getNumberOfOpenSpots() {
-	   	return numberOfOpenSpots;
-   	}
     
-    public int getTotalParkedRegular() {
-    	return totalParkedRegular;
-    }
-    
-    public int getTotalParkedSubscription() {
-    	return totalParkedSubscription;
-    }
-    
-    public int getTotalParkedReservation() {
-    	return totalParkedReservation;
-    }
-    
-    public int getTotalEmptySpots() {
-    	return numberOfOpenSpots;
-    }
-    
-    public int getStepPause() {
-    	return stepPause;
-    }
-    
-    public void setStepPause(int stepPause) {
-    	this.stepPause = stepPause;
-    }
-    
-    public int getMissedRegularIncome() {
-    	return missedRegularIncome;
-    }
-    
-    public int getMissedReservationIncome() {
-    	return missedReservationIncome;
-    }
-    
-    public void setMissedIncome() {
-    	missedTotalIncome = missedRegularIncome + missedReservationIncome;
-    }
-    
-    public int getMissedTotalIncome() {
-    	return missedTotalIncome;
-    }
-    
-    public void setTotalCarsMissed() {
-    	totalCarsMissed =
-    	totalRegularMissed +
-    	totalReservationMissed;
-    }
-    
+    /**
+     * This method returns the total amount of regular cars that were missed.
+     * These cars are missed because the queues were to long and the cars drove
+     * away.
+     * 
+     * @return totalRegularMissed the amount of regular cars missed
+     */
     public int getTotalRegularMissed() {
     	return totalRegularMissed;
     }
     
+    /**
+     * This method returns the total amount of reservation cars that were missed.
+     * These cars are missed because the queues were to long and the cars drove
+     * away.
+     * 
+     * @return totalReservationMissed the amount of reservation cars missed
+     */
     public int getTotalReservationMissed() {
     	return totalReservationMissed;
     }
     
+    /**
+     * This method sets the total amount of cars missed. It does this by added
+     * add the regular cars missed and the reservation cars missed.
+     */
+    private void setTotalCarsMissed() {
+    	totalCarsMissed = totalRegularMissed + totalReservationMissed;
+    }
+    
+    /**
+     * This method returns the total amount of all cars that were missed. These 
+     * cars are missed because the queues were to long and the cars drove away.
+     * 
+     * @return totalCarsMissed the amount of total cars missed
+     */
     public int getTotalMissed() {
     	return totalCarsMissed;
     }
+
+    /**
+     * This method return the total amount of income missed for regular cars, 
+     * due to reservation cars leaving the queues.
+     * 
+     * @return missedRegularIncome the income missed from regular cars
+     */
+    public int getMissedRegularIncome() {
+    	return missedRegularIncome;
+    }
+    
+    /**
+     * This method return the total amount of income missed for reservations
+     * cars, due to reservation cars leaving the queues.
+     * 
+     * @return missedReservationIncome the income missed from reservation cars
+     */
+    public int getMissedReservationIncome() {
+    	return missedReservationIncome;
+    }
+    
+    /**
+     * This method calculates the total income missed from missed cars. This is
+     * calculated by adding all missed income, from the regular and reservation
+     * cars to the missedTotalIncome variable.
+     */
+    public void setMissedIncome() {
+    	missedTotalIncome = missedRegularIncome + missedReservationIncome;
+    }
+    
+    /**
+     * This method returns the total amount of income missed from all cars
+     * combined. This income is missed because cars leave their queues.
+     * 
+     * @return missedTotalIncome the income missed from cars combined
+     */
+    public int getMissedTotalIncome() {
+    	return missedTotalIncome;
+    }
+
+    /**
+     * This method return the total amount regular cars that are currently
+     * parked in the garage.
+     * 
+     * @return totalParkedRegular total amount of regular cars currently parked
+     */
+    public int getTotalParkedRegular() {
+    	return totalParkedRegular;
+    }
+    
+    /**
+     * This method return the total amount subscription cars that are currently
+     * parked in the garage.
+     * 
+     * @return totalParkedSubscription total amount of subscription cars currently parked
+     */
+    public int getTotalParkedSubscription() {
+    	return totalParkedSubscription;
+    }
+    
+    /**
+     * This method return the total amount reservation cars that are currently
+     * parked in the garage. 
+     * 
+     * @return totalParkedReservation total amount of reservation cars currently parked
+     */
+    public int getTotalParkedReservation() {
+    	return totalParkedReservation;
+    }
+   	
+    /**
+     * This method returns the total amount of open spots within the garage.
+     * These spots have no cars parked within them.
+     * 
+     * @return numberOfOpenSpots the amount of spots with no cars parked in it
+     */
+    public int getNumberOfOpenSpots() {
+    	return numberOfOpenSpots;
+    }
+    
+    /**
+     * This method sets the stepPause variable to a new number. This is done via
+     * the speed slider in the SlideController class, to speed up the simulation.
+     * 
+     * @param stepPause the step pause which influences the speed of simulation
+     */
+    public void setStepPause(int stepPause) {
+    	this.stepPause = stepPause;
+    }
+    
+    /**
+     * This method returns the current value of the stepPause variable.
+     * 
+     * @return stepPause the step pause which influences the speed of simulation
+     */
+    public int getStepPause() {
+    	return stepPause;
+    }
+    
+    /**
+     * This method returns the total number of floors that exists in the
+     * parking garage.
+     * 
+     * @return numberOfFloors the total number of floors in the garage
+     */
+    public int getNumberOfFloors() {
+    	return numberOfFloors;
+   	}
+	
+    /**
+     * This method returns the total number of rows that exists in the
+     * parking garage.
+     * 
+     * @return numberOfRows the total number of rows in the garage
+     */
+    public int getNumberOfRows() {
+    	return numberOfRows;
+   	}
+    
+    /**
+     * This method returns the total number of places that exists in the
+     * parking garage.
+     * 
+     * @return numberOfPlaces the total number of places in the garage
+     */
+   	public int getNumberOfPlaces() {
+   		return numberOfPlaces;
+   	}
 }
