@@ -1,6 +1,5 @@
 package controller;
 
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -8,17 +7,11 @@ import model.SimulatorModel;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.awt.*;
-import view.*;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
-import javafx.scene.control.cell.TextFieldListCell;
-import model.SimulatorModel;
 
 /*
  * This class imports a few boxlayouts containing textfields and labels.
@@ -44,10 +37,12 @@ public class DataController extends AbstractController implements ActionListener
 	private JButton sendDataButton;
 	private JButton resetDataButton;
 	
-	public JLabel multiplierText = new JLabel("Multiplier (%)");
+	
+	/**
+	 * Jlabels
+	 */
 	public JLabel reservationsText = new JLabel("Max Reservations");
 	public JLabel subscribersText = new JLabel("Max Subscribers");
-	public JLabel retardText = new JLabel("Disabled People");
 	public JLabel normalPriceText = new JLabel("Normal price");
 	public JLabel reservationPriceText = new JLabel("Reservation price");
 	public JLabel subPriceText = new JLabel("Subscriber price");
@@ -64,11 +59,11 @@ public class DataController extends AbstractController implements ActionListener
 	public JLabel reservationWeekendText = new JLabel("Reservation weekend day");
 	public JLabel reservationSpecialText = new JLabel("Reservation special day");
 
-			
-	public JTextField multiplier = new JTextField(3);
+	/**
+	 * JTextFields		
+	 */
 	public JTextField reservations = new JTextField(Integer.toString(simulator.getMaxRes()), 3);
 	public JTextField subscribers = new JTextField(Integer.toString(simulator.getMaxSub()),3);
-	public JTextField disabledPeople = new JTextField(3);
 	public JTextField normalPrice= new JTextField(Integer.toString(simulator.getRegPayAmount()),3);
 	public JTextField reservationPrice = new JTextField(Integer.toString(simulator.getResPayAmount()),3);
 	public JTextField subscriberPrice = new JTextField(Integer.toString(simulator.getSubPayAmount()),3);
@@ -95,7 +90,10 @@ public class DataController extends AbstractController implements ActionListener
 		jp3.add(boxLayout3);
 		jp4.add(boxLayout4);
 		
-		textFieldList = new ArrayList<>(Arrays.asList(multiplier,reservations,subscribers,disabledPeople,normalPrice,reservationPrice,subscriberPrice,enterSpeed,paymentSpeed,exitSpeed,workDay,weekend,special,subWorkDay,subWeekend,subSpecial,reservationWorkDay,reservationWeekend,reservationSpecial));
+		/**
+		 * Adds all the textfields to this arraylist
+		 */
+		textFieldList = new ArrayList<>(Arrays.asList(reservations,subscribers,normalPrice,reservationPrice,subscriberPrice,enterSpeed,paymentSpeed,exitSpeed,workDay,weekend,special,subWorkDay,subWeekend,subSpecial,reservationWorkDay,reservationWeekend,reservationSpecial));
 		
 		sendDataButton = new JButton("Send");
 		sendDataButton.addActionListener(this);
@@ -105,11 +103,11 @@ public class DataController extends AbstractController implements ActionListener
 		buttonPanel.add(sendDataButton);
 		buttonPanel.add(resetDataButton);
 		
-		
-		multiplier.setName("multiplier");
+		/**
+		 * Gives all the fields a name so they can be retrieved by getName in the loop for the senDataButton
+		 */
 		reservations.setName("reservations");
 		subscribers.setName("subscribers");
-		//retards
 		normalPrice.setName("normalPrice");
 		reservationPrice.setName("reservationPrice");
 		subscriberPrice.setName("subscriberPrice");
@@ -125,51 +123,47 @@ public class DataController extends AbstractController implements ActionListener
 		reservationWorkDay.setName("reservationWorkDay");
 		reservationWeekend.setName("reservationWeekend");
 		reservationSpecial.setName("reservationSpecial");
-		System.out.println("multiplier's name is: " + reservations.getName());
-		/*
+		
+		/**
 		 * Divides all the labels and textfields across all the 4 box layouts
 		 */
-		boxLayout.add(multiplierText);	
-		boxLayout.add(multiplier);
 		boxLayout.add(reservationsText);	
 		boxLayout.add(reservations);
 		boxLayout.add(subscribersText);
 		boxLayout.add(subscribers);
-		boxLayout.add(retardText);
-		boxLayout.add(disabledPeople);
 		boxLayout.add(normalPriceText);
 		boxLayout.add(normalPrice);
-		boxLayout2.add(reservationPriceText);
-		boxLayout2.add(reservationPrice);
-		boxLayout2.add(subPriceText);
-		boxLayout2.add(subscriberPrice);
+		boxLayout.add(reservationPriceText);
+		boxLayout.add(reservationPrice);
+		boxLayout.add(subPriceText);
+		boxLayout.add(subscriberPrice);
 		boxLayout2.add(enterSpeedText);
 		boxLayout2.add(enterSpeed);
 		boxLayout2.add(paymentSpeedText);
 		boxLayout2.add(paymentSpeed);
 		boxLayout2.add(exitSpeedText);
 		boxLayout2.add(exitSpeed);
-		boxLayout3.add(workDayText);
-		boxLayout3.add(workDay);
-		boxLayout3.add(weekendText);
-		boxLayout3.add(weekend);
+		boxLayout2.add(workDayText);
+		boxLayout2.add(workDay);
+		boxLayout2.add(weekendText);
+		boxLayout2.add(weekend);
 		boxLayout3.add(specialText);
 		boxLayout3.add(special);
 		boxLayout3.add(subWorkDayText);
 		boxLayout3.add(subWorkDay);
 		boxLayout3.add(subWeekendText);
 		boxLayout3.add(subWeekend);
-		boxLayout4.add(subSpecialText);
-		boxLayout4.add(subSpecial);
-		boxLayout4.add(reservationWorkDayText);
-		boxLayout4.add(reservationWorkDay);
+		boxLayout3.add(subSpecialText);
+		boxLayout3.add(subSpecial);
+		boxLayout3.add(reservationWorkDayText);
+		boxLayout3.add(reservationWorkDay);
 		boxLayout4.add(reservationWeekendText);
 		boxLayout4.add(reservationWeekend);
 		boxLayout4.add(reservationSpecialText);
 		boxLayout4.add(reservationSpecial);
 		
 		
-		/*
+		/**
 		 * Adds all the panels to the controller so they are added to the view
 		 */
 		add(jp);
@@ -180,15 +174,10 @@ public class DataController extends AbstractController implements ActionListener
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		String objectName;
 		if (e.getSource() == sendDataButton) {
 			for (int i = 0; i < textFieldList.size(); i++) { // Loops through whole arraylist
 				if(textFieldList.get(i).getText() != "") { //Checks if field is not empty 
-					if (isInteger(textFieldList.get(i).getText()) == true) { //Checks if the text inside the field is an integer
-						objectName = textFieldList.get(i).getName();
-						//System.out.println("objectName is: " + this.getName());
-					//	System.out.println(textFieldList.get(i).getName());
-					//	System.out.println("size is " + textFieldList.size());
+					if (isInteger(textFieldList.get(i).getText()) == true) { //Checks if the text inside the field is an integer				
 					simulator.setIntFromDataController(textFieldList.get(i).getName(),Integer.parseInt(textFieldList.get(i).getText())); //Calls the setdata method from model and passes the object name and value
 					} else if (isInteger(textFieldList.get(i).getText()) == false) {
 						//Do nothing
@@ -197,12 +186,13 @@ public class DataController extends AbstractController implements ActionListener
 			}
 		}
 		
+		/**
+		 * Calls the resetAllData method from simulatorModel and then loads the variables again.
+		 */
 		if (e.getSource() == resetDataButton) {
-			//multiplier;
 			simulator.resetAllData();
 			reservations.setText(Integer.toString(simulator.getMaxRes()));
 			subscribers.setText(Integer.toString(simulator.getMaxSub()));
-			//disabledPeople;
 			normalPrice.setText(Integer.toString(simulator.getRegPayAmount()));
 			reservationPrice.setText(Integer.toString(simulator.getResPayAmount()));
 			subscriberPrice.setText(Integer.toString(simulator.getSubPayAmount()));
@@ -221,10 +211,11 @@ public class DataController extends AbstractController implements ActionListener
 		}
 	}
 	
-	public void resetData () {
-		
-	}
-	
+	/**
+	 * Checks if the given text in the textfield is an int. If not this method returns false and the data from the textfield wont be send
+	 * @param s String given when calling this method this string is taken from the textfield
+	 * @returns true or false 
+	 */
 	public static boolean isInteger(String s) {
 	    try { 
 	        Integer.parseInt(s); 

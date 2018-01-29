@@ -691,22 +691,21 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 	   eventReservationArrivals = 0;
    }
    
+   
+   /**
+    * Checks the name of the gameObject and assigns it the right variable if the name exists in the switch statement.
+    * @param objectName is the name given by setName
+    * @param value is the value that the object with the objectname holds
+    */
+    
    public void setIntFromDataController (String objectName, int value) {
-	   System.out.println("ObjectName is: " + objectName);
 	   switch (objectName) {
-	case "multiplier":
-		
-		break;
 	case "reservations":
 		maxReservations = value;
 		break;
 		
 	case "subcribers":
 		maxSubscriptions = value;
-		break;
-	
-	case "disabledPeople":
-		
 		break;
 		
 	case "normalPrice":
