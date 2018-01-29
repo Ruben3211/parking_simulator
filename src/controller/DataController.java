@@ -2,6 +2,8 @@ package controller;
 
 
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import model.SimulatorModel;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +26,7 @@ import model.SimulatorModel;
  */
 
 @SuppressWarnings("serial")
-public class DataController extends AbstractController {
+public class DataController extends AbstractController implements ActionListener {
 	
 	private List<JTextField> textFieldList;
 	

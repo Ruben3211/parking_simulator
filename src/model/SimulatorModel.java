@@ -568,6 +568,210 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         	space.setType("regular");
         }
     } 
+    
+    
+    public int getTotalPayed() {
+    	totalIncome = totalRegularIncome + totalReservationIncome + totalSubscriptionIncome;
+    	return totalIncome;
+    }
+    public int getPayedByReg() {
+    	return totalRegularIncome;
+    }
+    public int getPayedByRes() {
+    	return totalReservationIncome;
+    }
+    public int getPayedBySub() {
+    	return totalSubscriptionIncome;
+    }
+    
+    /*
+     * Return queues
+     */    
+   public int getRegCarQueue () {
+	   return entranceOneQueue.carsInQueue();
+   }
+   
+   public int getSubCarQueue () {
+	   return entranceTwoQueue.carsInQueue();
+   }
+   
+   public int getExitCarQueue () {
+	   return exitQueue.carsInQueue();
+   }
+   
+   public int getPaymentCarQueue () {
+	   return paymentQueue.carsInQueue();
+   }
+   
+   public int getEnterSpeed () {
+	   return entranceSpeed;
+   }
+   
+   public int getPaymentSpeed() {
+	   return paymentSpeed;
+   }
+   
+   public int getExitSpeed () {
+	   return exitSpeed;
+   }
+   
+   public int getRegPayAmount () {
+	   return regularFee;
+   }
+   
+   public int getSubPayAmount () {
+	   return subscriptionFee;
+   }
+   
+   public int getResPayAmount () {
+	   return reservationFee;
+   }
+   
+   public int getMaxRes () {
+	   return maxReservations;
+   }
+   
+   public int getMaxSub () {
+	   return maxSubscriptions;
+   }
+   
+   public int getWeekDayReg () {
+	   return weekDayRegularArrivals;
+   }
+   
+   public int getWeekendReg () {
+	   return weekendRegularArrivals;
+   }
+   
+   public int getEventReg () {
+	   return eventRegularArrivals;
+   }
+   
+   public int getWeekDaySub () {
+	   return weekDaySubscriptionArrivals;
+   }
+   
+   public int getWeekendSub  () {
+	   return weekendSubscriptionArrivals;
+   }
+   
+   public int getEventSub  () {
+	   return eventSubscriptionArrivals;
+   }
+   
+   public int getWeekDayRes () {
+	   return weekDayReservationArrivals;
+   }
+   
+   public int getWeekendRes  () {
+	   return weekendReservationArrivals;
+   }
+   
+   public int getEventRes  () {
+	   return eventReservationArrivals;
+   }
+   
+   public void resetAllData () {
+	   maxReservations = 60;
+	   maxSubscriptions = 60;
+	   regularFee = 15;
+	   subscriptionFee = 30;
+	   reservationFee = 20;
+	   entranceSpeed = 3; 
+	   paymentSpeed = 7;
+	   exitSpeed = 5;
+	   weekDayRegularArrivals = 100;
+	   weekendRegularArrivals = 200;
+	   eventRegularArrivals = 0; 
+	   weekDaySubscriptionArrivals = 50;
+	   weekendSubscriptionArrivals = 5;
+	   eventSubscriptionArrivals = 0; 
+	   weekDayReservationArrivals = 50;
+	   weekendReservationArrivals = 5;
+	   eventReservationArrivals = 0;
+   }
+   
+   public void setIntFromDataController (String objectName, int value) {
+	   System.out.println("ObjectName is: " + objectName);
+	   switch (objectName) {
+	case "multiplier":
+		
+		break;
+	case "reservations":
+		maxReservations = value;
+		break;
+		
+	case "subcribers":
+		maxSubscriptions = value;
+		break;
+	
+	case "disabledPeople":
+		
+		break;
+		
+	case "normalPrice":
+		regularFee = value;
+		break;
+		
+	case "reservationPrice":
+		reservationFee = value;
+		break;
+		
+	case "subscriberPrice":
+		subscriptionFee = value;
+		break;
+		
+	case "enterSpeed":
+		entranceSpeed = value;
+		break;
+	
+	case "paymentSpeed":
+		paymentSpeed = value;
+		break;
+		
+	case "exitSpeed":
+		exitSpeed = value;
+		break;
+	case "workDay":
+		weekDayRegularArrivals = value;
+		break;
+		
+	case "weekend":
+		weekendRegularArrivals = value;
+		break;
+		
+	case "special":
+		eventRegularArrivals = value;
+		break;
+		
+	case "subWorkDay":
+		weekDaySubscriptionArrivals = value;
+		break;
+		
+	case "subWeekend":
+		weekendSubscriptionArrivals = value;
+		break;
+		
+	case "subSpecial":
+		eventSubscriptionArrivals = value;
+		break;
+		
+	case "reservationWorkDay":
+		weekDayReservationArrivals = value;
+		break;
+		
+	case "reservationWeekend":
+		weekendReservationArrivals = value;
+		break;
+		
+	case "reservationSpecial":
+		eventReservationArrivals = value;
+		break;
+
+	default:
+		break;
+	}
+   }
 
     /**
      * This method returns a string with the current weekday. Which day it is, 

@@ -37,6 +37,8 @@ public class Simulator {
 	private AbstractController resetController;
 	private AbstractController runController;	
 	private AbstractController sliderController;
+	private AbstractController dataController;
+	
 	
 	/**
 	 * The constructor for the class Simulator.
@@ -54,6 +56,7 @@ public class Simulator {
 		//lineGraphView = new LineGraphView(simulatorLogic);
 		pieChartView = new PieChartView(simulatorLogic);
 		timeView = new TimeView(simulatorLogic);
+		dataController = new DataController(simulatorLogic);
 		
 		//dataController = new DataController(simulatorLogic);
 		resetController = new ResetController(simulatorLogic);
@@ -82,6 +85,7 @@ public class Simulator {
 		screen.getContentPane().add(resetController);
 		screen.getContentPane().add(runController);
 		screen.getContentPane().add(sliderController);
+		screen.getContentPane().add(dataController);
 				
 		graphTabbedPane.addTab("Pie Chart", pieChartIcon, pieChartView, null);
 		graphTabbedPane.addTab("Bar Chart", barChartIcon, null, null);
@@ -97,6 +101,7 @@ public class Simulator {
 		runController.setBounds(80, 425, 300, 25);
 		resetController.setBounds(450, 419, 60, 35);
 		sliderController.setBounds(595, 410, 200, 55);
+		dataController.setBounds(0, 600, 800, 900);
 		
 		screen.setVisible(true);
 	}
