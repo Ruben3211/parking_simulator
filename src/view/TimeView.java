@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 
@@ -14,7 +15,7 @@ import model.SimulatorModel;
  * It does this by calling on two methods in the model.
  * 
  * @author Rick Zwaneveld
- * @version 24-01-2018
+ * @version 27-01-2018
  */
 
 @SuppressWarnings("serial")
@@ -23,25 +24,28 @@ public class TimeView extends AbstractView {
 	private JLabel timeWeekDay, timeMinuteHour;
 	
 	/**
-	 * The constructor for this class.
+	 * The constructor for the class TimeView.
 	 * 
 	 * @param simulator the model
 	 */
 	public TimeView(SimulatorModel simulator) {
 		super(simulator);
 		
-		setLayout(new GridLayout(0, 2));
+		setLayout(new GridLayout(1, 2));
 		
-		timeWeekDay = new JLabel("Monday");
-		timeMinuteHour = new JLabel("00:00");
+		timeWeekDay = new JLabel();
+		timeMinuteHour = new JLabel();
 		
+		timeWeekDay.setFont(new Font("SansSerif", Font.PLAIN, 16));
+		timeMinuteHour.setFont(new Font("SansSerif", Font.PLAIN, 16));
+
 		add(timeWeekDay);
 		add(timeMinuteHour);
 	}
 	
 	/**
-	 * Responsible for keeping the day, hour and minute up to date as the time
-	 * within the simulator changes.
+	 * This method is responsible for keeping the day, hour and minute up to 
+	 * date as the time within the simulator changes.
 	 * 
 	 * @param g the specified Graphics context
 	 */

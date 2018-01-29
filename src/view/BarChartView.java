@@ -27,9 +27,9 @@ public BarChartView(SimulatorModel simulator) {
 		
 	}
 		public void paintComponent(Graphics g) {
-			int reg = getModel().getTotalParkedReg();
-			int sub = getModel().getTotalParkedSub();
-			int res = getModel().getTotalParkedRes();
+			int reg = getModel().getTotalParkedRegular();
+			int sub = getModel().getTotalParkedSubscription();
+			int res = getModel().getTotalParkedReservation();
 			int empty = getModel().getNumberOfOpenSpots();
 			Color a = new Color(238, 238, 238);
 			g.setColor(a);

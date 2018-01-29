@@ -1,5 +1,7 @@
 package runner;
 
+import javax.swing.UIManager;
+
 import main.Simulator;
 
 /**
@@ -8,17 +10,24 @@ import main.Simulator;
  * the application.
  * 
  * @author Rick Zwaneveld
- * @version 23-01-2018
+ * @version 27-01-2018
  */
 
 public class SimulatorRunner {
 	
 	/**
-	 * The main method that is used to start the entire application.
+	 * The main method that is used to start the entire application. It first
+	 * uses the UIManager to set the look of the UI to the "Nimbus" UI, after
+	 * which it creates the simulator.
 	 * 
 	 * @param args no arguments are needed
 	 */
 	public static void main(String[] args) {
+		try {
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
 		new Simulator();
 	}
 }

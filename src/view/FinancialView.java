@@ -7,87 +7,118 @@ import javax.swing.JLabel;
 
 import model.SimulatorModel;
 
+/**
+ * This class is used to display the financial data a user needs for the 
+ * simulation. It keeps track of the income per car type, the total income and
+ * the amount of money currently still parked in the garage.
+ * 
+ * @author Ruben Bonga & Rick Zwaneveld
+ * @version 27-01-2018
+ */
+
 @SuppressWarnings("serial")
 public class FinancialView extends AbstractView{
-
-	private JLabel category, lastHour, lastDay, lastWeek, totalAll;
-	private JLabel regLabel, regHourlyData, regDailyData, regWeeklyData ,regTotalData;
-	private JLabel subLabel, subHourlyData, subDailyData, subWeeklyData ,subTotalData;
-	private JLabel resLabel, resHourlyData, resDailyData, resWeeklyData ,resTotalData;
-	private JLabel totalLabel, totalHourlyData, totalDailyData, totalWeeklyData ,totalTotalData;
 	
+	private JLabel incomeLabel, blankOne;
+	private JLabel regularLabel, regularData;
+	private JLabel subscriptionLabel, subscriptionData;
+	private JLabel reservationLabel, reservationData;
+	private JLabel totalLabel, totalData;
+	
+	private JLabel blankTwo, blankThree;
+	
+	private JLabel parkedIncomeLabel, blankFour;
+	private JLabel parkedRegularLabel, parkedRegularData;
+	private JLabel parkedReservationLabel, parkedReservationData;
+	private JLabel parkedTotalLabel, parkedTotalData;
+	
+	/**
+	 * The constructor for the class FinancialView.
+	 * 
+	 * @param simulator the model
+	 */
 	public FinancialView(SimulatorModel simulator) {	
 		super(simulator);
 		
-		setLayout(new GridLayout(5, 5));
+		setLayout(new GridLayout(10, 2));
 		
-		category = new JLabel("Category");
-		lastHour = new JLabel("Last hour");
-		lastDay = new JLabel("Last Day");
-		lastWeek = new JLabel("Last Week");
-		totalAll = new JLabel("Total");
+		incomeLabel = new JLabel("<html><b>Income</b></html>");
+		blankOne = new JLabel();
 		
-		regLabel = new JLabel("Regular:");
-		regHourlyData = new JLabel("0");
-		regDailyData = new JLabel("0");
-		regWeeklyData = new JLabel("0");
-		regTotalData = new JLabel("0");
+		regularLabel = new JLabel("Regular:");
+		regularData = new JLabel();
 		
-		subLabel = new JLabel("Subscription:");
-		subHourlyData = new JLabel("");
-		subDailyData = new JLabel("");
-		subWeeklyData = new JLabel("0");
-		subTotalData = new JLabel("0");
+		subscriptionLabel = new JLabel("Subscription:");
+		subscriptionData = new JLabel();
 		
-		resLabel = new JLabel("Reservation:");
-		resHourlyData = new JLabel("0");
-		resDailyData = new JLabel("0");
-		resWeeklyData = new JLabel("0");
-		resTotalData = new JLabel("0");
+		reservationLabel = new JLabel("Reservation:");
+		reservationData = new JLabel();
 		
 		totalLabel = new JLabel("Total:");
-		totalHourlyData = new JLabel("0");
-		totalDailyData = new JLabel("0");
-		totalWeeklyData = new JLabel("0");
-		totalTotalData = new JLabel("0");
-	
-		add(category);
-		add(lastHour);
-		add(lastDay);
-		add(lastWeek);
-		add(totalAll);
+		totalData = new JLabel();
 		
-		add(regLabel);
-		add(regHourlyData);
-		add(regDailyData);
-		add(regWeeklyData);
-		add(regTotalData);
+		blankTwo = new JLabel();
+		blankThree = new JLabel();
 		
-		add(subLabel);
-		add(subHourlyData);
-		add(subDailyData);
-		add(subWeeklyData);
-		add(subTotalData);
+		parkedIncomeLabel = new JLabel("<html><b>Parked Income</b></html>");
+		blankFour = new JLabel();
 		
-		add(resLabel);
-		add(resHourlyData);
-		add(resDailyData);
-		add(resWeeklyData);
-		add(resTotalData);
+		parkedRegularLabel = new JLabel("Regular:");
+		parkedRegularData = new JLabel();
+		
+		parkedReservationLabel = new JLabel("Reservation:");
+		parkedReservationData = new JLabel();
+		
+		parkedTotalLabel = new JLabel("Total:");
+		parkedTotalData = new JLabel();
+
+		add(incomeLabel);
+		add(blankOne);
+		
+		add(regularLabel);
+		add(regularData);
+		
+		add(subscriptionLabel);
+		add(subscriptionData);
+		
+		add(reservationLabel);
+		add(reservationData);
 		
 		add(totalLabel);
-		add(totalHourlyData);
-		add(totalDailyData);
-		add(totalWeeklyData);
-		add(totalTotalData);
+		add(totalData);
+		
+		add(blankTwo);
+		add(blankThree);
+		
+		add(parkedIncomeLabel);
+		add(blankFour);
+		
+		add(parkedRegularLabel);
+		add(parkedRegularData);
+		
+		add(parkedReservationLabel);
+		add(parkedReservationData);
+		
+		add(parkedTotalLabel);
+		add(parkedTotalData);
 	}
 	
+	/**
+	 * This method is responsible for retrieving and updating all the data that
+	 * needs to be displayed. It does this by calling on getter methods in the
+	 * model.
+	 * 
+	 * @param g the specified Graphics context
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		
-		regTotalData.setText(String.valueOf(getModel().getRegPaidAmount()));
-		subTotalData.setText(String.valueOf(getModel().getSubPaidAmount()));
-		resTotalData.setText(String.valueOf(getModel().getResPaidAmount()));
-		totalTotalData.setText(String.valueOf(getModel().getTotalPaidAmount()));
+		regularData.setText("€" + String.valueOf(getModel().getTotalRegularIncome()));
+		subscriptionData.setText("€" + String.valueOf(getModel().getTotalSubscriptionIncome()));
+		reservationData.setText("€" + String.valueOf(getModel().getTotalReservationIncome()));
+		totalData.setText("€" + String.valueOf(getModel().getTotalIncome()));
+		parkedRegularData.setText("€" + String.valueOf(getModel().getParkedRegularIncome()));
+		parkedReservationData.setText("€" + String.valueOf(getModel().getParkedReservationIncome()));
+		parkedTotalData.setText("€" + String.valueOf(getModel().getParkedTotalIncome()));
 	}
 }

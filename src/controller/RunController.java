@@ -2,6 +2,7 @@ package controller;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
@@ -11,16 +12,16 @@ import model.SimulatorModel;
 /**
  * This class is responsible for setting up the buttons needed to control the
  * simulators operation. It adds three buttons and one text field to the
- * controller, with the appropriate names. It also sets the given layout It then 
- * uses a Listener to know which put has been called and subsequently calls on 
- * the right method to execute.
+ * controller, with the appropriate names. It also sets the given layout. It
+ * uses ActionEvent to know which button has been pressed and subsequently calls 
+ * on the right method to execute.
  * 
  * @author Rick Zwaneveld
- * @version 23-01-2018
+ * @version 27-01-2018
  */
 
 @SuppressWarnings("serial")
-public class RunController extends AbstractController {
+public class RunController extends AbstractController implements ActionListener {
 
 	private JButton start;
 	private JFormattedTextField numberOfSteps;
@@ -28,7 +29,7 @@ public class RunController extends AbstractController {
 	private JButton stop;
 	
 	/**
-	 * The constructor for this class.
+	 * The constructor for the class RunController.
 	 * 
 	 * @param simulator the model
 	 */
@@ -56,22 +57,22 @@ public class RunController extends AbstractController {
 	
 	/**
 	 * This method is responsible for registering the input made by the user. 
-	 * It matches the input with the given method calls on subsequently
+	 * It matches the input with the given method calls and subsequently
 	 * executes these actions.
 	 * 
 	 * @param e the actionEvent given to the controller
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == steps) {
-			simulator.step();
+		if(e.getSource() == start) {
+			simulator.start(40320);
 		}
 		
-		if (e.getSource() == start) {
+		if(e.getSource() == steps) {
 			int numberOfSteps = parseSteps();
 			simulator.start(numberOfSteps);
 		}
 		
-		if (e.getSource() == stop) {
+		if(e.getSource() == stop) {
 			simulator.stop();
 		}
 	}

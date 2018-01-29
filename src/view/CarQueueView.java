@@ -1,62 +1,146 @@
 package view;
 
-import java.awt.*;
-
-import java.awt.event.*;
+import java.awt.Graphics;
+import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 
 import model.SimulatorModel;
 
-/*
- * This class makes Jlabel and assigns a text to it that keeps track of the number of cars in the queue.
- * When the update method is called it takes the queue and calls the carInQueue method that returns the size of the array. 
+/**
+ * This class is used for keeping track of all the queues. It will display the
+ * amount of cars in each queue, the amount of missed cars per type and in total
+ * and the amount of income this has cost the garage.
  * 
+ * @author Ruben Bonga & Rick Zwaneveld
+ * @version 27-01-2018
  */
 
 @SuppressWarnings("serial")
 public class CarQueueView extends AbstractView  {
 	
-	public static JLabel regCarQueue;
-	public static JLabel subCarQueue;
-	public static JLabel exitCarQueue;
-	public static JLabel paymentCarQueue;
+	private JLabel queueLabel, blankOne, blankTwo;
+	private JLabel entranceOneLabel, entranceOneData, blankThree;
+	private JLabel entranceTwoLabel, entranceTwoData, blankFour;
+	private JLabel paymentLabel, paymentData, blankFive;
+	private JLabel exitLabel, exitData, blankSix;
+	
+	private JLabel blankSeven, blankEight, blankNine;
+	
+	private JLabel missedCarLabel, blankTen, blankEleven;
+	private JLabel regularMissedLabel, regularMissedData, regularMissedMoneyData;
+	private JLabel reservationMissedLabel, reservationMissedData, reservationMissedMoneyData;
+	private JLabel totalMissedLabel, totalMissedData, totalMissedMoneyData;
 
+	/**
+	 * The constructor for the class CarQueueView.
+	 * 
+	 * @param simulator the model
+	 */
 	public CarQueueView(SimulatorModel simulator) {
 		super(simulator);
-		setSize(600, 50);
 		
-		//setup labels
-		regCarQueue = new JLabel("Regular cars in queue: 0");
-		subCarQueue = new JLabel("Cars with subscription in queue: 0");
-		exitCarQueue = new JLabel("Queue for leaving the garage: 0");
-		paymentCarQueue = new JLabel("Queue for paying: 0");
+		setLayout(new GridLayout(11, 3));
 		
+		queueLabel = new JLabel("<html><b>Queues</b></html>");
+		blankOne = new JLabel();
+		blankTwo = new JLabel();
 		
-		this.setLayout(null);
-		add(regCarQueue);
-		add(subCarQueue);
-		add(exitCarQueue);
-		add(paymentCarQueue);
-		regCarQueue.setBounds(400,10, 300, 30);
-		subCarQueue.setBounds(400,20, 300, 30);
-		exitCarQueue.setBounds(400,40, 300, 10);
-		paymentCarQueue.setBounds(400,0, 300, 30);
-		regCarQueue.setVisible(true);
-		subCarQueue.setVisible(true);
-		exitCarQueue.setVisible(true);
-		paymentCarQueue.setVisible(true);
+		entranceOneLabel = new JLabel("Entrance one:");
+		entranceOneData = new JLabel();
+		blankThree = new JLabel();
 		
+		entranceTwoLabel = new JLabel("Entrance two:");
+		entranceTwoData = new JLabel();
+		blankFour = new JLabel();
+		
+		paymentLabel = new JLabel("Payment:");
+		paymentData = new JLabel();
+		blankFive = new JLabel();
+		
+		exitLabel = new JLabel("Exit:");
+		exitData = new JLabel();
+		blankSix = new JLabel();
+		
+		blankSeven = new JLabel();
+		blankEight = new JLabel();
+		blankNine = new JLabel();
+		
+		missedCarLabel = new JLabel("<html><b>Missed Cars</b></html>");
+		blankTen = new JLabel();
+		blankEleven = new JLabel();
+			
+		regularMissedLabel = new JLabel("Regular:");
+		regularMissedData = new JLabel();
+		regularMissedMoneyData = new JLabel();
+		
+		reservationMissedLabel = new JLabel("Reservation:");
+		reservationMissedData = new JLabel();
+		reservationMissedMoneyData = new JLabel();
+		
+		totalMissedLabel = new JLabel("Total:");
+		totalMissedData = new JLabel();
+		totalMissedMoneyData = new JLabel();
+		
+		add(queueLabel);
+		add(blankOne);
+		add(blankTwo);
+		
+		add(entranceOneLabel);
+		add(entranceOneData);
+		add(blankThree);
+		
+		add(entranceTwoLabel);
+		add(entranceTwoData);
+		add(blankFour);
+		
+		add(paymentLabel);
+		add(paymentData);
+		add(blankFive);
+		
+		add(exitLabel);
+		add(exitData);
+		add(blankSix);
+		
+		add(blankSeven);
+		add(blankEight);
+		add(blankNine);
+		
+		add(missedCarLabel);
+		add(blankTen);
+		add(blankEleven);
+			
+		add(regularMissedLabel);
+		add(regularMissedData);
+		add(regularMissedMoneyData);
+		
+		add(reservationMissedLabel);
+		add(reservationMissedData);
+		add(reservationMissedMoneyData);
+		
+		add(totalMissedLabel);
+		add(totalMissedData);
+		add(totalMissedMoneyData);
 	}
-	/*
-	 * Updates the queue in the view when this method is called. 
-	 * This update is static so it can be called by SimulatorModel.
+	
+	/**
+	 * This method retrieves the information needed for the queues and keeps 
+	 * this data up-to-date. 
+	 * 
+	 * @param g the specified Graphics context
 	 */
-	public static void updateQueue () {
-		regCarQueue.setText("Regular cars in queue: " + SimulatorModel.getRegCarQueue());
-		subCarQueue.setText("Cars with subscription in queue: " + SimulatorModel.getSubCarQueue());
-		exitCarQueue.setText("Queue for leaving the garage: " + SimulatorModel.getExitCarQueue());
-		paymentCarQueue.setText("Queue for paying: " + SimulatorModel.getPaymentCarQueue());
-	}
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
 
+		entranceOneData.setText(String.valueOf(getModel().getEntranceOneQueue().carsInQueue()));
+		entranceTwoData.setText(String.valueOf(getModel().getEntranceTwoQueue().carsInQueue()));
+		paymentData.setText(String.valueOf(getModel().getPaymentQueue().carsInQueue()));
+		exitData.setText(String.valueOf(getModel().getExitQueue().carsInQueue()));
+		regularMissedData.setText(String.valueOf(getModel().getTotalRegularMissed()));
+		reservationMissedData.setText(String.valueOf(getModel().getTotalReservationMissed()));
+		totalMissedData.setText(String.valueOf(getModel().getTotalMissed()));
+		regularMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedRegularIncome()));
+		reservationMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedReservationIncome()));
+		totalMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedTotalIncome()));
+	}
 }
