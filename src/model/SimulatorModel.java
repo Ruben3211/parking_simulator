@@ -816,6 +816,58 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return missedTotalIncome;
     }
 
+    /**
+     * This method return the total amount regular cars that are currently
+     * parked in the garage.
+     * 
+     * @return totalParkedRegular total amount of regular cars currently parked
+     */
+    public int getTotalParkedRegular() {
+    	return totalParkedRegular;
+    }
+    
+    /**
+     * This method return the total amount subscription cars that are currently
+     * parked in the garage.
+     * 
+     * @return totalParkedSubscription total amount of subscription cars currently parked
+     */
+    public int getTotalParkedSubscription() {
+    	return totalParkedSubscription;
+    }
+    
+    /**
+     * This method return the total amount reservation cars that are currently
+     * parked in the garage. 
+     * 
+     * @return totalParkedReservation total amount of reservation cars currently parked
+     */
+    public int getTotalParkedReservation() {
+    	return totalParkedReservation;
+    }
+   	
+    /**
+     * This method returns the total amount of open spots within the garage.
+     * These spots have no cars parked within them.
+     * 
+     * @return numberOfOpenSpots the amount of spots with no cars parked in it
+     */
+    public int getNumberOfOpenSpots() {
+    	return numberOfOpenSpots;
+    }
+    
+    public int getStepPause() {
+    	return stepPause;
+    }
+    
+    public void setStepPause(int stepPause) {
+    	this.stepPause = stepPause;
+    }
+    
+    
+    
+    
+    
     public int getNumberOfFloors() {
     	return numberOfFloors;
    	}
@@ -827,32 +879,4 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    	public int getNumberOfPlaces() {
    		return numberOfPlaces;
    	}
-   
-   	public int getNumberOfOpenSpots() {
-	   	return numberOfOpenSpots;
-   	}
-    
-    public int getTotalParkedRegular() {
-    	return totalParkedRegular;
-    }
-    
-    public int getTotalParkedSubscription() {
-    	return totalParkedSubscription;
-    }
-    
-    public int getTotalParkedReservation() {
-    	return totalParkedReservation;
-    }
-    
-    public int getTotalEmptySpots() {
-    	return numberOfOpenSpots;
-    }
-    
-    public int getStepPause() {
-    	return stepPause;
-    }
-    
-    public void setStepPause(int stepPause) {
-    	this.stepPause = stepPause;
-    }
 }
