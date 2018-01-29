@@ -834,7 +834,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
      */
     private void setSubIncome() {
     	if(day == 6 && hour == 23 && minute == 59) {
-    		totalSubscriptionIncome = maxSubscriptions * subscriptionFee;
+    		totalSubscriptionIncome += maxSubscriptions * subscriptionFee;
     	}
     }
    	
