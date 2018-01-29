@@ -20,11 +20,10 @@ import model.SimulatorModel;
 @SuppressWarnings("serial")
 public class PieChartView extends AbstractView {
 	
-	private JLabel titleLabel;
 	private JLabel regularLabel;
 	private JLabel subscriptionLabel;
 	private JLabel reservationLabel;
-	private JLabel emptySpots;
+	private JLabel emptySpotsLabel;
 	
 	/**
 	 * The constructor for the class PieChartView.
@@ -35,11 +34,7 @@ public class PieChartView extends AbstractView {
 		super(simulator);
 		
 		setLayout(null);
-		
-		titleLabel = new JLabel("<html><b><h2><i>Occupancy Rate</i></h></b></html>");
-		titleLabel.setBounds(103, 50, 144, 50);
-		add(titleLabel);
-		
+
 		regularLabel = new JLabel("Regular Car");
 		regularLabel.setBounds(385, 213, 100, 15);
 		add(regularLabel);
@@ -52,9 +47,9 @@ public class PieChartView extends AbstractView {
 		reservationLabel.setBounds(385, 253, 100, 15);
 		add(reservationLabel);
 
-		emptySpots = new JLabel("Empty Spots");
-		emptySpots.setBounds(385, 273, 100, 15);
-		add(emptySpots);
+		emptySpotsLabel = new JLabel("Empty Spots");
+		emptySpotsLabel.setBounds(385, 273, 100, 15);
+		add(emptySpotsLabel);
 	}
 	
 	/**
@@ -86,18 +81,18 @@ public class PieChartView extends AbstractView {
 		g.fillArc(25, 100, 300, 300, 0, 360);
 		
 		// Creates the arcs for all four categories.
-		int sum = 0;
+		int start = 0;
 	    g.setColor(Color.RED);
-	    g.fillArc(25, 100, 300, 300, sum, regular);
-	    sum += regular;
+	    g.fillArc(25, 100, 300, 300, start, regular);
+	    start += regular;
 	    g.setColor(Color.BLUE);
-	    g.fillArc(25, 100, 300, 300, sum, subscription);
-	    sum += subscription;
+	    g.fillArc(25, 100, 300, 300, start, subscription);
+	    start += subscription;
 	    g.setColor(Color.YELLOW);
-	    g.fillArc(25, 100, 300, 300, sum, reservation);
-	    sum += reservation;
+	    g.fillArc(25, 100, 300, 300, start, reservation);
+	    start += reservation;
 	    g.setColor(Color.WHITE);
-	    g.fillArc(25, 100, 300, 300, sum, empty);
+	    g.fillArc(25, 100, 300, 300, start, empty);
 	    
 	    // Creates colored rectangles for the legend.
 	    g.setColor(Color.RED);

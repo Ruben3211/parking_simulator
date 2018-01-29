@@ -82,9 +82,9 @@ public class Simulator {
 		screen.getContentPane().add(runController);
 		screen.getContentPane().add(sliderController);
 				
-		graphTabbedPane.addTab("Pie Chart", pieChartIcon, pieChartView, null);
-		graphTabbedPane.addTab("Bar Chart", barChartIcon, barChartView, null);
-		graphTabbedPane.addTab("Line Graph", lineChartIcon, lineGraphView, null);
+		graphTabbedPane.addTab("Occupancy rate", pieChartIcon, pieChartView, null);
+		graphTabbedPane.addTab("Parked cars/empty spots", barChartIcon, barChartView, null);
+		graphTabbedPane.addTab("Income per day/type", lineChartIcon, lineGraphView, null);
 		
 		graphTabbedPane.setBounds(1000, 40, 500, 500);
 		carParkView.setBounds(6, 6, 800, 400);

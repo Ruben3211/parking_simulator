@@ -169,6 +169,12 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         run = false;
     }
     
+    public void reset() {
+        totalParkedRegular = 0;
+        totalParkedSubscription = 0;
+        totalParkedReservation = 0;
+    }
+    
 	public ParkingSpace getParkingSpaceAt(Location location) {
 		if(!locationIsValid(location)) {
 			return null;
