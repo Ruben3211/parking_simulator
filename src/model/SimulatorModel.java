@@ -39,23 +39,20 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private int stepPause;
 
-    // Average number of cars arriving per hour.
     private int weekDayRegularArrivals;
     private int weekendRegularArrivals;
-    private int eventRegularArrivals; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int eventRegularArrivals;
     private int weekDaySubscriptionArrivals;
     private int weekendSubscriptionArrivals;
-    private int eventSubscriptionArrivals; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int eventSubscriptionArrivals;
     private int weekDayReservationArrivals;
     private int weekendReservationArrivals;
-    private int eventReservationArrivals; // used on Thursday/Friday/Saturday night 18:00 - 24:00 and Sunday afternoon 12:00 - 18:00.
+    private int eventReservationArrivals;
 
-    // Number of cars that can enter/leave per minute.
     private int entranceSpeed;
     private int paymentSpeed;
     private int exitSpeed;
     
-	// The prices the various cars have to pay.
     private int regularFee;
     private int subscriptionFee;
     private int reservationFee;
@@ -68,7 +65,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 	private int maxSubscriptions;
     private int maxReservations;
 
-    // The number of cars per type that left, because the queues were too long.
     private int totalRegularMissed;
     private int totalReservationMissed;
     private int totalCarsMissed;
@@ -573,12 +569,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     } 
 
-    //----------------------------------------------------------------------------------------------------------------
-    // Place all the getters and setters, that are to be used in the controllers	
-    // and views, here. If a getter and setter use the same variable place the
-    // setter first and then the getter. Comment them appropriately.
-    //----------------------------------------------------------------------------------------------------------------
-    
     /**
      * This method returns a string with the current weekday. Which day it is, 
      * is calculated by using the day in numbers and a modulo, this number will
@@ -802,6 +792,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return missedReservationIncome;
     }
     
+    /**
+     * This method calculates the total income missed from missed cars. This is
+     * calculated by adding all missed income, from the regular and reservation
+     * cars to the missedTotalIncome variable.
+     */
     public void setMissedIncome() {
     	missedTotalIncome = missedRegularIncome + missedReservationIncome;
     }
@@ -856,26 +851,51 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return numberOfOpenSpots;
     }
     
-    public int getStepPause() {
-    	return stepPause;
-    }
-    
+    /**
+     * This method sets the stepPause variable to a new number. This is done via
+     * the speed slider in the SlideController class, to speed up the simulation.
+     * 
+     * @param stepPause the step pause which influences the speed of simulation
+     */
     public void setStepPause(int stepPause) {
     	this.stepPause = stepPause;
     }
     
+    /**
+     * This method returns the current value of the stepPause variable.
+     * 
+     * @return stepPause the step pause which influences the speed of simulation
+     */
+    public int getStepPause() {
+    	return stepPause;
+    }
     
-    
-    
-    
+    /**
+     * This method returns the total number of floors that exists in the
+     * parking garage.
+     * 
+     * @return numberOfFloors the total number of floors in the garage
+     */
     public int getNumberOfFloors() {
     	return numberOfFloors;
    	}
 	
+    /**
+     * This method returns the total number of rows that exists in the
+     * parking garage.
+     * 
+     * @return numberOfRows the total number of rows in the garage
+     */
     public int getNumberOfRows() {
     	return numberOfRows;
    	}
-   
+    
+    /**
+     * This method returns the total number of places that exists in the
+     * parking garage.
+     * 
+     * @return numberOfPlaces the total number of places in the garage
+     */
    	public int getNumberOfPlaces() {
    		return numberOfPlaces;
    	}
