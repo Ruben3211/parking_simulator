@@ -84,7 +84,7 @@ public class PieChartView extends AbstractView {
 		g.fillArc(25, 100, 300, 300, 0, 360);
 		
 		// Creates the arcs for all four categories.
-		int sum = 0;
+		int sum = 90;
 	    g.setColor(Color.RED);
 	    g.fillArc(25, 100, 300, 300, sum, regular);
 	    sum += regular;
