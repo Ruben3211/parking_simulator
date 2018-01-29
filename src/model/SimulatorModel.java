@@ -83,6 +83,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int parkedRegularIncome;
     private int parkedReservationIncome;
     private int parkedTotalIncome;
+    
+    public ArrayList<Integer> data;
 
     /**
      * The constructor for the class SimulatorModel.
@@ -161,6 +163,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         regularFee = 1;
         subscriptionFee = 15;
         reservationFee = 9;
+        
+        data = new ArrayList<>();
         
         run = false;
     }
@@ -323,6 +327,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     public void run() {
     	for(int i = 0; i < numberOfSteps && run; i++) {
     		firstAction();
+    		data.add(totalIncome);
     		try {
     			Thread.sleep(stepPause);
     		} catch (InterruptedException e) {
