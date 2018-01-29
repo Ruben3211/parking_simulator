@@ -52,29 +52,29 @@ public BarChartView(SimulatorModel simulator) {
 			int res = getModel().getTotalParkedReservation();
 			int empty = getModel().getNumberOfOpenSpots();
 			
-			// het vlak naar achter de stafen instellen
+			// A block for behind the bars
 			Color a = new Color(214, 217, 223);
 			g.setColor(a);
 			g.fillRect(0, 0, 600, 600);
 			
-			// Staaf voor de resevatie auto's
+			// Bar for reservation cars
 			creat3DBar(g, Color.YELLOW, 160, 40 , 60, 270);
 			creat2DBar(g, a, 160, 40, 60, 270-res/2);
 			
-			//Staaf voor de pass houder auto's
+			//Bar for Subscription cars
 			creat3DBar(g,Color.BLUE,360,40, 60, 270);
 			 creat2DBar(g,a,360, 40, 60, 270-sub/2);
 		
 		    
-		    // De staaf voor lege parkeer vakken
+		    // Bar for empty spaces
 		   creat3DBar(g,Color.WHITE,260, 40, 60, 270);
 		   creat2DBar(g,a,260, 40, 60, 270-empty/2);
 		   
-		   //De staaf voor algemene auto's
+		   //Bar for general cars 
 		   creat3DBar(g,Color.RED,60,40, 60, 270);
 		   creat2DBar(g,a,60, 40, 60, 270-reg/2);
 		   
-		   // De waarden onder de stafen 
+		//text under the bars
 		   
 		   Regcars.setText("Reguluar "+ reg);
 		    Subcars.setText("Subscription "+ sub);
