@@ -43,63 +43,53 @@ public class FinancialView extends AbstractView{
 		setLayout(new GridLayout(10, 2));
 		
 		incomeLabel = new JLabel("<html><b>Income</b></html>");
-		blankOne = new JLabel();
-		
-		regularLabel = new JLabel("Regular:");
-		regularData = new JLabel();
-		
-		subscriptionLabel = new JLabel("Subscription:");
-		subscriptionData = new JLabel();
-		
-		reservationLabel = new JLabel("Reservation:");
-		reservationData = new JLabel();
-		
-		totalLabel = new JLabel("Total:");
-		totalData = new JLabel();
-		
-		blankTwo = new JLabel();
-		blankThree = new JLabel();
-		
-		parkedIncomeLabel = new JLabel("<html><b>Parked Income</b></html>");
-		blankFour = new JLabel();
-		
-		parkedRegularLabel = new JLabel("Regular:");
-		parkedRegularData = new JLabel();
-		
-		parkedReservationLabel = new JLabel("Reservation:");
-		parkedReservationData = new JLabel();
-		
-		parkedTotalLabel = new JLabel("Total:");
-		parkedTotalData = new JLabel();
-
 		add(incomeLabel);
+		blankOne = new JLabel();
 		add(blankOne);
 		
+		regularLabel = new JLabel("Regular:");
 		add(regularLabel);
+		regularData = new JLabel();
 		add(regularData);
 		
+		subscriptionLabel = new JLabel("Subscription:");
 		add(subscriptionLabel);
+		subscriptionData = new JLabel();
 		add(subscriptionData);
 		
+		reservationLabel = new JLabel("Reservation:");
 		add(reservationLabel);
+		reservationData = new JLabel();
 		add(reservationData);
 		
+		totalLabel = new JLabel("Total:");
 		add(totalLabel);
+		totalData = new JLabel();
 		add(totalData);
 		
+		blankTwo = new JLabel();
 		add(blankTwo);
+		blankThree = new JLabel();
 		add(blankThree);
 		
+		parkedIncomeLabel = new JLabel("<html><b>Parked Income</b></html>");
 		add(parkedIncomeLabel);
+		blankFour = new JLabel();
 		add(blankFour);
 		
+		parkedRegularLabel = new JLabel("Regular:");
 		add(parkedRegularLabel);
+		parkedRegularData = new JLabel();
 		add(parkedRegularData);
 		
+		parkedReservationLabel = new JLabel("Reservation:");
 		add(parkedReservationLabel);
+		parkedReservationData = new JLabel();
 		add(parkedReservationData);
 		
+		parkedTotalLabel = new JLabel("Total:");
 		add(parkedTotalLabel);
+		parkedTotalData = new JLabel();
 		add(parkedTotalData);
 	}
 	

@@ -25,7 +25,7 @@ public class Simulator {
 	private JFrame screen;
 	private JTabbedPane graphTabbedPane;
 	
-	//private AbstractView barChartView;
+	private AbstractView barChartView;
 	private AbstractView carParkView;
 	private AbstractView carQueueView;
 	private AbstractView financialView;
@@ -49,7 +49,7 @@ public class Simulator {
 		screen = new JFrame("Parking Garage Simulator");
 		graphTabbedPane = new JTabbedPane();
 		
-		//barChartView = new BarChartView(simulatorLogic);
+		barChartView = new BarChartView(simulatorLogic);
 		carParkView = new CarParkView(simulatorLogic);
 		carQueueView = new CarQueueView(simulatorLogic);
 		financialView = new FinancialView(simulatorLogic);
@@ -88,13 +88,13 @@ public class Simulator {
 		screen.getContentPane().add(dataController);
 				
 		graphTabbedPane.addTab("Pie Chart", pieChartIcon, pieChartView, null);
-		graphTabbedPane.addTab("Bar Chart", barChartIcon, null, null);
+		graphTabbedPane.addTab("Bar Chart", barChartIcon, barChartView, null);
 		graphTabbedPane.addTab("Line Graph", lineChartIcon, null, null);
 		
 		graphTabbedPane.setBounds(1000, 40, 500, 500);
 		//barChartView.setBounds(1400, 500, 600, 600);
 		carParkView.setBounds(6, 6, 800, 400);
-		carQueueView.setBounds(1200, 610, 275, 176);
+		carQueueView.setBounds(1200, 610, 275, 160);
 		financialView.setBounds(1000, 610, 190, 160);
 		timeView.setBounds(1000, 575, 200, 25);
 		//dataController.setBounds(-250, 600, 800, 900);

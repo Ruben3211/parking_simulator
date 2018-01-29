@@ -3,7 +3,7 @@ package view;
 import model.SimulatorModel;
 import java.awt.*;
 import javax.swing.JLabel;
-import java.awt.geom.*;
+
 
 @SuppressWarnings("serial")
 public class BarChartView extends AbstractView{
@@ -31,44 +31,53 @@ public BarChartView(SimulatorModel simulator) {
 			int sub = getModel().getTotalParkedSubscription();
 			int res = getModel().getTotalParkedReservation();
 			int empty = getModel().getNumberOfOpenSpots();
-			Color a = new Color(238, 238, 238);
+			
+			// het vlak naar achter de stafen instellen
+			Color a = new Color(214, 217, 223);
 			g.setColor(a);
 			g.fillRect(0, 0, 600, 600);
-			//g.setColor(Color.RED);
-			//g.fill3DRect(60, 250, 80, reg, false);
-	
-			creatBar(g, Color.YELLOW, 160,250 , 80, res);
 			
+			// Staaf voor de resevatie auto's
+			creat3DBar(g, Color.YELLOW, 160, 40 , 60, 270);
+			creat2DBar(g, a, 160, 40, 60, 270-res/2);
 			
-			//g.setColor(Color.BLUE);
-		   // g.fill3DRect(360, 250, 80, -sub, true);
-		
-		  // g.setColor(Color.YELLOW);
-		  //  g.fill3DRect(160, 250, 80, res, true);
-		 //  /g.fillRect(160, 250, 80 - 3, res);
+			//Staaf voor de pass houder auto's
+			creat3DBar(g,Color.BLUE,360,40, 60, 270);
+			 creat2DBar(g,a,360, 40, 60, 270-sub/2);
 		
 		    
-		    
-		   // g.setColor(Color.WHITE);
-		   // g.fill3DRect(260, 250, 80, empty, true);
-		    
-		    Regcars.setText("Reguluar "+ reg);
+		    // De staaf voor lege parkeer vakken
+		   creat3DBar(g,Color.WHITE,260, 40, 60, 270);
+		   creat2DBar(g,a,260, 40, 60, 270-empty/2);
+		   
+		   //De staaf voor algemene auto's
+		   creat3DBar(g,Color.RED,60,40, 60, 270);
+		   creat2DBar(g,a,60, 40, 60, 270-reg/2);
+		   
+		   // De waarden onder de stafen 
+		   
+		   Regcars.setText("Reguluar "+ reg);
 		    Subcars.setText("Subscription "+ sub);
 		     Rescars.setText("Resevation "+ res);
 		    Empty.setText("Empty "+ empty);
 		    
-		    
-		    Regcars.setBounds(60,260, 80, 100);
-			Subcars.setBounds(360,260, 100, 100);
-			Rescars.setBounds(160,260, 80, 100);
-			Empty.setBounds(260,260, 80, 100);
+		    Regcars.setBounds(60,280, 80, 100);
+			Subcars.setBounds(360,280, 100, 100);
+			Rescars.setBounds(160,280, 100, 100);
+			Empty.setBounds(260,280, 80, 100);
 		 
 		}
-		public void creatBar(Graphics g, Color kleur, int x, int y, int with, int height ) {
-
-		g.setColor(kleur);
-		g.fill3DRect(x, y, with, height, true);
+		
+		// maak een 3Dbar aan
+		public void creat3DBar(Graphics g, Color kleur, int x, int y, int with, int height ) {
+			g.setColor(kleur);
+			g.fill3DRect(x, y, with, height, true);
 		
 		
+		}
+		// maak een 2DBar
+		public void creat2DBar(Graphics g, Color kleur, int x, int y, int with, int height ) {
+			g.setColor(kleur);
+			g.fillRect(x, y, with, height);
 		}
 }
