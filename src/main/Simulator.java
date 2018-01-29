@@ -91,9 +91,9 @@ public class Simulator {
 		carQueueView.setBounds(1200, 610, 275, 160);
 		financialView.setBounds(1000, 610, 190, 160);
 		timeView.setBounds(1000, 575, 200, 25);
-		dataController.setBounds(0, 600, 800, 900);
+		dataController.setBounds(35, 570, 840, 200);
 		runController.setBounds(80, 425, 300, 25);
-		resetController.setBounds(450, 419, 60, 35);
+		resetController.setBounds(430, 419, 120, 35);
 		sliderController.setBounds(595, 410, 200, 55);
 		
 		screen.setVisible(true);

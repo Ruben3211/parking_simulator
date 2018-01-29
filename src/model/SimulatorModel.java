@@ -668,87 +668,28 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 	   eventReservationArrivals = 0;
    }
    
-   
-   /**
-    * Checks the name of the gameObject and assigns it the right variable if the name exists in the switch statement.
-    * @param objectName is the name given by setName
-    * @param value is the value that the object with the objectname holds
-    */
-    
-   public void setIntFromDataController (String objectName, int value) {
-	   switch (objectName) {
-	case "reservations":
-		maxReservations = value;
-		break;
-		
-	case "subcribers":
-		maxSubscriptions = value;
-		break;
-		
-	case "normalPrice":
-		regularFee = value;
-		break;
-		
-	case "reservationPrice":
-		reservationFee = value;
-		break;
-		
-	case "subscriberPrice":
-		subscriptionFee = value;
-		break;
-		
-	case "enterSpeed":
-		entranceSpeed = value;
-		break;
-	
-	case "paymentSpeed":
-		paymentSpeed = value;
-		break;
-		
-	case "exitSpeed":
-		exitSpeed = value;
-		break;
-	case "workDay":
-		weekDayRegularArrivals = value;
-		break;
-		
-	case "weekend":
-		weekendRegularArrivals = value;
-		break;
-		
-	case "special":
-		eventRegularArrivals = value;
-		break;
-		
-	case "subWorkDay":
-		weekDaySubscriptionArrivals = value;
-		break;
-		
-	case "subWeekend":
-		weekendSubscriptionArrivals = value;
-		break;
-		
-	case "subSpecial":
-		eventSubscriptionArrivals = value;
-		break;
-		
-	case "reservationWorkDay":
-		weekDayReservationArrivals = value;
-		break;
-		
-	case "reservationWeekend":
-		weekendReservationArrivals = value;
-		break;
-		
-	case "reservationSpecial":
-		eventReservationArrivals = value;
-		break;
-
-	default:
-		break;
-	}
-   }
-
+   	public void setIntFromDataController (String objectName, int value) {
+   		switch (objectName) {
+	   		case "maxSubscribersData":		maxSubscriptions = value;				break;
+	   		case "axReservationsData":		maxReservations = value;				break;
+	   		case "regularFeeData":			regularFee = value;						break;
+	   		case "subscriberFeeData":		subscriptionFee = value;				break;
+	   		case "reservationFeeData":		reservationFee = value;					break;
+	   		case "enterSpeedData":			entranceSpeed = value;					break;
+	   		case "paymentSpeedData":		paymentSpeed = value;					break;
+	   		case "exitSpeedData":			exitSpeed = value;						break;
+	   		case "regularWeekDayData":		weekDayRegularArrivals = value;			break;
+	   		case "regularWeekendData":		weekendRegularArrivals = value;			break;
+	   		case "regularEventData":		eventRegularArrivals = value;			break;
+	   		case "subscriptionWeekDayData":	weekDaySubscriptionArrivals = value;	break;
+	   		case "subscriptionWeekendData":	weekendSubscriptionArrivals = value;	break;
+	   		case "subscriptionEventData":	eventSubscriptionArrivals = value;		break;
+	   		case "reservationWeekDayData":	weekDayReservationArrivals = value;		break;
+	   		case "reservationWeekendData":	weekendReservationArrivals = value;		break;
+	   		case "reservationEventData":	eventReservationArrivals = value;		break;
+   		}
+   	}
+   	
     /**
      * This method returns a string with the current weekday. Which day it is, 
      * is calculated by using the day in numbers and a modulo, this number will
