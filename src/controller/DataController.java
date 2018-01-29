@@ -12,7 +12,6 @@ import javax.swing.Box;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import model.Audio;
 
 /*
  * This class imports a few boxlayouts containing textfields and labels.
@@ -176,7 +175,6 @@ public class DataController extends AbstractController implements ActionListener
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == sendDataButton) {
-			Audio.playSound("C:/Users/jkroe/Desktop/JavaProject/knob.mp3");
 			for (int i = 0; i < textFieldList.size(); i++) { // Loops through whole arraylist
 				if(textFieldList.get(i).getText() != "") { //Checks if field is not empty 
 					if (isInteger(textFieldList.get(i).getText()) == true) { //Checks if the text inside the field is an integer				
@@ -194,7 +192,6 @@ public class DataController extends AbstractController implements ActionListener
 		 */
 		if (e.getSource() == resetDataButton) {
 			simulator.resetAllData();
-			Audio.playSound("C:/Users/jkroe/Desktop/JavaProject/knob.mp3");
 			reservations.setText(Integer.toString(simulator.getMaxRes()));
 			subscribers.setText(Integer.toString(simulator.getMaxSub()));
 			normalPrice.setText(Integer.toString(simulator.getRegPayAmount()));
