@@ -43,83 +43,73 @@ public class CarQueueView extends AbstractView  {
 		setLayout(new GridLayout(11, 3));
 		
 		queueLabel = new JLabel("<html><b>Queues</b></html>");
-		blankOne = new JLabel();
-		blankTwo = new JLabel();
-		
-		entranceOneLabel = new JLabel("Entrance one:");
-		entranceOneData = new JLabel();
-		blankThree = new JLabel();
-		
-		entranceTwoLabel = new JLabel("Entrance two:");
-		entranceTwoData = new JLabel();
-		blankFour = new JLabel();
-		
-		paymentLabel = new JLabel("Payment:");
-		paymentData = new JLabel();
-		blankFive = new JLabel();
-		
-		exitLabel = new JLabel("Exit:");
-		exitData = new JLabel();
-		blankSix = new JLabel();
-		
-		blankSeven = new JLabel();
-		blankEight = new JLabel();
-		blankNine = new JLabel();
-		
-		missedCarLabel = new JLabel("<html><b>Missed Cars</b></html>");
-		blankTen = new JLabel();
-		blankEleven = new JLabel();
-			
-		regularMissedLabel = new JLabel("Regular:");
-		regularMissedData = new JLabel();
-		regularMissedMoneyData = new JLabel();
-		
-		reservationMissedLabel = new JLabel("Reservation:");
-		reservationMissedData = new JLabel();
-		reservationMissedMoneyData = new JLabel();
-		
-		totalMissedLabel = new JLabel("Total:");
-		totalMissedData = new JLabel();
-		totalMissedMoneyData = new JLabel();
-		
 		add(queueLabel);
+		blankOne = new JLabel();
 		add(blankOne);
+		blankTwo = new JLabel();
 		add(blankTwo);
 		
+		entranceOneLabel = new JLabel("Entrance one:");
 		add(entranceOneLabel);
+		entranceOneData = new JLabel();
 		add(entranceOneData);
+		blankThree = new JLabel();
 		add(blankThree);
 		
+		entranceTwoLabel = new JLabel("Entrance two:");
 		add(entranceTwoLabel);
+		entranceTwoData = new JLabel();
 		add(entranceTwoData);
+		blankFour = new JLabel();
 		add(blankFour);
 		
+		paymentLabel = new JLabel("Payment:");
 		add(paymentLabel);
+		paymentData = new JLabel();
 		add(paymentData);
+		blankFive = new JLabel();
 		add(blankFive);
 		
+		exitLabel = new JLabel("Exit:");
 		add(exitLabel);
+		exitData = new JLabel();
 		add(exitData);
+		blankSix = new JLabel();
 		add(blankSix);
 		
+		blankSeven = new JLabel();
 		add(blankSeven);
+		blankEight = new JLabel();
 		add(blankEight);
+		blankNine = new JLabel();
 		add(blankNine);
 		
+		missedCarLabel = new JLabel("<html><b>Missed Cars</b></html>");
 		add(missedCarLabel);
+		blankTen = new JLabel();
 		add(blankTen);
+		blankEleven = new JLabel();
 		add(blankEleven);
 			
+		regularMissedLabel = new JLabel("Regular:");
 		add(regularMissedLabel);
+		regularMissedData = new JLabel();
 		add(regularMissedData);
+		regularMissedMoneyData = new JLabel();
 		add(regularMissedMoneyData);
 		
+		reservationMissedLabel = new JLabel("Reservation:");
 		add(reservationMissedLabel);
+		reservationMissedData = new JLabel();
 		add(reservationMissedData);
+		reservationMissedMoneyData = new JLabel();
 		add(reservationMissedMoneyData);
 		
+		totalMissedLabel = new JLabel("Total:");
 		add(totalMissedLabel);
+		totalMissedData = new JLabel();
 		add(totalMissedData);
+		totalMissedMoneyData = new JLabel();
 		add(totalMissedMoneyData);
 	}
 	

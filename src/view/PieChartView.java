@@ -38,27 +38,22 @@ public class PieChartView extends AbstractView {
 		
 		titleLabel = new JLabel("<html><b><h2><i>Occupancy Rate</i></h></b></html>");
 		titleLabel.setBounds(103, 50, 144, 50);
+		add(titleLabel);
 		
 		regularLabel = new JLabel("Regular Car");
 		regularLabel.setBounds(385, 213, 100, 15);
-		
+		add(regularLabel);
+
 		subscriptionLabel = new JLabel("Subscription Car");
 		subscriptionLabel.setBounds(385, 233, 100, 15);
-		
+		add(subscriptionLabel);
+
 		reservationLabel = new JLabel("Reservation Car");
 		reservationLabel.setBounds(385, 253, 100, 15);
-		
+		add(reservationLabel);
+
 		emptySpots = new JLabel("Empty Spots");
 		emptySpots.setBounds(385, 273, 100, 15);
-		
-		add(titleLabel);
-		
-		add(regularLabel);
-		
-		add(subscriptionLabel);
-		
-		add(reservationLabel);
-		
 		add(emptySpots);
 	}
 	
@@ -83,39 +78,34 @@ public class PieChartView extends AbstractView {
 		reservation = (int) (reservation * radius);
 		empty = (int) (empty * radius);
 		
+		// Creates a rectangular and circular background.
 		Color background = new Color(214, 217, 223);
-		
 		g.setColor(background);
 		g.fillRect(0, 0, 500, 500);
-		
 		g.setColor(Color.WHITE);
 		g.fillArc(25, 100, 300, 300, 0, 360);
 		
+		// Creates the arcs for all four categories.
 		int sum = 0;
 	    g.setColor(Color.RED);
 	    g.fillArc(25, 100, 300, 300, sum, regular);
-	    
 	    sum += regular;
 	    g.setColor(Color.BLUE);
 	    g.fillArc(25, 100, 300, 300, sum, subscription);
-	    
 	    sum += subscription;
 	    g.setColor(Color.YELLOW);
 	    g.fillArc(25, 100, 300, 300, sum, reservation);
-	    
 	    sum += reservation;
 	    g.setColor(Color.WHITE);
 	    g.fillArc(25, 100, 300, 300, sum, empty);
 	    
+	    // Creates colored rectangles for the legend.
 	    g.setColor(Color.RED);
 	    g.fillRect(350, 213, 30, 15);
-	    
 	    g.setColor(Color.BLUE);
 	    g.fillRect(350, 233, 30, 15);
-	    
 	    g.setColor(Color.YELLOW);
 	    g.fillRect(350, 253, 30, 15);
-	    
 	    g.setColor(Color.WHITE);
 	    g.fillRect(350, 273, 30, 15);
 	}
