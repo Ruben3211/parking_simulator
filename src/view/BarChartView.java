@@ -46,7 +46,7 @@ public BarChartView(SimulatorModel simulator) {
 			 creat2DBar(g,a,360, 40, 60, 270-sub/2);
 		
 		    
-		   // De staaf voor lege parkeer vakken
+		    // De staaf voor lege parkeer vakken
 		   creat3DBar(g,Color.WHITE,260, 40, 60, 270);
 		   creat2DBar(g,a,260, 40, 60, 270-empty/2);
 		   
