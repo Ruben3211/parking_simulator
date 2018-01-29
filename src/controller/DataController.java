@@ -210,7 +210,6 @@ public class DataController extends AbstractController implements ActionListener
 			reservationSpecial.setText(Integer.toString(simulator.getEventRes()));
 		}
 	}
-	
 	/**
 	 * Checks if the given text in the textfield is an int. If not this method returns false and the data from the textfield wont be send
 	 * @param s String given when calling this method this string is taken from the textfield
