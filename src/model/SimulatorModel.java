@@ -588,8 +588,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     }
     
    	public void resetDataControllerValues() {
-   		maxReservations = 60;
-   		maxSubscriptions = 60;
    		regularFee = 15;
    		subscriptionFee = 30;
    		reservationFee = 20;
@@ -605,6 +603,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    		weekDayReservationArrivals = 50;
    		weekendReservationArrivals = 5;
    		eventReservationArrivals = 0;
+   		maxReservations = 60;
+   		maxSubscriptions = 60;
+   		maxEntranceQueue = 6;
    	}
    	
    	public void setIntFromDataController(String objectName, int value) {
