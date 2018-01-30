@@ -333,7 +333,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     public void run() {
     	for(int i = 0; i < numberOfSteps && run; i++) {
     		firstAction();
-    		data.add(totalIncome);
     		try {
     			Thread.sleep(stepPause);
     		} catch (InterruptedException e) {
@@ -349,6 +348,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         minute++;
         while (minute > 59) {
             minute -= 60;
+    		data.add(totalIncome);
             hour++;
         }
         while (hour > 23) {
@@ -1019,5 +1019,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
      */
    	public int getNumberOfPlaces() {
    		return numberOfPlaces;
+   	}
+   	
+   	public int getNumberOfSteps() {
+   		return numberOfSteps;
    	}
 }

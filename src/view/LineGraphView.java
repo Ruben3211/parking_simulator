@@ -20,7 +20,8 @@ public class LineGraphView extends AbstractView {
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
     private int pointWidth;
     private int numberYDivisions;
-	ArrayList<Integer> data;
+    private int maxNumber;
+	private ArrayList<Integer> data;
 	
 	public LineGraphView(SimulatorModel simulator) {
 		super(simulator);
@@ -34,6 +35,7 @@ public class LineGraphView extends AbstractView {
 	    gridColor = new Color(200, 200, 200, 200);
 	    pointWidth = 4;
         numberYDivisions = 10;
+        maxNumber = simulator.getTotalIncome();
 		data = simulator.data;
 	}
 	
@@ -44,12 +46,12 @@ public class LineGraphView extends AbstractView {
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         double xScale = ((double) getWidth() - (2 * padding) - labelPadding) / (data.size() - 1);
-        double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxScore() - getMinScore());
+        double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxNum() - getMinNum());
 
         ArrayList<Point> graphPoints = new ArrayList<>();
         for (int i = 0; i < data.size(); i++) {
             int x1 = (int) (i * xScale + padding + labelPadding);
-            int y1 = (int) ((getMaxScore() - data.get(i)) * yScale + padding);
+            int y1 = (int) ((getMaxNum() - data.get(i)) * yScale + padding);
             graphPoints.add(new Point(x1, y1));
         }
 
@@ -68,7 +70,7 @@ public class LineGraphView extends AbstractView {
                 g2.setColor(gridColor);
                 g2.drawLine(padding + labelPadding + 1 + pointWidth, y0, getWidth() - padding, y1);
                 g2.setColor(Color.BLACK);
-                String yLabel = ((int) ((getMinScore() + (getMaxScore() - getMinScore()) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0 + "";
+                String yLabel = ((int) ((getMinNum() + (getMaxNum() - getMinNum()) * ((i * 1.0) / numberYDivisions)) * 100)) / 100.0 + "";
                 FontMetrics metrics = g2.getFontMetrics();
                 int labelWidth = metrics.stringWidth(yLabel);
                 g2.drawString(yLabel, x0 - labelWidth - 5, y0 + (metrics.getHeight() / 2) - 3);
@@ -124,18 +126,15 @@ public class LineGraphView extends AbstractView {
 
 //    @Override
 //    public Dimension getPreferredSize() {
-//        return new Dimension(width, heigth);
+//        return new Dimension(width, height);
 //    }
 
-    private double getMinScore() {
-        double minScore = Double.MAX_VALUE;
-        for (Integer d : data) {
-            minScore = Math.min(minScore, d);
-        }
-        return minScore;
+    private double getMinNum() {
+    	int minScore = data.get(0);
+    	return minScore;
     }
 
-    private double getMaxScore() {
+    private double getMaxNum() {
         double maxScore = Double.MIN_VALUE;
         for (int d : data) {
             maxScore = Math.max(maxScore, d);
