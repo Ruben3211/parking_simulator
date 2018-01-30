@@ -9,7 +9,7 @@ import java.util.Queue;
  * the queue, as well as retrieving the total queue size.
  * 
  * @author Rick Zwaneveld
- * @version 27 -01-2018
+ * @version 30-01-2018
  */
 
 public class CarQueue {
@@ -27,7 +27,7 @@ public class CarQueue {
     }
 
     /**
-     * This method retrieves, but does not remove the first car in the queue.
+     * This method retrieves, but does not remove, the first car in the queue.
      * 
      * @return the first car if there is one, false if the queue is empty.
      */

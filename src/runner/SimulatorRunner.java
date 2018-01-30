@@ -7,10 +7,11 @@ import main.Simulator;
 /**
  * This class is needed for running the application. It uses the main method
  * that will create a new Simulator() object, which will immediately start up
- * the application.
+ * the application. The main method includes a UIManager to change to look and
+ * feel of the application.
  * 
  * @author Rick Zwaneveld
- * @version 27-01-2018
+ * @version 30-01-2018
  */
 
 public class SimulatorRunner {

@@ -11,7 +11,7 @@ import model.SimulatorModel;
  * defined here.
  * 
  * @author Rick Zwaneveld
- * @version 27-01-2018
+ * @version 30-01-2018
  */
 
 @SuppressWarnings("serial")

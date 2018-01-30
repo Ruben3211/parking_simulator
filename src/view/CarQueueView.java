@@ -10,10 +10,10 @@ import model.SimulatorModel;
 /**
  * This class is used for keeping track of all the queues. It will display the
  * amount of cars in each queue, the amount of missed cars per type and in total
- * and the amount of income this has cost the garage.
+ * the amount of income this has cost the garage.
  * 
  * @author Ruben Bonga & Rick Zwaneveld
- * @version 27-01-2018
+ * @version 30-01-2018
  */
 
 @SuppressWarnings("serial")

@@ -14,10 +14,10 @@ import model.SimulatorModel;
  * simulators operation. It adds three buttons and one text field to the
  * controller, with the appropriate names. It also sets the given layout. It
  * uses ActionEvent to know which button has been pressed and subsequently calls 
- * on the right method to execute.
+ * on the right methods to execute.
  * 
  * @author Rick Zwaneveld
- * @version 27-01-2018
+ * @version 30-01-2018
  */
 
 @SuppressWarnings("serial")
@@ -66,12 +66,10 @@ public class RunController extends AbstractController implements ActionListener 
 		if(e.getSource() == start) {
 			simulator.start(40320);
 		}
-		
 		if(e.getSource() == steps) {
 			int numberOfSteps = parseSteps();
 			simulator.start(numberOfSteps);
 		}
-		
 		if(e.getSource() == stop) {
 			simulator.stop();
 		}

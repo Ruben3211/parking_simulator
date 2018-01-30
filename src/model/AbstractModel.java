@@ -12,7 +12,7 @@ import view.Observer;
  * of changes.
  * 
  * @author Rick Zwaneveld
- * @version 27-01-2018
+ * @version 30-01-2018
  */
 
 public abstract class AbstractModel implements Observable {
@@ -38,7 +38,7 @@ public abstract class AbstractModel implements Observable {
 	
 	/**
 	 * This method is responsible for updating all observers. This method is 
-	 * called on when ever changes are made in the model.
+	 * called on whenever changes are made in the model.
 	 */
 	public void notifyObservers() {
 		for(Observer o: this.observers) {

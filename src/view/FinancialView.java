@@ -13,7 +13,7 @@ import model.SimulatorModel;
  * the amount of money currently still parked in the garage.
  * 
  * @author Ruben Bonga & Rick Zwaneveld
- * @version 27-01-2018
+ * @version 30-01-2018
  */
 
 @SuppressWarnings("serial")

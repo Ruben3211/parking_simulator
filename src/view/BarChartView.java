@@ -13,7 +13,7 @@ import model.SimulatorModel;
  * of empty parking spots left.
  * 
  * @author Ruben Bonga
- * @version 29-01-2018
+ * @version 30-01-2018
  */
 
 @SuppressWarnings("serial")
@@ -54,11 +54,14 @@ public class BarChartView extends AbstractView {
 	/**
 	 * This method is responsible for getting the data needed for the bar chart 
 	 * and keeping this data up-to-date. Furthermore it is also responsible for
-	 * creating the visuals needed to display the bar chart.
+	 * creating the visuals needed to display the bar chart, as well as creating
+	 * a legend.
 	 * 
 	 * @param g the specified Graphics context
 	 */
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
 		int regular = getModel().getTotalParkedRegular();
 		int subscription = getModel().getTotalParkedSubscription();
 		int reservation = getModel().getTotalParkedReservation();
@@ -69,7 +72,7 @@ public class BarChartView extends AbstractView {
 		g.setColor(background);
 		g.fillRect(0, 0, 500, 500);
 		
-		// Creates a blank line.
+		// Creates a black line.
 		g.setColor(Color.BLACK);
 		g.fillRect(10, 385, 330, 2);
 		

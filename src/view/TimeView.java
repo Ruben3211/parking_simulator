@@ -11,11 +11,11 @@ import model.SimulatorModel;
 /**
  * This class has one simple task, displaying the current day, hour and minute of
  * the simulator. The constructor is responsible for setting up the labels. The
- * method called paintComponent is responsible for getting up to date information.
+ * method called paintComponent is responsible for getting up-to-date information.
  * It does this by calling on two methods in the model.
  * 
  * @author Rick Zwaneveld
- * @version 27-01-2018
+ * @version 30-01-2018
  */
 
 @SuppressWarnings("serial")

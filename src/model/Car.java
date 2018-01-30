@@ -9,7 +9,7 @@ import java.awt.Color;
  * track of their location and payment status.
  * 
  * @author Rick Zwaneveld
- * @version 27-01-2018
+ * @version 30-01-2018
  */
 
 public abstract class Car {
@@ -45,8 +45,8 @@ public abstract class Car {
     }
 
     /**
-     * This method will return the the amount of minutes left, that a parked
-     * car still has left in the garage.
+     * This method will return the amount of minutes left, that a parked car 
+     * still has left in the garage.
      * 
      * @return minutesLeft the amount of minutes the car has left in the garage
      */

@@ -14,7 +14,7 @@ import model.SimulatorModel;
  * what each color in the pie chart represents.
  * 
  * @author Rick Zwaneveld
- * @version 28-01-2018
+ * @version 30-01-2018
  */
 
 @SuppressWarnings("serial")
@@ -55,12 +55,14 @@ public class PieChartView extends AbstractView {
 	/**
 	 * This method retrieves the information needed to create and update a pie 
 	 * chart from the model. It will convert the data from the model to a 
-	 * percentage. Once this is done it will begin drawing arcs to form a pie 
+	 * radius. Once this is done it will begin drawing arcs to form a pie 
 	 * chart. It also creates four rectangles, which are used as a legend.
 	 * 
 	 * @param g the specified Graphics context
 	 */
 	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		
 		int regular = getModel().getTotalParkedRegular();
 		int subscription = getModel().getTotalParkedSubscription();
 		int reservation = getModel().getTotalParkedReservation();

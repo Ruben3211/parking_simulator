@@ -5,11 +5,11 @@ import java.util.Random;
 
 /**
  * This class extends the Car class and will be used to create "regular" cars. 
- * Every car will stay parked a random amount of minutes. Regular cars d have 
- * to pay when they leave the garage.
+ * Every car will stay parked a random amount of minutes. Regular cars have to 
+ * pay when they leave the garage.
  * 
  * @author Rick Zwaneveld
- * @version 27-01-2018
+ * @version 30-01-2018
  */
 
 public class RegularCar extends Car {
@@ -28,7 +28,7 @@ public class RegularCar extends Car {
     }
     
     /**
-     * This method returns the color set for regular, which is set to
+     * This method returns the color set for regular cars, which is set to
      * the color red.
      * 
      * @return color returns the color for regular car objects

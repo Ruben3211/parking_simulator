@@ -12,14 +12,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-
 import model.SimulatorModel;
 
 /**
- * 
+ * This class is responsible for creating and assembling everything to-do with
+ * the data controller. This controller lets the user manipulate data, to change
+ * the simulators behavior. This way the simulator can be used under different
+ * circumstances and their results can be compared.
  * 
  * @author Joey Kroes
- * @version 29-01-2018
+ * @version 30-01-2018
  */
 
 @SuppressWarnings("serial")
@@ -196,26 +198,23 @@ public class DataController extends AbstractController implements ActionListener
 	}
 
 	/**
+	 * This method is responsible for checking which button is pushed. If a
+	 * button is pushed, the corresponding actions are taken.
 	 * 
 	 * @param e the actionEvent given to the controller
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == sendDataButton) {
-
-			//Audio.playSound("C:/Users/jkroe/Desktop/JavaProject/knob.mp3");
-
 			for (int i = 0; i < textFieldList.size(); i++) {
 				if(textFieldList.get(i).getText() != "") {
-					if (isInteger(textFieldList.get(i).getText()) == true) {				
-					simulator.setIntFromDataController(textFieldList.get(i).getName(),Integer.parseInt(textFieldList.get(i).getText()));
-
+					if (isInteger(textFieldList.get(i).getText()) == true) {
+						simulator.setIntFromDataController(textFieldList.get(i).getName(),Integer.parseInt(textFieldList.get(i).getText()));
 					}
 				}
 			}
 		}
 		if (e.getSource() == resetDataButton) {
 			simulator.resetAllData();
-
 			maxSubscribersData.setText(Integer.toString(simulator.getMaxSub()));
 			maxReservationsData.setText(Integer.toString(simulator.getMaxRes()));
 			regularFeeData.setText(Integer.toString(simulator.getRegPayAmount()));
@@ -233,7 +232,6 @@ public class DataController extends AbstractController implements ActionListener
 			reservationWeekDayData.setText(Integer.toString(simulator.getWeekDayRes()));
 			reservationWeekendData.setText(Integer.toString(simulator.getWeekendRes()));
 			reservationEventData.setText(Integer.toString(simulator.getEventRes()));
-
 		}
 	}
 
