@@ -1,3 +1,11 @@
+/**
+ * LineGraphView is responsible for drawing a LineGraph with the total income of the parking garage as data.
+ * Every minute in the simulation a point is drawn.
+ * 
+ * @Author Detmer Struiksma
+ * @Version 30/1/2018
+ * 
+ */
 package view;
 
 import model.SimulatorModel;
@@ -55,7 +63,7 @@ public class LineGraphView extends AbstractView {
             graphPoints.add(new Point(x1, y1));
         }
 
-        // draw white background
+        // draw a white background.
         g2.setColor(Color.WHITE);
         g2.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) - labelPadding, getHeight() - 2 * padding - labelPadding);
         g2.setColor(Color.BLACK);
@@ -78,7 +86,7 @@ public class LineGraphView extends AbstractView {
             g2.drawLine(x0, y0, x1, y1);
         }
 
-        // and for x axis
+        // create hatch marks and grid lines for x axis.
         for (int i = 0; i < data.size(); i++) {
             if (data.size() > 1) {
                 int x0 = i * (getWidth() - padding * 2 - labelPadding) / (data.size() - 1) + padding + labelPadding;
@@ -98,7 +106,7 @@ public class LineGraphView extends AbstractView {
             }
         }
 
-        // create x and y axes 
+        // Create the x and y axes.
         g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, padding + labelPadding, padding);
         g2.drawLine(padding + labelPadding, getHeight() - padding - labelPadding, getWidth() - padding, getHeight() - padding - labelPadding);
 
@@ -123,11 +131,6 @@ public class LineGraphView extends AbstractView {
             g2.fillOval(x, y, ovalW, ovalH);
         }
     }
-
-//    @Override
-//    public Dimension getPreferredSize() {
-//        return new Dimension(width, height);
-//    }
 
     private double getMinNum() {
     	int minScore = data.get(0);
