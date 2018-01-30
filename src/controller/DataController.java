@@ -27,19 +27,19 @@ import model.SimulatorModel;
 @SuppressWarnings("serial")
 public class DataController extends AbstractController implements ActionListener {
 	
-	private JLabel maxSubscribersLabel, maxReservationsLabel;
 	private JLabel regularFeeLabel, subscriberFeeLabel, reservationFeeLabel;
 	private JLabel entranceSpeedLabel, paymentSpeedLabel, exitSpeedLabel;
 	private JLabel regularWeekDayLabel, regularWeekendLabel, regularEventLabel;
 	private JLabel subscriptionWeekDayLabel, subscriptionWeekendLabel, subscriptionEventLabel;
 	private JLabel reservationWeekDayLabel, reservationWeekendLabel, reservationEventLabel;
+	private JLabel maxSubscribersLabel, maxReservationsLabel, maxEntranceQueueLabel;
 	
-	private JTextField maxSubscribersData, maxReservationsData;
 	private JTextField regularFeeData, subscriberFeeData, reservationFeeData;
 	private JTextField entranceSpeedData, paymentSpeedData, exitSpeedData;
 	private JTextField regularWeekDayData, regularWeekendData, regularEventData;
 	private JTextField subscriptionWeekDayData, subscriptionWeekendData, subscriptionEventData;
 	private JTextField reservationWeekDayData, reservationWeekendData, reservationEventData;
+	private JTextField maxSubscribersData, maxReservationsData, maxEntranceQueueData;
 	
 	private JButton sendDataButton, resetDataButton;
 	
@@ -58,8 +58,6 @@ public class DataController extends AbstractController implements ActionListener
 		super(simulator);
 
 		// Creating all the labels and adding text.
-		maxSubscribersLabel = new JLabel("Max subscriptions");
-		maxReservationsLabel = new JLabel("Max reservations");
 		regularFeeLabel = new JLabel("Regular fee");
 		subscriberFeeLabel = new JLabel("Subscriber fee");
 		reservationFeeLabel = new JLabel("Reservation fee");
@@ -75,10 +73,11 @@ public class DataController extends AbstractController implements ActionListener
 		reservationWeekDayLabel = new JLabel("Reservation (weekday)");
 		reservationWeekendLabel = new JLabel("Reservation (weekend)");
 		reservationEventLabel = new JLabel("Reservation (event)");
+		maxSubscribersLabel = new JLabel("Max subscriptions");
+		maxReservationsLabel = new JLabel("Max reservations");
+		maxEntranceQueueLabel = new JLabel("Max entrance queue");
 		
 		// Creating all the text fields and retrieving their display data.
-		maxSubscribersData = new JTextField(Integer.toString(simulator.getMaxSubscriptions()));
-		maxReservationsData = new JTextField(Integer.toString(simulator.getMaxReservations()));
 		regularFeeData = new JTextField(Integer.toString(simulator.getRegularFee()));
 		subscriberFeeData = new JTextField(Integer.toString(simulator.getSubscriptionFee()));
 		reservationFeeData = new JTextField(Integer.toString(simulator.getReservationFee()));
@@ -94,10 +93,11 @@ public class DataController extends AbstractController implements ActionListener
 		reservationWeekDayData = new JTextField(Integer.toString(simulator.getWeekDayReservationArrivals()));
 		reservationWeekendData = new JTextField(Integer.toString(simulator.getWeekendReservationArrivals()));
 		reservationEventData = new JTextField(Integer.toString(simulator.getEventReservationArrivals()));
+		maxSubscribersData = new JTextField(Integer.toString(simulator.getMaxSubscriptions()));
+		maxReservationsData = new JTextField(Integer.toString(simulator.getMaxReservations()));
+		maxEntranceQueueData = new JTextField(Integer.toString(simulator.getMaxEntranceQueue()));
 		
 		// Setting a name to all the text fields.
-		maxSubscribersData.setName("maxSubscribersData");
-		maxReservationsData.setName("maxReservationsData");
 		regularFeeData.setName("regularFeeData");
 		subscriberFeeData.setName("subscriberFeeData");
 		reservationFeeData.setName("reservationFeeData");
@@ -113,6 +113,9 @@ public class DataController extends AbstractController implements ActionListener
 		reservationWeekDayData.setName("reservationWeekDayData");
 		reservationWeekendData.setName("reservationWeekendData");
 		reservationEventData.setName("reservationEventData");
+		maxSubscribersData.setName("maxSubscribersData");
+		maxReservationsData.setName("maxReservationsData");
+		maxEntranceQueueData.setName("maxEntranceQueueData");
 
 		// Creating the buttons and adding ActionListeners.
 		sendDataButton = new JButton("Send");
@@ -163,6 +166,8 @@ public class DataController extends AbstractController implements ActionListener
 		boxSix.add(maxSubscribersData);
 		boxSix.add(maxReservationsLabel);
 		boxSix.add(maxReservationsData);
+		boxSix.add(maxEntranceQueueLabel);
+		boxSix.add(maxEntranceQueueData);
 		
 		// Creating panels, include a box in them and add them to the content pane.
 		panelOne = new JPanel();
@@ -189,12 +194,12 @@ public class DataController extends AbstractController implements ActionListener
 		add(panelSeven);
 
 		// Adding all text fields to an array.
-		textFieldList = new ArrayList<>(Arrays.asList(maxSubscribersData, maxReservationsData,
-													  regularFeeData, subscriberFeeData, reservationFeeData,
+		textFieldList = new ArrayList<>(Arrays.asList(regularFeeData, subscriberFeeData, reservationFeeData,
 													  entranceSpeedData, paymentSpeedData, exitSpeedData,
 													  regularWeekDayData, regularWeekendData, regularEventData,
 													  subscriptionWeekDayData, subscriptionWeekendData, subscriptionEventData,
-													  reservationWeekDayData, reservationWeekendData, reservationEventData));
+													  reservationWeekDayData, reservationWeekendData, reservationEventData,
+													  maxSubscribersData, maxReservationsData, maxEntranceQueueData));
 	}
 
 	/**
@@ -214,9 +219,7 @@ public class DataController extends AbstractController implements ActionListener
 			}
 		}
 		if (e.getSource() == resetDataButton) {
-			simulator.resetAllData();
-			maxSubscribersData.setText(Integer.toString(simulator.getMaxSubscriptions()));
-			maxReservationsData.setText(Integer.toString(simulator.getMaxReservations()));
+			simulator.resetDataControllerValues();
 			regularFeeData.setText(Integer.toString(simulator.getRegularFee()));
 			subscriberFeeData.setText(Integer.toString(simulator.getSubscriptionFee()));
 			reservationFeeData.setText(Integer.toString(simulator.getReservationFee()));
@@ -232,6 +235,9 @@ public class DataController extends AbstractController implements ActionListener
 			reservationWeekDayData.setText(Integer.toString(simulator.getWeekDayReservationArrivals()));
 			reservationWeekendData.setText(Integer.toString(simulator.getWeekendReservationArrivals()));
 			reservationEventData.setText(Integer.toString(simulator.getEventReservationArrivals()));
+			maxSubscribersData.setText(Integer.toString(simulator.getMaxSubscriptions()));
+			maxReservationsData.setText(Integer.toString(simulator.getMaxReservations()));
+			maxEntranceQueueData.setText(Integer.toString(simulator.getMaxEntranceQueue()));
 		}
 	}
 

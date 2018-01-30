@@ -237,8 +237,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return car;
     }
 
-    public int countFreeParkingSpaces(String type)
-    {
+    public int countFreeParkingSpaces(String type) {
     	int count = 0;
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
@@ -256,8 +255,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return count;	
     }
 
-    public Location getFirstFreeParkingSpace(String type)
-    {
+    public Location getFirstFreeParkingSpace(String type) {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
@@ -377,23 +375,20 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     }
 
-    private void updateMoneyInGarageCounts()
-    {
+    private void updateMoneyInGarageCounts() {
         parkedRegularIncome = totalParkedRegular * regularFee;
         parkedReservationIncome = totalParkedReservation * reservationFee;
         parkedTotalIncome = parkedRegularIncome + parkedReservationIncome;
     }
 
-    private int getMissedCars(CarQueue queue, int numCars, int maxCars)
-    {
+    private int getMissedCars(CarQueue queue, int numCars, int maxCars) {
     	int spaceLeft = maxCars - queue.carsInQueue();
     	if(spaceLeft < numCars)
     		return numCars - spaceLeft;
     	return 0;
     }
 
-    private void carsArriving()
-    {
+    private void carsArriving() {
     	int numberOfCars, numberOfMissedCars;
 
     	/* regular cars */
@@ -424,8 +419,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return (int)Math.round(value);
     }
 
-    private void makeReservations()
-    {
+    private void makeReservations() {
     	int numberOfReservations = getNumberOfCarsArriving(weekDayReservationArrivals, weekendReservationArrivals, eventReservationArrivals);
     	int numberOfMissedReservations = 0;
     	int numberOfFreeSpaces = countFreeParkingSpaces("regular");
@@ -460,8 +454,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	}
     }
 
-    private void checkReservations()
-    {
+    private void checkReservations() {
     	int curMinute = 24*60*day + 60*hour + minute;
 
 	    Iterator<Reservation> iterator = reservationList.iterator();
@@ -485,8 +478,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 	    }
     }
 
-    private void carsEntering(CarQueue queue)
-    {
+    private void carsEntering(CarQueue queue) {
         int i = 0;
     	while (queue.carsInQueue() > 0 && i < entranceSpeed)
     	{
@@ -558,8 +550,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	}	
     }
 
-    private int getNumberOfCarsArriving(int weekDay, int weekend, int event)
-    {
+    private int getNumberOfCarsArriving(int weekDay, int weekend, int event) {
         int averageNumberOfCarsPerHour = 100;
         
         if(hour < 7) {
@@ -581,8 +572,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return (int)Math.round(numberOfCarsPerHour / 60);	
     }
     
-    private void carLeavesSpot(Car car)
-    {
+    private void carLeavesSpot(Car car) {
     	Location location = car.getLocation();
 
     	removeCarAt(location);
@@ -598,7 +588,50 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         	ParkingSpace space = getParkingSpaceAt(location);
         	space.setType("regular");
         }
-    } 
+    }
+    
+   	public void resetDataControllerValues() {
+   		maxReservations = 60;
+   		maxSubscriptions = 60;
+   		regularFee = 15;
+   		subscriptionFee = 30;
+   		reservationFee = 20;
+   		entranceSpeed = 3; 
+   		paymentSpeed = 7;
+   		exitSpeed = 5;
+   		weekDayRegularArrivals = 100;
+   		weekendRegularArrivals = 200;
+   		eventRegularArrivals = 0; 
+   		weekDaySubscriptionArrivals = 50;
+   		weekendSubscriptionArrivals = 5;
+   		eventSubscriptionArrivals = 0; 
+   		weekDayReservationArrivals = 50;
+   		weekendReservationArrivals = 5;
+   		eventReservationArrivals = 0;
+   	}
+   	
+   	public void setIntFromDataController(String objectName, int value) {
+   		switch(objectName) {
+	   		case "regularFeeData":			regularFee = value;						break;
+	   		case "subscriberFeeData":		subscriptionFee = value;				break;
+	   		case "reservationFeeData":		reservationFee = value;					break;
+	   		case "entranceSpeedData":		entranceSpeed = value;					break;
+	   		case "paymentSpeedData":		paymentSpeed = value;					break;
+	   		case "exitSpeedData":			exitSpeed = value;						break;
+	   		case "regularWeekDayData":		weekDayRegularArrivals = value;			break;
+	   		case "regularWeekendData":		weekendRegularArrivals = value;			break;
+	   		case "regularEventData":		eventRegularArrivals = value;			break;
+	   		case "subscriptionWeekDayData":	weekDaySubscriptionArrivals = value;	break;
+	   		case "subscriptionWeekendData":	weekendSubscriptionArrivals = value;	break;
+	   		case "subscriptionEventData":	eventSubscriptionArrivals = value;		break;
+	   		case "reservationWeekDayData":	weekDayReservationArrivals = value;		break;
+	   		case "reservationWeekendData":	weekendReservationArrivals = value;		break;
+	   		case "reservationEventData":	eventReservationArrivals = value;		break;
+	   		case "maxSubscribersData":		maxSubscriptions = value;				break;
+	   		case "maxReservationsData":		maxReservations = value;				break;
+	   		case "maxEntranceQueueData":	maxEntranceQueue = value;				break;
+   		}
+   	}
 
     //-----------------------------------------------------------------------//
     //-----------------------------------------------------------------------//
@@ -689,21 +722,50 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    	public CarQueue getExitQueue() {
    		return exitQueue;
    	}
+   	
+   	/**
+   	 * This method will return the maximum allowed number with both entrance
+   	 * queues. When this number is reached, the people above this number will
+   	 * leave the queue.
+   	 * 
+   	 * @return maxEntranceQueue the allowed length of the entrance queue
+   	 */
+   	public int getMaxEntranceQueue() {
+   		return maxEntranceQueue;
+   	}
     
+   	/**
+   	 * This method will return the amount of cars going through the entrance
+   	 * queues every minute.
+   	 * 
+   	 * @return entranceSpeed the amount of cars entering per minute
+   	 */
     public int getEntranceSpeed() {
     	return entranceSpeed;
     }
-   
+    
+   	/**
+   	 * This method will return the amount of cars going through the payment
+   	 * queue every minute.
+   	 * 
+   	 * @return paymentSpeed the amount of cars paying per minute
+   	 */
     public int getPaymentSpeed() {
     	return paymentSpeed;
     }
-   
+    
+   	/**
+   	 * This method will return the amount of cars going through the exit
+   	 * queue every minute.
+   	 * 
+   	 * @return exitSpeed the amount of cars exiting per minute
+   	 */
     public int getExitSpeed() {
     	return exitSpeed;
     }
    
     /**
-     * This method returns a string with the current week day. Which day it is, 
+     * This method returns a string with the current weekday. Which day it is, 
      * is calculated by using the day in numbers and a modulo, this number will
      * correspond with the position of the day within the string array.
      * 
@@ -732,58 +794,148 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return (stringHour + ":" + stringMinute);
     }
     
+    /**
+     * This method will return the average amount of regular cars that will
+     * arrive in the garage during the weekdays.
+     * 
+     * @return weekDayRegularArrivals the amount of regular cars arriving
+     */
     public int getWeekDayRegularArrivals() {
     	return weekDayRegularArrivals;
     }
     
+    /**
+     * This method will return the average amount of regular cars that will
+     * arrive in the garage during the weekends.
+     * 
+     * @return weekendRegularArrivals the amount of regular cars arriving
+     */
     public int getWeekendRegularArrivals() {
     	return weekendRegularArrivals;
     }
     
+    /**
+     * This method will return the average amount of regular cars that will
+     * arrive in the garage during events. These events are at Thursday/Friday
+     * and Saturday between 18:00 and 24:00 and on Sunday afternoon between
+     * 12:00 and 18:00.
+     * 
+     * @return eventRegularArrivals the amount of regular cars arriving
+     */
     public int getEventRegularArrivals() {
     	return eventRegularArrivals;
     }
     
+    /**
+     * This method will return the average amount of subscription cars that will
+     * arrive in the garage during the weekdays.
+     * 
+     * @return weekDaySubscriptionArrivals the amount of subscription cars arriving
+     */
     public int getWeekDaySubscriptionArrivals() {
     	return weekDaySubscriptionArrivals;
     }
     
+    /**
+     * This method will return the average amount of subscription cars that will
+     * arrive in the garage during the weekends.
+     * 
+     * @return weekendSubscriptionArrivals the amount of subscription cars arriving
+     */
     public int getWeekendSubscriptionArrivals() {
     	return weekendSubscriptionArrivals;
     }
     
+    /**
+     * This method will return the average amount of reservation cars that will
+     * arrive in the garage during events. These events are at Thursday/Friday
+     * and Saturday between 18:00 and 24:00 and on Sunday afternoon between
+     * 12:00 and 18:00.
+     * 
+     * @return eventReservationArrivals the amount of reservation cars arriving
+     */
     public int getEventSubscriptionArrivals() {
     	return eventSubscriptionArrivals;
     }
     
+    /**
+     * This method will return the average amount of reservation cars that will
+     * arrive in the garage during the weekdays.
+     * 
+     * @return weekDayReservationArrivals the amount of reservation cars arriving
+     */
     public int getWeekDayReservationArrivals() {
     	return weekDayReservationArrivals;
     }
     
+    /**
+     * This method will return the average amount of reservation cars that will
+     * arrive in the garage during the weekends.
+     * 
+     * @return weekendReservationArrivals the amount of reservation cars arriving
+     */
     public int getWeekendReservationArrivals() {
     	return weekendReservationArrivals;
     }
     
+    /**
+     * This method will return the average amount of reservation cars that will
+     * arrive in the garage during events. These events are at Thursday/Friday
+     * and Saturday between 18:00 and 24:00 and on Sunday afternoon between
+     * 12:00 and 18:00.
+     * 
+     * @return eventReservationArrivals the amount of reservation cars arriving
+     */
     public int getEventReservationArrivals() {
     	return eventReservationArrivals;
     }
     
+    /**
+     * This method returns the total amount of subscription allowed to exist
+     * during a simulation.
+     * 
+     * @return maxSubscriptions the amount of subscription allowed to exist
+     */
     public int getMaxSubscriptions() {
     	return maxSubscriptions;
     }
     
+    /**
+     * This method returns the total amount of reservation allowed to exist
+     * during a simulation.
+     * 
+     * @return maxReservations the amount of reservation allowed to exist
+     */
     public int getMaxReservations() {
     	return maxReservations;
     }
     
+    /**
+     * This method returns the fee regular cars have to pay when leaving the
+     * garage.
+     * 
+     * @return regularFee the fee that regular cars have to pay
+     */
     public int getRegularFee() {
     	return regularFee;
     }
     
+    /**
+     * This method returns the fee subscription cars have to pay once every
+     * week.
+     * 
+     * @return subscriptionFee the fee that subscription cars have to pay
+     */
     public int getSubscriptionFee() {
     	return subscriptionFee;
     }
     
+    /**
+     * This method returns the fee reservation cars have to paying, on top of
+     * the regular fee, when leaving the garage.
+     * 
+     * @return reservationFee the fee that reservation cars have to pay
+     */
     public int getReservationFee() {
     	return reservationFee;
     }
@@ -1006,49 +1158,13 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	this.stepPause = stepPause;
     }
     
+    /**
+     * This method will return the amount of steps the simulator will run for.
+     * This getter is needed in the SliderController.
+     * 
+     * @return numberOfSteps the number of steps the simulator will go through
+     */
    	public int getNumberOfSteps() {
    		return numberOfSteps;
-   	}
-
-   	public void resetAllData () {
-   		maxReservations = 60;
-   		maxSubscriptions = 60;
-   		regularFee = 15;
-   		subscriptionFee = 30;
-   		reservationFee = 20;
-   		entranceSpeed = 3; 
-   		paymentSpeed = 7;
-   		exitSpeed = 5;
-   		weekDayRegularArrivals = 100;
-   		weekendRegularArrivals = 200;
-   		eventRegularArrivals = 0; 
-   		weekDaySubscriptionArrivals = 50;
-   		weekendSubscriptionArrivals = 5;
-   		eventSubscriptionArrivals = 0; 
-   		weekDayReservationArrivals = 50;
-   		weekendReservationArrivals = 5;
-   		eventReservationArrivals = 0;
-   	}
-   	
-   	public void setIntFromDataController (String objectName, int value) {
-   		switch (objectName) {
-	   		case "maxSubscribersData":		maxSubscriptions = value;				break;
-	   		case "axReservationsData":		maxReservations = value;				break;
-	   		case "regularFeeData":			regularFee = value;						break;
-	   		case "subscriberFeeData":		subscriptionFee = value;				break;
-	   		case "reservationFeeData":		reservationFee = value;					break;
-	   		case "enterSpeedData":			entranceSpeed = value;					break;
-	   		case "paymentSpeedData":		paymentSpeed = value;					break;
-	   		case "exitSpeedData":			exitSpeed = value;						break;
-	   		case "regularWeekDayData":		weekDayRegularArrivals = value;			break;
-	   		case "regularWeekendData":		weekendRegularArrivals = value;			break;
-	   		case "regularEventData":		eventRegularArrivals = value;			break;
-	   		case "subscriptionWeekDayData":	weekDaySubscriptionArrivals = value;	break;
-	   		case "subscriptionWeekendData":	weekendSubscriptionArrivals = value;	break;
-	   		case "subscriptionEventData":	eventSubscriptionArrivals = value;		break;
-	   		case "reservationWeekDayData":	weekDayReservationArrivals = value;		break;
-	   		case "reservationWeekendData":	weekendReservationArrivals = value;		break;
-	   		case "reservationEventData":	eventReservationArrivals = value;		break;
-   		}
    	}
 }
