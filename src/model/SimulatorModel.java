@@ -1,16 +1,14 @@
 package model;
 
 import java.util.ArrayList;
-
 import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 
 /**
  * 
  * 
  * @author Ruben Bonga, Joey Kroes, Detmer Struiksma & Rick Zwaneveld
- * @version 28-01-2018
+ * @version 30-01-2018
  */
 
 public class SimulatorModel extends AbstractModel implements Runnable {
@@ -23,7 +21,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int numberOfOpenSpots;
     private ParkingSpace[][][] spaces;
 
-    private List<Reservation> reservationList;
+    private ArrayList<Reservation> reservationList;
 
 	private CarQueue entranceOneQueue;
     private CarQueue entranceTwoQueue;
@@ -31,13 +29,15 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private CarQueue exitQueue;
 
     private int	maxEntranceQueue;
+    
+    private int entranceSpeed;
+    private int paymentSpeed;
+    private int exitSpeed;
 
     private String[] weekDay = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
     private int day;
     private int hour;
     private int minute;
-
-    private int stepPause;
 
     private int weekDayRegularArrivals;
     private int weekendRegularArrivals;
@@ -48,11 +48,10 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int weekDayReservationArrivals;
     private int weekendReservationArrivals;
     private int eventReservationArrivals;
-
-    private int entranceSpeed;
-    private int paymentSpeed;
-    private int exitSpeed;
     
+	private int maxSubscriptions;
+    private int maxReservations;
+
     private int regularFee;
     private int subscriptionFee;
     private int reservationFee;
@@ -62,27 +61,25 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int totalReservationIncome;
 	private int totalIncome;
 
-	private int maxSubscriptions;
-    private int maxReservations;
-
-    private int totalRegularMissed;
-    private int totalReservationMissed;
-    private int totalCarsMissed;
-
-    private int numberOfSteps;
-    private boolean run;
-
     private int totalParkedRegular;
     private int totalParkedSubscription;
     private int totalParkedReservation;
+    
+    private int parkedRegularIncome;
+    private int parkedReservationIncome;
+    private int parkedTotalIncome;
+    
+    private int totalRegularMissed;
+    private int totalReservationMissed;
+    private int totalCarsMissed;
     
     private int missedRegularIncome;
     private int missedReservationIncome;
     private int missedTotalIncome;
 
-    private int parkedRegularIncome;
-    private int parkedReservationIncome;
-    private int parkedTotalIncome;
+    private int stepPause;
+    private int numberOfSteps;
+    private boolean run;
     
     public ArrayList<Integer> data;
 
@@ -95,15 +92,76 @@ public class SimulatorModel extends AbstractModel implements Runnable {
      */
     public SimulatorModel(int numberOfFloors, int numberOfRows, int numberOfPlaces)
     {
-        this.random = new Random();
+        random = new Random();
 
         this.numberOfFloors = numberOfFloors;
         this.numberOfRows = numberOfRows;
         this.numberOfPlaces = numberOfPlaces;
-        this.numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
-
+        numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
+        
         spaces = new ParkingSpace[numberOfFloors][numberOfRows][numberOfPlaces];
 
+        reservationList = new ArrayList<Reservation>();
+
+    	entranceOneQueue = new CarQueue();
+        entranceTwoQueue = new CarQueue();
+        paymentQueue = new CarQueue();
+        exitQueue = new CarQueue();
+
+        maxEntranceQueue = 6;
+        
+        entranceSpeed = 3;
+        paymentSpeed = 7;
+        exitSpeed = 5;
+
+        day = 0;
+        hour = 0;
+        minute = 0;
+
+        weekDayRegularArrivals = 100;
+        weekendRegularArrivals = 200;
+        eventRegularArrivals = 300;
+        weekDaySubscriptionArrivals = 60;
+        weekendSubscriptionArrivals = 60;
+        eventSubscriptionArrivals = 60;
+        weekDayReservationArrivals = 60;
+        weekendReservationArrivals = 60;
+        eventReservationArrivals = 60;
+        
+    	maxSubscriptions = 60;
+        maxReservations = 60;
+
+        regularFee = 1;
+        subscriptionFee = 50;
+        reservationFee = 4;
+
+        totalRegularIncome = 0;
+        totalSubscriptionIncome = 0;
+        totalReservationIncome = 0;
+    	totalIncome = 0;
+
+        totalParkedRegular = 0;
+        totalParkedSubscription = 0;
+        totalParkedReservation = 0;
+        
+        parkedRegularIncome = 0;
+        parkedReservationIncome = 0;
+        parkedTotalIncome = 0;
+        
+        totalRegularMissed = 0;
+        totalReservationMissed = 0;
+        totalCarsMissed = 0;
+        
+        missedRegularIncome = 0;
+        missedReservationIncome = 0;
+        missedTotalIncome = 0;
+
+        stepPause = 100;
+        numberOfSteps = 0;
+        run = false;
+        
+        data = new ArrayList<Integer>();
+    	
         for (int floor = 0; floor < numberOfFloors; floor++) {
             for (int row = 0; row < numberOfRows; row++) {
                 for (int place = 0; place < numberOfPlaces; place++) {
@@ -111,12 +169,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
                 }
             }
         }
-
-        
-    	maxSubscriptions = 60;
-        maxReservations = 60;
-        
-	    reservationList = new ArrayList<>();
 
         /* allocate subscription parking spaces */
         int floor = 0, row = 0, place = 0;
@@ -131,42 +183,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         			floor++;
         		}
         	}
-        }
-
-        
-        stepPause = 100;
-        maxEntranceQueue = 6;
-        
-        minute = 0;
-        hour = 0;
-        day = 0;
-        
-        entranceOneQueue = new CarQueue();
-        entranceTwoQueue = new CarQueue();
-        paymentQueue = new CarQueue();
-        exitQueue = new CarQueue();
-        
-        weekDayRegularArrivals = 100;
-        weekendRegularArrivals = 200;
-        eventRegularArrivals = 300;
-        weekDaySubscriptionArrivals = 50;
-        weekendSubscriptionArrivals = 5;
-        eventSubscriptionArrivals = 300;
-        weekDayReservationArrivals = 50;
-        weekendReservationArrivals = 5;
-        eventReservationArrivals = 300;
-        
-        entranceSpeed = 3;
-        paymentSpeed = 7;
-        exitSpeed = 5;
-        
-        regularFee = 1;
-        subscriptionFee = 15;
-        reservationFee = 9;
-        
-        data = new ArrayList<>();
-        
-        run = false;
+        } 
     }
     
     public void reset() {
