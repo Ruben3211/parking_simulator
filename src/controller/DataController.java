@@ -29,14 +29,14 @@ public class DataController extends AbstractController implements ActionListener
 	
 	private JLabel maxSubscribersLabel, maxReservationsLabel;
 	private JLabel regularFeeLabel, subscriberFeeLabel, reservationFeeLabel;
-	private JLabel enterSpeedLabel, paymentSpeedLabel, exitSpeedLabel;
+	private JLabel entranceSpeedLabel, paymentSpeedLabel, exitSpeedLabel;
 	private JLabel regularWeekDayLabel, regularWeekendLabel, regularEventLabel;
 	private JLabel subscriptionWeekDayLabel, subscriptionWeekendLabel, subscriptionEventLabel;
 	private JLabel reservationWeekDayLabel, reservationWeekendLabel, reservationEventLabel;
 	
 	private JTextField maxSubscribersData, maxReservationsData;
 	private JTextField regularFeeData, subscriberFeeData, reservationFeeData;
-	private JTextField enterSpeedData, paymentSpeedData, exitSpeedData;
+	private JTextField entranceSpeedData, paymentSpeedData, exitSpeedData;
 	private JTextField regularWeekDayData, regularWeekendData, regularEventData;
 	private JTextField subscriptionWeekDayData, subscriptionWeekendData, subscriptionEventData;
 	private JTextField reservationWeekDayData, reservationWeekendData, reservationEventData;
@@ -63,7 +63,7 @@ public class DataController extends AbstractController implements ActionListener
 		regularFeeLabel = new JLabel("Regular fee");
 		subscriberFeeLabel = new JLabel("Subscriber fee");
 		reservationFeeLabel = new JLabel("Reservation fee");
-		enterSpeedLabel = new JLabel("Enter speed");
+		entranceSpeedLabel = new JLabel("Entrance speed");
 		paymentSpeedLabel = new JLabel("Payment speed");
 		exitSpeedLabel = new JLabel("Exit speed");
 		regularWeekDayLabel = new JLabel("Regular (weekday)");
@@ -77,23 +77,23 @@ public class DataController extends AbstractController implements ActionListener
 		reservationEventLabel = new JLabel("Reservation (event)");
 		
 		// Creating all the text fields and retrieving their display data.
-		maxSubscribersData = new JTextField(Integer.toString(simulator.getMaxSub()));
-		maxReservationsData = new JTextField(Integer.toString(simulator.getMaxRes()));
-		regularFeeData = new JTextField(Integer.toString(simulator.getRegPayAmount()));
-		subscriberFeeData = new JTextField(Integer.toString(simulator.getSubPayAmount()));
-		reservationFeeData = new JTextField(Integer.toString(simulator.getResPayAmount()));
-		enterSpeedData = new JTextField(Integer.toString(simulator.getEnterSpeed()));
+		maxSubscribersData = new JTextField(Integer.toString(simulator.getMaxSubscriptions()));
+		maxReservationsData = new JTextField(Integer.toString(simulator.getMaxReservations()));
+		regularFeeData = new JTextField(Integer.toString(simulator.getRegularFee()));
+		subscriberFeeData = new JTextField(Integer.toString(simulator.getSubscriptionFee()));
+		reservationFeeData = new JTextField(Integer.toString(simulator.getReservationFee()));
+		entranceSpeedData = new JTextField(Integer.toString(simulator.getEntranceSpeed()));
 		paymentSpeedData = new JTextField(Integer.toString(simulator.getPaymentSpeed()));
 		exitSpeedData = new JTextField(Integer.toString(simulator.getExitSpeed()));
-		regularWeekDayData = new JTextField(Integer.toString(simulator.getWeekDayReg()));
-		regularWeekendData = new JTextField(Integer.toString(simulator.getWeekendReg()));
-		regularEventData = new JTextField(Integer.toString(simulator.getEventReg()));
-		subscriptionWeekDayData = new JTextField(Integer.toString(simulator.getWeekDaySub()));
-		subscriptionWeekendData = new JTextField(Integer.toString(simulator.getWeekendSub()));
-		subscriptionEventData = new JTextField(Integer.toString(simulator.getEventSub()));
-		reservationWeekDayData = new JTextField(Integer.toString(simulator.getWeekDayRes()));
-		reservationWeekendData = new JTextField(Integer.toString(simulator.getWeekendRes()));
-		reservationEventData = new JTextField(Integer.toString(simulator.getEventRes()));
+		regularWeekDayData = new JTextField(Integer.toString(simulator.getWeekDayRegularArrivals()));
+		regularWeekendData = new JTextField(Integer.toString(simulator.getWeekendRegularArrivals()));
+		regularEventData = new JTextField(Integer.toString(simulator.getEventRegularArrivals()));
+		subscriptionWeekDayData = new JTextField(Integer.toString(simulator.getWeekDaySubscriptionArrivals()));
+		subscriptionWeekendData = new JTextField(Integer.toString(simulator.getWeekendSubscriptionArrivals()));
+		subscriptionEventData = new JTextField(Integer.toString(simulator.getEventSubscriptionArrivals()));
+		reservationWeekDayData = new JTextField(Integer.toString(simulator.getWeekDayReservationArrivals()));
+		reservationWeekendData = new JTextField(Integer.toString(simulator.getWeekendReservationArrivals()));
+		reservationEventData = new JTextField(Integer.toString(simulator.getEventReservationArrivals()));
 		
 		// Setting a name to all the text fields.
 		maxSubscribersData.setName("maxSubscribersData");
@@ -101,7 +101,7 @@ public class DataController extends AbstractController implements ActionListener
 		regularFeeData.setName("regularFeeData");
 		subscriberFeeData.setName("subscriberFeeData");
 		reservationFeeData.setName("reservationFeeData");
-		enterSpeedData.setName("enterSpeedData");
+		entranceSpeedData.setName("entranceSpeedData");
 		paymentSpeedData.setName("paymentSpeedData");
 		exitSpeedData.setName("exitSpeedData");
 		regularWeekDayData.setName("regularWeekDayData");
@@ -135,8 +135,8 @@ public class DataController extends AbstractController implements ActionListener
 		boxOne.add(subscriberFeeData);
 		boxOne.add(reservationFeeLabel);
 		boxOne.add(reservationFeeData);
-		boxTwo.add(enterSpeedLabel);
-		boxTwo.add(enterSpeedData);
+		boxTwo.add(entranceSpeedLabel);
+		boxTwo.add(entranceSpeedData);
 		boxTwo.add(paymentSpeedLabel);
 		boxTwo.add(paymentSpeedData);
 		boxTwo.add(exitSpeedLabel);
@@ -191,7 +191,7 @@ public class DataController extends AbstractController implements ActionListener
 		// Adding all text fields to an array.
 		textFieldList = new ArrayList<>(Arrays.asList(maxSubscribersData, maxReservationsData,
 													  regularFeeData, subscriberFeeData, reservationFeeData,
-													  enterSpeedData, paymentSpeedData, exitSpeedData,
+													  entranceSpeedData, paymentSpeedData, exitSpeedData,
 													  regularWeekDayData, regularWeekendData, regularEventData,
 													  subscriptionWeekDayData, subscriptionWeekendData, subscriptionEventData,
 													  reservationWeekDayData, reservationWeekendData, reservationEventData));
@@ -215,23 +215,23 @@ public class DataController extends AbstractController implements ActionListener
 		}
 		if (e.getSource() == resetDataButton) {
 			simulator.resetAllData();
-			maxSubscribersData.setText(Integer.toString(simulator.getMaxSub()));
-			maxReservationsData.setText(Integer.toString(simulator.getMaxRes()));
-			regularFeeData.setText(Integer.toString(simulator.getRegPayAmount()));
-			subscriberFeeData.setText(Integer.toString(simulator.getSubPayAmount()));
-			reservationFeeData.setText(Integer.toString(simulator.getResPayAmount()));
-			enterSpeedData.setText(Integer.toString(simulator.getEnterSpeed()));
+			maxSubscribersData.setText(Integer.toString(simulator.getMaxSubscriptions()));
+			maxReservationsData.setText(Integer.toString(simulator.getMaxReservations()));
+			regularFeeData.setText(Integer.toString(simulator.getRegularFee()));
+			subscriberFeeData.setText(Integer.toString(simulator.getSubscriptionFee()));
+			reservationFeeData.setText(Integer.toString(simulator.getReservationFee()));
+			entranceSpeedData.setText(Integer.toString(simulator.getEntranceSpeed()));
 			paymentSpeedData.setText(Integer.toString(simulator.getPaymentSpeed()));
 			exitSpeedData.setText(Integer.toString(simulator.getExitSpeed()));
-			regularWeekDayData.setText(Integer.toString(simulator.getWeekDayReg()));
-			regularWeekendData.setText(Integer.toString(simulator.getWeekendReg()));
-			regularEventData.setText(Integer.toString(simulator.getEventReg()));
-			subscriptionWeekDayData.setText(Integer.toString(simulator.getWeekDaySub()));
-			subscriptionWeekendData.setText(Integer.toString(simulator.getWeekendSub()));
-			subscriptionEventData.setText(Integer.toString(simulator.getEventSub()));
-			reservationWeekDayData.setText(Integer.toString(simulator.getWeekDayRes()));
-			reservationWeekendData.setText(Integer.toString(simulator.getWeekendRes()));
-			reservationEventData.setText(Integer.toString(simulator.getEventRes()));
+			regularWeekDayData.setText(Integer.toString(simulator.getWeekDayRegularArrivals()));
+			regularWeekendData.setText(Integer.toString(simulator.getWeekendRegularArrivals()));
+			regularEventData.setText(Integer.toString(simulator.getEventRegularArrivals()));
+			subscriptionWeekDayData.setText(Integer.toString(simulator.getWeekDaySubscriptionArrivals()));
+			subscriptionWeekendData.setText(Integer.toString(simulator.getWeekendSubscriptionArrivals()));
+			subscriptionEventData.setText(Integer.toString(simulator.getEventSubscriptionArrivals()));
+			reservationWeekDayData.setText(Integer.toString(simulator.getWeekDayReservationArrivals()));
+			reservationWeekendData.setText(Integer.toString(simulator.getWeekendReservationArrivals()));
+			reservationEventData.setText(Integer.toString(simulator.getEventReservationArrivals()));
 		}
 	}
 

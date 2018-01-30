@@ -332,7 +332,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	carsArriving();
     	carsReadyToLeave();
     	carsPaying();
-    	setSubIncome();
+    	setSubscriptionIncome();
     	updateMoneyInGarageCounts();
     	setTotalIncome();
     	setTotalCarsMissed();
@@ -597,416 +597,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     } 
 
-   public int getEnterSpeed () {
-	   return entranceSpeed;
-   }
-   
-   public int getPaymentSpeed() {
-	   return paymentSpeed;
-   }
-   
-   public int getExitSpeed () {
-	   return exitSpeed;
-   }
-   
-   public int getRegPayAmount () {
-	   return regularFee;
-   }
-   
-   public int getSubPayAmount () {
-	   return subscriptionFee;
-   }
-   
-   public int getResPayAmount () {
-	   return reservationFee;
-   }
-   
-   public int getMaxRes () {
-	   return maxReservations;
-   }
-   
-   public int getMaxSub () {
-	   return maxSubscriptions;
-   }
-   
-   public int getWeekDayReg () {
-	   return weekDayRegularArrivals;
-   }
-   
-   public int getWeekendReg () {
-	   return weekendRegularArrivals;
-   }
-   
-   public int getEventReg () {
-	   return eventRegularArrivals;
-   }
-   
-   public int getWeekDaySub () {
-	   return weekDaySubscriptionArrivals;
-   }
-   
-   public int getWeekendSub  () {
-	   return weekendSubscriptionArrivals;
-   }
-   
-   public int getEventSub  () {
-	   return eventSubscriptionArrivals;
-   }
-   
-   public int getWeekDayRes () {
-	   return weekDayReservationArrivals;
-   }
-   
-   public int getWeekendRes  () {
-	   return weekendReservationArrivals;
-   }
-   
-   public int getEventRes  () {
-	   return eventReservationArrivals;
-   }
-   
-   public void resetAllData () {
-	   maxReservations = 60;
-	   maxSubscriptions = 60;
-	   regularFee = 15;
-	   subscriptionFee = 30;
-	   reservationFee = 20;
-	   entranceSpeed = 3; 
-	   paymentSpeed = 7;
-	   exitSpeed = 5;
-	   weekDayRegularArrivals = 100;
-	   weekendRegularArrivals = 200;
-	   eventRegularArrivals = 0; 
-	   weekDaySubscriptionArrivals = 50;
-	   weekendSubscriptionArrivals = 5;
-	   eventSubscriptionArrivals = 0; 
-	   weekDayReservationArrivals = 50;
-	   weekendReservationArrivals = 5;
-	   eventReservationArrivals = 0;
-   }
-   
-   	public void setIntFromDataController (String objectName, int value) {
-   		switch (objectName) {
-	   		case "maxSubscribersData":		maxSubscriptions = value;				break;
-	   		case "axReservationsData":		maxReservations = value;				break;
-	   		case "regularFeeData":			regularFee = value;						break;
-	   		case "subscriberFeeData":		subscriptionFee = value;				break;
-	   		case "reservationFeeData":		reservationFee = value;					break;
-	   		case "enterSpeedData":			entranceSpeed = value;					break;
-	   		case "paymentSpeedData":		paymentSpeed = value;					break;
-	   		case "exitSpeedData":			exitSpeed = value;						break;
-	   		case "regularWeekDayData":		weekDayRegularArrivals = value;			break;
-	   		case "regularWeekendData":		weekendRegularArrivals = value;			break;
-	   		case "regularEventData":		eventRegularArrivals = value;			break;
-	   		case "subscriptionWeekDayData":	weekDaySubscriptionArrivals = value;	break;
-	   		case "subscriptionWeekendData":	weekendSubscriptionArrivals = value;	break;
-	   		case "subscriptionEventData":	eventSubscriptionArrivals = value;		break;
-	   		case "reservationWeekDayData":	weekDayReservationArrivals = value;		break;
-	   		case "reservationWeekendData":	weekendReservationArrivals = value;		break;
-	   		case "reservationEventData":	eventReservationArrivals = value;		break;
-   		}
-   	}
-   	
-    /**
-     * This method returns a string with the current weekday. Which day it is, 
-     * is calculated by using the day in numbers and a modulo, this number will
-     * correspond with the position of the day within the string array.
-     * 
-     * @return String a string with the current weekday
-     */
-    public String getDay() {
-    	return weekDay[day % 7];
-    }
-    
-    /**
-     * This method will create a string for the minutes and hours. If the minutes 
-     * and hours are under 10, a 0 will be appended to the number. This will make 
-     * sure that the time is displayed in a 24 hour (00:00) format.
-     * 
-     * @return String a string with the hours and minutes in a 24 hour format
-     */
-    public String getTime() {
-    	String stringMinute = ("" + minute);
-    	String stringHour = ("" + hour);
-    	if(minute < 10) {
-    		stringMinute = ("0" + stringMinute);
-    	}
-    	if(hour < 10) {
-    		stringHour = ("0" + stringHour);
-    	}
-    	return (stringHour + ":" + stringMinute);
-    }
-    
-    /**
-     * This method will retrieve data from the entranceOneQueue. With the methods
-     * defined in the CarQueue class, this will allow access to the objects
-     * within this particular queue.
-     * 
-     * @return entranceOneQueue a LinkedList with objects within
-     */
-    public CarQueue getEntranceOneQueue () {
-	   return entranceOneQueue;
-   	}
-    
-    /**
-     * This method will retrieve data from the entranceTwoQueue. With the methods
-     * defined in the CarQueue class, this will allow access to the objects
-     * within this particular queue.
-     * 
-     * @return entranceTwoQueue a LinkedList with objects within
-     */
-   	public CarQueue getEntranceTwoQueue () {
-	   return entranceTwoQueue;
-   	}
-   	
-    /**
-     * This method will retrieve data from the paymentQueue. With the methods
-     * defined in the CarQueue class, this will allow access to the objects
-     * within this particular queue.
-     * 
-     * @return paymentQueue a LinkedList with objects within
-     */
-   	public CarQueue getPaymentQueue () {
-	   	return paymentQueue;
-  	}
-   	
-    /**
-     * This method will retrieve data from the exitQueue. With the methods
-     * defined in the CarQueue class, this will allow access to the objects
-     * within this particular queue.
-     * 
-     * @return exitQueue a LinkedList with objects within
-     */
-   	public CarQueue getExitQueue () {
-	   return exitQueue;
-   	}
-   	
-   	/**
-   	 * This method will return the total amount of income earned from the
-   	 * regular car objects.
-   	 * 
-   	 * @return totalRegularIncome a number with the total regular income
-   	 */
-   	public int getTotalRegularIncome() {
-		return totalRegularIncome;
-	}
-	
-    /**
-     * This method will set the total income from subscription cars. These cars
-     * pay a weekly fee. This fee is multiplied with the total amount of total 
-     * subscriptions allowed. These fees are paid on Sunday at 23:59 each week.
-     */
-    private void setSubIncome() {
-    	if(day == 6 && hour == 23 && minute == 59) {
-    		totalSubscriptionIncome += maxSubscriptions * subscriptionFee;
-    	}
-    }
-   	
-   	/**
-   	 * This method will return the total amount of income earned from the
-   	 * subscription car objects.
-   	 * 
-   	 * @return totalSubscriptionIncome a number with the total subscription income
-   	 */
-	public int getTotalSubscriptionIncome() {
-		return totalSubscriptionIncome;
-	}
-	
-   	/**
-   	 * This method will return the total amount of income earned from the
-   	 * reservation car objects.
-   	 * 
-   	 * @return totalReservationIncome a number with the total reservation income
-   	 */
-	public int getTotalReservationIncome() {
-		return totalReservationIncome;
-	}
-	
-	/**
-	 * This method will set the total income from all the cars that left the
-	 * garage and paid the fee required.
-	 */
-	private void setTotalIncome() {
-		totalIncome = totalRegularIncome + totalSubscriptionIncome + totalReservationIncome;
-	}
-	
-   	/**
-   	 * This method will return the total amount of income earned from the
-   	 * regular car objects.
-   	 * 
-   	 * @return totalIncome a number with the total income from all cars
-   	 */
-	public int getTotalIncome() {
-		return totalIncome;
-	}
-    
-	/**
-	 * This method will retrieve the total amount of money that is currently
-	 * parked within the garage for all parked regular cars.
-	 * 
-	 * @return parkedRegularIncome the amount of money still parked for regulars
-	 */
-   	public int getParkedRegularIncome() {
-   		return parkedRegularIncome;
-   	}
-   	
-   	/**
-	 * This method will retrieve the total amount of money that is currently
-	 * parked within the garage for all parked reservation cars.
-   	 * 
-   	 * @return parkedReservationIncome the amount of money still parked for reservations
-   	 */
-   	public int getParkedReservationIncome() {
-   		return parkedReservationIncome;
-   	}
-    
-   	/**
-   	 * This method will retrieve the total amount of money that is currently
-	 * parked within the garage for all parked cars.
-   	 * 
-   	 * @return parkedTotalIncome the amount of money still parked in total
-   	 */
-    public int getParkedTotalIncome() {
-    	return parkedTotalIncome;
-    }
-    
-    /**
-     * This method returns the total amount of regular cars that were missed.
-     * These cars are missed because the queues were to long and the cars drove
-     * away.
-     * 
-     * @return totalRegularMissed the amount of regular cars missed
-     */
-    public int getTotalRegularMissed() {
-    	return totalRegularMissed;
-    }
-    
-    /**
-     * This method returns the total amount of reservation cars that were missed.
-     * These cars are missed because the queues were to long and the cars drove
-     * away.
-     * 
-     * @return totalReservationMissed the amount of reservation cars missed
-     */
-    public int getTotalReservationMissed() {
-    	return totalReservationMissed;
-    }
-    
-    /**
-     * This method sets the total amount of cars missed. It does this by added
-     * add the regular cars missed and the reservation cars missed.
-     */
-    private void setTotalCarsMissed() {
-    	totalCarsMissed = totalRegularMissed + totalReservationMissed;
-    }
-    
-    /**
-     * This method returns the total amount of all cars that were missed. These 
-     * cars are missed because the queues were to long and the cars drove away.
-     * 
-     * @return totalCarsMissed the amount of total cars missed
-     */
-    public int getTotalMissed() {
-    	return totalCarsMissed;
-    }
-
-    /**
-     * This method return the total amount of income missed for regular cars, 
-     * due to reservation cars leaving the queues.
-     * 
-     * @return missedRegularIncome the income missed from regular cars
-     */
-    public int getMissedRegularIncome() {
-    	return missedRegularIncome;
-    }
-    
-    /**
-     * This method return the total amount of income missed for reservations
-     * cars, due to reservation cars leaving the queues.
-     * 
-     * @return missedReservationIncome the income missed from reservation cars
-     */
-    public int getMissedReservationIncome() {
-    	return missedReservationIncome;
-    }
-    
-    /**
-     * This method calculates the total income missed from missed cars. This is
-     * calculated by adding all missed income, from the regular and reservation
-     * cars to the missedTotalIncome variable.
-     */
-    public void setMissedIncome() {
-    	missedTotalIncome = missedRegularIncome + missedReservationIncome;
-    }
-    
-    /**
-     * This method returns the total amount of income missed from all cars
-     * combined. This income is missed because cars leave their queues.
-     * 
-     * @return missedTotalIncome the income missed from cars combined
-     */
-    public int getMissedTotalIncome() {
-    	return missedTotalIncome;
-    }
-
-    /**
-     * This method return the total amount regular cars that are currently
-     * parked in the garage.
-     * 
-     * @return totalParkedRegular total amount of regular cars currently parked
-     */
-    public int getTotalParkedRegular() {
-    	return totalParkedRegular;
-    }
-    
-    /**
-     * This method return the total amount subscription cars that are currently
-     * parked in the garage.
-     * 
-     * @return totalParkedSubscription total amount of subscription cars currently parked
-     */
-    public int getTotalParkedSubscription() {
-    	return totalParkedSubscription;
-    }
-    
-    /**
-     * This method return the total amount reservation cars that are currently
-     * parked in the garage. 
-     * 
-     * @return totalParkedReservation total amount of reservation cars currently parked
-     */
-    public int getTotalParkedReservation() {
-    	return totalParkedReservation;
-    }
-   	
-    /**
-     * This method returns the total amount of open spots within the garage.
-     * These spots have no cars parked within them.
-     * 
-     * @return numberOfOpenSpots the amount of spots with no cars parked in it
-     */
-    public int getNumberOfOpenSpots() {
-    	return numberOfOpenSpots;
-    }
-    
-    /**
-     * This method sets the stepPause variable to a new number. This is done via
-     * the speed slider in the SlideController class, to speed up the simulation.
-     * 
-     * @param stepPause the step pause which influences the speed of simulation
-     */
-    public void setStepPause(int stepPause) {
-    	this.stepPause = stepPause;
-    }
-    
-    /**
-     * This method returns the current value of the stepPause variable.
-     * 
-     * @return stepPause the step pause which influences the speed of simulation
-     */
-    public int getStepPause() {
-    	return stepPause;
-    }
+    //-----------------------------------------------------------------------//
+    //-----------------------------------------------------------------------//
+    //	GETTERS and SETTERS													 //
+    //-----------------------------------------------------------------------//
+    //-----------------------------------------------------------------------//
     
     /**
      * This method returns the total number of floors that exists in the
@@ -1038,7 +633,419 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    		return numberOfPlaces;
    	}
    	
+    /**
+     * This method returns the total amount of open spots within the garage.
+     * These spots have no cars parked within them.
+     * 
+     * @return numberOfOpenSpots the amount of spots with no cars parked in it
+     */
+    public int getNumberOfOpenSpots() {
+    	return numberOfOpenSpots;
+    }
+    
+    /**
+     * This method will retrieve data from the entranceOneQueue. With the methods
+     * defined in the CarQueue class, this will allow access to the objects
+     * within this particular queue.
+     * 
+     * @return entranceOneQueue a LinkedList with objects within it
+     */
+    public CarQueue getEntranceOneQueue() {
+    	return entranceOneQueue;
+   	}
+    
+    /**
+     * This method will retrieve data from the entranceTwoQueue. With the methods
+     * defined in the CarQueue class, this will allow access to the objects
+     * within this particular queue.
+     * 
+     * @return entranceTwoQueue a LinkedList with objects within it
+     */
+   	public CarQueue getEntranceTwoQueue() {
+   		return entranceTwoQueue;
+   	}
+   	
+    /**
+     * This method will retrieve data from the paymentQueue. With the methods
+     * defined in the CarQueue class, this will allow access to the objects
+     * within this particular queue.
+     * 
+     * @return paymentQueue a LinkedList with objects within it
+     */
+   	public CarQueue getPaymentQueue() {
+   		return paymentQueue;
+  	}
+   	
+    /**
+     * This method will retrieve data from the exitQueue. With the methods
+     * defined in the CarQueue class, this will allow access to the objects
+     * within this particular queue.
+     * 
+     * @return exitQueue a LinkedList with objects within it
+     */
+   	public CarQueue getExitQueue() {
+   		return exitQueue;
+   	}
+    
+    public int getEntranceSpeed() {
+    	return entranceSpeed;
+    }
+   
+    public int getPaymentSpeed() {
+    	return paymentSpeed;
+    }
+   
+    public int getExitSpeed() {
+    	return exitSpeed;
+    }
+   
+    /**
+     * This method returns a string with the current week day. Which day it is, 
+     * is calculated by using the day in numbers and a modulo, this number will
+     * correspond with the position of the day within the string array.
+     * 
+     * @return String a string with the current weekday
+     */
+    public String getDay() {
+    	return weekDay[day % 7];
+    }
+    
+    /**
+     * This method will create a string for the minutes and hours. If the minutes 
+     * and hours are under 10, a 0 will be appended to the number. This will make 
+     * sure that the time is displayed in a 24 hour (00:00) format.
+     * 
+     * @return String a string with the hours and minutes in a 24 hour format
+     */
+    public String getTime() {
+    	String stringMinute = ("" + minute);
+    	String stringHour = ("" + hour);
+    	if(minute < 10) {
+    		stringMinute = ("0" + stringMinute);
+    	}
+    	if(hour < 10) {
+    		stringHour = ("0" + stringHour);
+    	}
+    	return (stringHour + ":" + stringMinute);
+    }
+    
+    public int getWeekDayRegularArrivals() {
+    	return weekDayRegularArrivals;
+    }
+    
+    public int getWeekendRegularArrivals() {
+    	return weekendRegularArrivals;
+    }
+    
+    public int getEventRegularArrivals() {
+    	return eventRegularArrivals;
+    }
+    
+    public int getWeekDaySubscriptionArrivals() {
+    	return weekDaySubscriptionArrivals;
+    }
+    
+    public int getWeekendSubscriptionArrivals() {
+    	return weekendSubscriptionArrivals;
+    }
+    
+    public int getEventSubscriptionArrivals() {
+    	return eventSubscriptionArrivals;
+    }
+    
+    public int getWeekDayReservationArrivals() {
+    	return weekDayReservationArrivals;
+    }
+    
+    public int getWeekendReservationArrivals() {
+    	return weekendReservationArrivals;
+    }
+    
+    public int getEventReservationArrivals() {
+    	return eventReservationArrivals;
+    }
+    
+    public int getMaxSubscriptions() {
+    	return maxSubscriptions;
+    }
+    
+    public int getMaxReservations() {
+    	return maxReservations;
+    }
+    
+    public int getRegularFee() {
+    	return regularFee;
+    }
+    
+    public int getSubscriptionFee() {
+    	return subscriptionFee;
+    }
+    
+    public int getReservationFee() {
+    	return reservationFee;
+    }
+    
+   	/**
+   	 * This method will return the total amount of income earned from the
+   	 * regular cars.
+   	 * 
+   	 * @return totalRegularIncome a number with the total regular income
+   	 */
+   	public int getTotalRegularIncome() {
+		return totalRegularIncome;
+	}
+    
+   	/**
+   	 * This method will return the total amount of income earned from the
+   	 * subscription cars.
+   	 * 
+   	 * @return totalSubscriptionIncome a number with the total subscription income
+   	 */
+	public int getTotalSubscriptionIncome() {
+		return totalSubscriptionIncome;
+	}
+	
+    /**
+     * This method will set the total income from subscription cars. These cars
+     * pay a weekly fee. This fee is multiplied with the total amount of total 
+     * subscriptions allowed. These fees are paid on Sunday at 23:59 each week.
+     */
+    private void setSubscriptionIncome() {
+    	if(day == 6 && hour == 23 && minute == 59) {
+    		totalSubscriptionIncome += maxSubscriptions * subscriptionFee;
+    	}
+    }
+	
+   	/**
+   	 * This method will return the total amount of income earned from the
+   	 * reservation cars.
+   	 * 
+   	 * @return totalReservationIncome a number with the total reservation income
+   	 */
+	public int getTotalReservationIncome() {
+		return totalReservationIncome;
+	}
+    
+   	/**
+   	 * This method will return the total amount of income earned from all cars
+   	 * combined.
+   	 * 
+   	 * @return totalIncome a number with the total income from all cars
+   	 */
+	public int getTotalIncome() {
+		return totalIncome;
+	}
+	
+	/**
+	 * This method will set the total income from all the cars that left the
+	 * garage and paid the fee required.
+	 */
+	private void setTotalIncome() {
+		totalIncome = totalRegularIncome + totalSubscriptionIncome + totalReservationIncome;
+	}
+    
+    /**
+     * This method returns the total amount regular cars that are currently
+     * parked in the garage.
+     * 
+     * @return totalParkedRegular total amount of regular cars currently parked
+     */
+    public int getTotalParkedRegular() {
+    	return totalParkedRegular;
+    }
+    
+    /**
+     * This method returns the total amount subscription cars that are currently
+     * parked in the garage.
+     * 
+     * @return totalParkedSubscription total amount of subscription cars currently parked
+     */
+    public int getTotalParkedSubscription() {
+    	return totalParkedSubscription;
+    }
+    
+    /**
+     * This method returns the total amount reservation cars that are currently
+     * parked in the garage. 
+     * 
+     * @return totalParkedReservation total amount of reservation cars currently parked
+     */
+    public int getTotalParkedReservation() {
+    	return totalParkedReservation;
+    }
+   
+	/**
+	 * This method will retrieve the total amount of money that is currently
+	 * parked within the garage for all parked regular cars.
+	 * 
+	 * @return parkedRegularIncome the amount of money still parked for regulars
+	 */
+   	public int getParkedRegularIncome() {
+   		return parkedRegularIncome;
+   	}
+   	
+   	/**
+	 * This method will retrieve the total amount of money that is currently
+	 * parked within the garage for all parked reservation cars.
+   	 * 
+   	 * @return parkedReservationIncome the amount of money still parked for reservations
+   	 */
+   	public int getParkedReservationIncome() {
+   		return parkedReservationIncome;
+   	}
+    
+   	/**
+   	 * This method will retrieve the total amount of money that is currently
+	 * parked within the garage for all parked paying cars.
+   	 * 
+   	 * @return parkedTotalIncome the amount of money still parked in total
+   	 */
+    public int getParkedTotalIncome() {
+    	return parkedTotalIncome;
+    }
+    
+    /**
+     * This method returns the total amount of regular cars that were missed.
+     * These cars are missed because the queues were to long and the cars drove
+     * away.
+     * 
+     * @return totalRegularMissed the amount of regular cars missed
+     */
+    public int getTotalRegularMissed() {
+    	return totalRegularMissed;
+    }
+    
+    /**
+     * This method returns the total amount of reservation cars that were missed.
+     * These cars are missed because the queues were to long and the cars drove
+     * away.
+     * 
+     * @return totalReservationMissed the amount of reservation cars missed
+     */
+    public int getTotalReservationMissed() {
+    	return totalReservationMissed;
+    }
+    
+    /**
+     * This method returns the total amount of all cars that were missed. These 
+     * cars are missed because the queues were to long and the cars drove away.
+     * 
+     * @return totalCarsMissed the amount of total cars missed
+     */
+    public int getTotalMissed() {
+    	return totalCarsMissed;
+    }
+    
+    /**
+     * This method sets the total amount of cars missed. It does this by adding
+     * the regular cars missed and the reservation cars missed to the total cars
+     * missed variable
+     */
+    private void setTotalCarsMissed() {
+    	totalCarsMissed = totalRegularMissed + totalReservationMissed;
+    }
+    
+    /**
+     * This method return the total amount of income missed for regular cars, 
+     * due to regular cars leaving the queues.
+     * 
+     * @return missedRegularIncome the income missed from regular cars
+     */
+    public int getMissedRegularIncome() {
+    	return missedRegularIncome;
+    }
+    
+    /**
+     * This method return the total amount of income missed for reservations
+     * cars, due to reservation cars leaving the queues.
+     * 
+     * @return missedReservationIncome the income missed from reservation cars
+     */
+    public int getMissedReservationIncome() {
+    	return missedReservationIncome;
+    }
+    
+    /**
+     * This method returns the total amount of income missed from all cars
+     * combined. This income is missed because cars leave their queues.
+     * 
+     * @return missedTotalIncome the income missed from cars combined
+     */
+    public int getMissedTotalIncome() {
+    	return missedTotalIncome;
+    }
+    
+    /**
+     * This method calculates the total income missed from missed cars. This is
+     * calculated by adding all missed income, from the regular and reservation
+     * cars to the missedTotalIncome variable.
+     */
+    private void setMissedIncome() {
+    	missedTotalIncome = missedRegularIncome + missedReservationIncome;
+    }
+    
+    /**
+     * This method returns the current value of the stepPause variable.
+     * 
+     * @return stepPause the step pause which influences the speed of simulation
+     */
+    public int getStepPause() {
+    	return stepPause;
+    }
+    
+    /**
+     * This method sets the stepPause variable to a new number. This is done via
+     * the speed slider in the SlideController class, to speed up the simulation.
+     * 
+     * @param stepPause the step pause which influences the speed of simulation
+     */
+    public void setStepPause(int stepPause) {
+    	this.stepPause = stepPause;
+    }
+    
    	public int getNumberOfSteps() {
    		return numberOfSteps;
+   	}
+
+   	public void resetAllData () {
+   		maxReservations = 60;
+   		maxSubscriptions = 60;
+   		regularFee = 15;
+   		subscriptionFee = 30;
+   		reservationFee = 20;
+   		entranceSpeed = 3; 
+   		paymentSpeed = 7;
+   		exitSpeed = 5;
+   		weekDayRegularArrivals = 100;
+   		weekendRegularArrivals = 200;
+   		eventRegularArrivals = 0; 
+   		weekDaySubscriptionArrivals = 50;
+   		weekendSubscriptionArrivals = 5;
+   		eventSubscriptionArrivals = 0; 
+   		weekDayReservationArrivals = 50;
+   		weekendReservationArrivals = 5;
+   		eventReservationArrivals = 0;
+   	}
+   	
+   	public void setIntFromDataController (String objectName, int value) {
+   		switch (objectName) {
+	   		case "maxSubscribersData":		maxSubscriptions = value;				break;
+	   		case "axReservationsData":		maxReservations = value;				break;
+	   		case "regularFeeData":			regularFee = value;						break;
+	   		case "subscriberFeeData":		subscriptionFee = value;				break;
+	   		case "reservationFeeData":		reservationFee = value;					break;
+	   		case "enterSpeedData":			entranceSpeed = value;					break;
+	   		case "paymentSpeedData":		paymentSpeed = value;					break;
+	   		case "exitSpeedData":			exitSpeed = value;						break;
+	   		case "regularWeekDayData":		weekDayRegularArrivals = value;			break;
+	   		case "regularWeekendData":		weekendRegularArrivals = value;			break;
+	   		case "regularEventData":		eventRegularArrivals = value;			break;
+	   		case "subscriptionWeekDayData":	weekDaySubscriptionArrivals = value;	break;
+	   		case "subscriptionWeekendData":	weekendSubscriptionArrivals = value;	break;
+	   		case "subscriptionEventData":	eventSubscriptionArrivals = value;		break;
+	   		case "reservationWeekDayData":	weekDayReservationArrivals = value;		break;
+	   		case "reservationWeekendData":	weekendReservationArrivals = value;		break;
+	   		case "reservationEventData":	eventReservationArrivals = value;		break;
+   		}
    	}
 }
