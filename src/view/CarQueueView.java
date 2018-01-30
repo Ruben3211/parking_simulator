@@ -135,12 +135,23 @@ public class CarQueueView extends AbstractView  {
 		reservationMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedReservationIncome()));
 		totalMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedTotalIncome()));
 		
+		// Uses the createQueueLine() method to show the car color in the queue.
 		createQueueLine(g, getModel().getEntranceOneQueue());
 		createQueueLine(g, getModel().getEntranceTwoQueue());
 		createQueueLine(g, getModel().getPaymentQueue());
 		createQueueLine(g, getModel().getExitQueue());
 	}
 	
+	/**
+	 * This method will get data from one of the four queues. Depending on the
+	 * queue it will create x-coordinates for that queue display. It uses the
+	 * peekCar() method in the CarQueue class to view which type of car is in
+	 * the queue. It will eventually use the getColor() and the x-coordinate to
+	 * draw a visual representation of the queues. 
+	 * 
+	 * @param g the specified Graphics context
+	 * @param queueCar the queue used for comparison to get the proper data
+	 */
 	private void createQueueLine(Graphics g, CarQueue queueCar) {
 		int xCoordinate = 0;
 		
