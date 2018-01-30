@@ -171,7 +171,7 @@ public class CarQueueView extends AbstractView  {
 			if(queueCar.peekCar(i) != null) {
 				Car car = queueCar.peekCar(i);
 				g.setColor(car.getColor());
-				g.fillRect(110 + (i * 18), xCoordinate, 15, 10);
+				g.fillRect(125 + (i * 13), xCoordinate, 10, 10);
 			}
 		}
 	}
