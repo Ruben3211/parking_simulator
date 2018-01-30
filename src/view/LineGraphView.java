@@ -1,19 +1,25 @@
+package view;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.RenderingHints;
+import java.awt.Stroke;
+
+import java.util.ArrayList;
+
+import model.SimulatorModel;
+
 /**
  * LineGraphView is responsible for drawing a LineGraph with the total income of the parking garage as data.
  * Every minute in the simulation a point is drawn.
  * 
- * @Author Detmer Struiksma
- * @Version 30/1/2018
- * 
+ * @author Detmer Struiksma
+ * @version 30/1/2018
  */
-package view;
-
-import model.SimulatorModel;
-import java.awt.*;
-import java.awt.List;
-
-import javax.swing.*;
-import java.util.*;
 
 @SuppressWarnings("serial")
 public class LineGraphView extends AbstractView {
@@ -31,13 +37,18 @@ public class LineGraphView extends AbstractView {
     private int maxNumber;
 	private ArrayList<Integer> data;
 	
+	/**
+	 * The constructor for the class LineGraphView.
+	 * 
+	 * @param simulator the model
+	 */
 	public LineGraphView(SimulatorModel simulator) {
 		super(simulator);
 		
-	    int width = 800;
-	    int heigth = 400;
-	    int padding = 25;
-	    int labelPadding = 25;
+	    width = 800;
+	    heigth = 400;
+	    padding = 25;
+	    labelPadding = 25;
 	    lineColor = new Color(44, 102, 230, 180);
 	    pointColor = new Color(100, 100, 100, 180);
 	    gridColor = new Color(200, 200, 200, 200);
@@ -47,9 +58,13 @@ public class LineGraphView extends AbstractView {
 		data = simulator.data;
 		data.add(0);
 	}
-	
-    @Override
-    protected void paintComponent(Graphics g) {
+
+	/**
+	 * 
+	 * 
+	 * @param g the specified Graphics context
+	 */
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -133,11 +148,21 @@ public class LineGraphView extends AbstractView {
         }
     }
 
+    /**
+     * 
+     * 
+     * @return
+     */
     private double getMinNum() {
     	int minScore = data.get(0);
     	return minScore;
     }
 
+    /**
+     * 
+     * 
+     * @return
+     */
     private double getMaxNum() {
         double maxScore = Double.MIN_VALUE;
         for (int d : data) {
@@ -145,5 +170,4 @@ public class LineGraphView extends AbstractView {
         }
         return maxScore;
     }
-
 }
