@@ -30,7 +30,7 @@ public class ResetController extends AbstractController implements ActionListene
 	public ResetController(SimulatorModel simulator) {
 		super(simulator);
 		
-		reset = new JButton("Reset");
+		reset = new JButton("Reset Simulator");
 		reset.addActionListener(this);
 		add(reset);
 	}

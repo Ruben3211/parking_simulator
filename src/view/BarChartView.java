@@ -1,83 +1,128 @@
 package view;
 
-import model.SimulatorModel;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+
 import javax.swing.JLabel;
 
+import model.SimulatorModel;
+
+/**
+ * This class is responsible for creating and updating the bar chart. The bar 
+ * chart displays the total amount of cars parked per type and the total amount 
+ * of empty parking spots left.
+ * 
+ * @author Ruben Bonga
+ * @version 29-01-2018
+ */
 
 @SuppressWarnings("serial")
-public class BarChartView extends AbstractView{
+public class BarChartView extends AbstractView {
 
-private JLabel Regcars, Subcars, Rescars, Empty;
+	private JLabel regularLabel;
+	private JLabel subscriptionLabel;
+	private JLabel reservationLabel;
+	private JLabel emptySpotsLabel;
 	
-public BarChartView(SimulatorModel simulator) {
+	/**
+	 * The constructor for the class BarChartView.
+	 * 
+	 * @param simulator the model
+	 */
+	public BarChartView(SimulatorModel simulator) {
 		super(simulator);
-	    Regcars = new JLabel();
-	    Subcars = new JLabel();
-	    Rescars = new JLabel();
-	    Empty = new JLabel();
-	    add(Regcars);
-	    add(Rescars);
-	    add(Subcars);
-	    add(Empty);
-	    Regcars.setBounds(60,270, 80, 100);
-		Subcars.setBounds(400,20, 300, 30);
-		Rescars.setBounds(400,40, 300, 10);
-		Empty.setBounds(400,0, 300, 30);
 		
+		setLayout(null);
+	    
+		regularLabel = new JLabel("Regular Car");
+		regularLabel.setBounds(385, 213, 100, 15);
+	    add(regularLabel);
+	    
+		subscriptionLabel = new JLabel("Subscription Car");
+		subscriptionLabel.setBounds(385, 233, 100, 15);
+	    add(subscriptionLabel);
+
+		reservationLabel = new JLabel("Reservation Car");
+		reservationLabel.setBounds(385, 253, 100, 15);;
+	    add(reservationLabel);
+	    
+		emptySpotsLabel = new JLabel("Empty Spots");
+		emptySpotsLabel.setBounds(385, 273, 100, 15);
+	    add(emptySpotsLabel);
 	}
-		public void paintComponent(Graphics g) {
-			int reg = getModel().getTotalParkedRegular();
-			int sub = getModel().getTotalParkedSubscription();
-			int res = getModel().getTotalParkedReservation();
-			int empty = getModel().getNumberOfOpenSpots();
+
+	/**
+	 * This method is responsible for getting the data needed for the bar chart 
+	 * and keeping this data up-to-date. Furthermore it is also responsible for
+	 * creating the visuals needed to display the bar chart.
+	 * 
+	 * @param g the specified Graphics context
+	 */
+	public void paintComponent(Graphics g) {
+		int regular = getModel().getTotalParkedRegular();
+		int subscription = getModel().getTotalParkedSubscription();
+		int reservation = getModel().getTotalParkedReservation();
+		int empty = getModel().getNumberOfOpenSpots();
 			
-			// het vlak naar achter de stafen instellen
-			Color a = new Color(214, 217, 223);
-			g.setColor(a);
-			g.fillRect(0, 0, 600, 600);
-			
-			// Staaf voor de resevatie auto's
-			creat3DBar(g, Color.YELLOW, 160, 40 , 60, 270);
-			creat2DBar(g, a, 160, 40, 60, 270-res/2);
-			
-			//Staaf voor de pass houder auto's
-			creat3DBar(g,Color.BLUE,360,40, 60, 270);
-			 creat2DBar(g,a,360, 40, 60, 270-sub/2);
+		// Creates a rectangular background.
+		Color background = new Color(214, 217, 223);
+		g.setColor(background);
+		g.fillRect(0, 0, 500, 500);
 		
-		    
-		    // De staaf voor lege parkeer vakken
-		   creat3DBar(g,Color.WHITE,260, 40, 60, 270);
-		   creat2DBar(g,a,260, 40, 60, 270-empty/2);
-		   
-		   //De staaf voor algemene auto's
-		   creat3DBar(g,Color.RED,60,40, 60, 270);
-		   creat2DBar(g,a,60, 40, 60, 270-reg/2);
-		   
-		   // De waarden onder de stafen 
-		   
-		   Regcars.setText("Reguluar "+ reg);
-		    Subcars.setText("Subscription "+ sub);
-		     Rescars.setText("Resevation "+ res);
-		    Empty.setText("Empty "+ empty);
-		    
-		    Regcars.setBounds(60,280, 80, 100);
-			Subcars.setBounds(360,280, 100, 100);
-			Rescars.setBounds(160,280, 100, 100);
-			Empty.setBounds(260,280, 80, 100);
-		 
-		}
+		// Creates a blank line.
+		g.setColor(Color.BLACK);
+		g.fillRect(10, 385, 330, 2);
 		
-		// maak een 3Dbar aan
-		public void creat3DBar(Graphics g, Color kleur, int x, int y, int with, int height ) {
-			g.setColor(kleur);
-			g.fill3DRect(x, y, with, height, true);
-		
-		
-		}
-		// maak een 2DBar
-		public void creat2DBar(Graphics g, Color kleur, int x, int y, int with, int height ) {
-			g.setColor(kleur);
-			g.fillRect(x, y, with, height);
-		}
+		// Creates the bars for the four categories.
+		create3DBar(g, Color.RED, 25, 115, 50, 270);
+		create2DBar(g, background, 25, 115, 50, 270 - regular / 2);
+		create3DBar(g, Color.BLUE, 109, 115, 50, 270);
+		create2DBar(g, background, 109, 115, 50, 270 - subscription / 2);
+		create3DBar(g, Color.YELLOW, 191, 115, 50, 270);
+		create2DBar(g, background, 191, 115, 50, 270 - reservation/ 2);
+		create3DBar(g, Color.WHITE, 275, 115, 50, 270);
+		create2DBar(g, background, 275, 115, 50, 270 - empty / 2);
+   
+	    // Creates colored rectangles for the legend.
+	    g.setColor(Color.RED);
+	    g.fillRect(350, 213, 30, 15);
+	    g.setColor(Color.BLUE);
+	    g.fillRect(350, 233, 30, 15);
+	    g.setColor(Color.YELLOW);
+	    g.fillRect(350, 253, 30, 15);
+	    g.setColor(Color.WHITE);
+	    g.fillRect(350, 273, 30, 15);
+	}
+	
+	/**
+	 * This method is used to create 3D bars. The bars can be customized with 
+	 * the methods parameters.
+	 * 
+	 * @param g the specified Graphics context
+	 * @param color the color given to the bar
+	 * @param x the coordinates on the x-axis
+	 * @param y the coordinates on the y-axis
+	 * @param width the width of the bar
+	 * @param height the height of the bar
+	 */
+	private void create3DBar(Graphics g, Color color, int x, int y, int width, int height) {
+		g.setColor(color);
+		g.fill3DRect(x, y, width, height, true);
+	}
+	
+	/**
+	 * This method is used to creates 2D bars. The bars can be customized with 
+	 * the methods parameters.
+	 * 
+	 * @param g the specified Graphics context
+	 * @param color the color given to the bar
+	 * @param x the coordinates on the x-axis
+	 * @param y the coordinates on the y-axis
+	 * @param width the width of the bar
+	 * @param height the height of the bar
+	 */
+	private void create2DBar(Graphics g, Color color, int x, int y, int width, int height) {
+		g.setColor(color);
+		g.fillRect(x, y, width, height);
+	}
 }

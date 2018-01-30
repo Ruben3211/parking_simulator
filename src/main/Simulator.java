@@ -82,18 +82,18 @@ public class Simulator {
 		screen.getContentPane().add(runController);
 		screen.getContentPane().add(sliderController);
 				
-		graphTabbedPane.addTab("Pie Chart", pieChartIcon, pieChartView, null);
-		graphTabbedPane.addTab("Bar Chart", barChartIcon, barChartView, null);
-		graphTabbedPane.addTab("Line Graph", lineChartIcon, lineGraphView, null);
+		graphTabbedPane.addTab("Occupancy rate", pieChartIcon, pieChartView, null);
+		graphTabbedPane.addTab("Parked cars/empty spots", barChartIcon, barChartView, null);
+		graphTabbedPane.addTab("Income per day/type", lineChartIcon, lineGraphView, null);
 		
 		graphTabbedPane.setBounds(1000, 40, 500, 500);
 		carParkView.setBounds(6, 6, 800, 400);
 		carQueueView.setBounds(1200, 610, 275, 160);
 		financialView.setBounds(1000, 610, 190, 160);
 		timeView.setBounds(1000, 575, 200, 25);
-		dataController.setBounds(0, 600, 800, 900);
+		dataController.setBounds(35, 570, 840, 200);
 		runController.setBounds(80, 425, 300, 25);
-		resetController.setBounds(450, 419, 60, 35);
+		resetController.setBounds(430, 419, 120, 35);
 		sliderController.setBounds(595, 410, 200, 55);
 		
 		screen.setVisible(true);
