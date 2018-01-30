@@ -45,7 +45,7 @@ public class CarParkView extends AbstractView {
 	 * @param spaceType the type associated with a parking space
 	 * @return color the color that is used for the specified spaceType
 	 */
-	public Color getParkingSpaceColor(String spaceType) {
+	private Color getParkingSpaceColor(String spaceType) {
 		if(spaceType == "reservation") {
 			return new Color(255, 255, 204);
 		}	
