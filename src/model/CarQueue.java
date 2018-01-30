@@ -25,14 +25,28 @@ public class CarQueue {
     public boolean addCar(Car car) {
         return queue.add(car);
     }
-
+    
     /**
      * This method retrieves, but does not remove, the first car in the queue.
+     * This method is used once in the SimulatorModel.
      * 
      * @return the first car if there is one, false if the queue is empty.
      */
     public Car peekCar() {
     	return queue.peek();
+    }
+    
+    /**
+     * This method retrieves, but does not remove, the first car in the queue.
+     * This method is used once in the the CarQueueView.
+     * 
+     * @return the first car if there is one, false if the queue is empty.
+     */
+    public Car peekCar(int i) {
+    	if(((LinkedList<Car>) queue).get(i) != null) {
+    		return ((LinkedList<Car>) queue).get(i);
+    	} 
+    	return null;
     }
     
     /**

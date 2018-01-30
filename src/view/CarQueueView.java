@@ -5,6 +5,8 @@ import java.awt.GridLayout;
 
 import javax.swing.JLabel;
 
+import model.Car;
+import model.CarQueue;
 import model.SimulatorModel;
 
 /**
@@ -132,5 +134,34 @@ public class CarQueueView extends AbstractView  {
 		regularMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedRegularIncome()));
 		reservationMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedReservationIncome()));
 		totalMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedTotalIncome()));
+		
+		createQueueLine(g, getModel().getEntranceOneQueue());
+		createQueueLine(g, getModel().getEntranceTwoQueue());
+		createQueueLine(g, getModel().getPaymentQueue());
+		createQueueLine(g, getModel().getExitQueue());
+	}
+	
+	private void createQueueLine(Graphics g, CarQueue queueCar) {
+		int xCoordinate = 0;
+		
+		if(queueCar == getModel().getEntranceOneQueue()) {
+			xCoordinate = 21;
+		}
+		if(queueCar == getModel().getEntranceTwoQueue()) {
+			xCoordinate = 37;
+		}
+		if(queueCar == getModel().getPaymentQueue()) {
+			xCoordinate = 53;
+		}
+		if(queueCar == getModel().getExitQueue()) {
+			xCoordinate = 69;
+		}
+		for(int i = 0; i < queueCar.carsInQueue(); i++) {
+			if(queueCar.peekCar(i) != null) {
+				Car car = queueCar.peekCar(i);
+				g.setColor(car.getColor());
+				g.fillRect(110 + (i * 18), xCoordinate, 15, 10);
+			}
+		}
 	}
 }
