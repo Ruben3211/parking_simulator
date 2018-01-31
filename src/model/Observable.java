@@ -18,7 +18,7 @@ public interface Observable {
 	 * 
 	 * @param observer the observer
 	 */
-	public void registerObserver (Observer observer);
+	public void registerObserver(Observer observer);
 	
 	/**
 	 * This method is used to notify the observers whenever this is necessary.
