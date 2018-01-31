@@ -425,10 +425,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	int numberOfMissedReservations = 0;
     	int numberOfFreeSpaces = countFreeParkingSpaces("regular");
 
-    	// limit number of reservations, but not the number of reservation cars
-    	//int numberOfAdditionalReservationsAllowed = maxReservations - reservationList.size();
-
-    	// limit both
     	int numberOfAdditionalReservationsAllowed = maxReservations - reservationList.size() - totalParkedReservation;
 
     	if(numberOfReservations > numberOfAdditionalReservationsAllowed) {
