@@ -101,9 +101,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         
         spaces = new ParkingSpace[numberOfFloors][numberOfRows][numberOfPlaces];
 
-        for (int floor = 0; floor < numberOfFloors; floor++) {
-            for (int row = 0; row < numberOfRows; row++) {
-                for (int place = 0; place < numberOfPlaces; place++) {
+        for(int floor = 0; floor < numberOfFloors; floor++) {
+            for(int row = 0; row < numberOfRows; row++) {
+                for(int place = 0; place < numberOfPlaces; place++) {
                 	spaces[floor][row][place] = new ParkingSpace();
                 }
             }
@@ -197,9 +197,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private void resetSpaces() {
         /* set all to regular, without parked car */
-    	for (int floor = 0; floor < numberOfFloors; floor++) {
-            for (int row = 0; row < numberOfRows; row++) {
-                for (int place = 0; place < numberOfPlaces; place++) {
+    	for(int floor = 0; floor < numberOfFloors; floor++) {
+            for(int row = 0; row < numberOfRows; row++) {
+                for(int place = 0; place < numberOfPlaces; place++) {
                 	ParkingSpace space = spaces[floor][row][place];
                 	space.setType("regular");
                 	space.setCar(null);
@@ -264,7 +264,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     		return false;
     	}
         Car oldCar = space.getCar();
-        if (oldCar == null) {
+        if(oldCar == null) {
         	space.setCar(car);
             car.setLocation(location);
             numberOfOpenSpots--;
@@ -279,7 +279,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     		return null;
     	}
         Car car = space.getCar();
-        if (car == null) {
+        if(car == null) {
             return null;	
         }
         space.setCar(null);
@@ -290,13 +290,13 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private int countFreeParkingSpaces(String type) {
     	int count = 0;
-        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
-            for (int row = 0; row < getNumberOfRows(); row++) {
-                for (int place = 0; place < getNumberOfPlaces(); place++) {
+        for(int floor = 0; floor < getNumberOfFloors(); floor++) {
+            for(int row = 0; row < getNumberOfRows(); row++) {
+                for(int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     ParkingSpace space = getParkingSpaceAt(location);
                     if(space != null && space.getType() == type) {
-                    	if (space.getCar() == null) {
+                    	if(space.getCar() == null) {
                     		count++;
                     	}
                     }
@@ -307,13 +307,13 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     }
 
     private Location getFirstFreeParkingSpace(String type) {
-        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
-            for (int row = 0; row < getNumberOfRows(); row++) {
-                for (int place = 0; place < getNumberOfPlaces(); place++) {
+        for(int floor = 0; floor < getNumberOfFloors(); floor++) {
+            for(int row = 0; row < getNumberOfRows(); row++) {
+                for(int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     ParkingSpace space = getParkingSpaceAt(location);
                     if(space != null && space.getType() == type) {
-                    	if (space.getCar() == null) {
+                    	if(space.getCar() == null) {
                     		return location;
                     	}
                     }
@@ -324,13 +324,12 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     }
     
     private Car getFirstLeavingCar() {
-        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
-            for (int row = 0; row < getNumberOfRows(); row++) {
-                for (int place = 0; place < getNumberOfPlaces(); place++) {
+        for(int floor = 0; floor < getNumberOfFloors(); floor++) {
+            for(int row = 0; row < getNumberOfRows(); row++) {
+                for(int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car car = getCarAt(location);
-                    if(car != null)
-                    {
+                    if(car != null) {
                     	if(car.getMinutesLeft() <= 0 && !car.getIsPaying()) {
                     		return car;
                     	}
@@ -342,12 +341,12 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     }
     
     private void tickCars() {
-        for (int floor = 0; floor < getNumberOfFloors(); floor++) {
-            for (int row = 0; row < getNumberOfRows(); row++) {
-                for (int place = 0; place < getNumberOfPlaces(); place++) {
+        for(int floor = 0; floor < getNumberOfFloors(); floor++) {
+            for(int row = 0; row < getNumberOfRows(); row++) {
+                for(int place = 0; place < getNumberOfPlaces(); place++) {
                     Location location = new Location(floor, row, place);
                     Car car = getCarAt(location);
-                    if (car != null) {
+                    if(car != null) {
                         car.tick();
                     }
                 }
@@ -359,7 +358,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         int floor = location.getFloor();
         int row = location.getRow();
         int place = location.getPlace();
-        if (floor < 0 || floor >= numberOfFloors || row < 0 || row > numberOfRows || place < 0 || place > numberOfPlaces) {
+        if(floor < 0 || floor >= numberOfFloors || row < 0 || row > numberOfRows || place < 0 || place > numberOfPlaces) {
             return false;
         }
         return true;
@@ -367,16 +366,16 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     
     private void advanceTime() {
         minute++;
-        while (minute > 59) {
+        while(minute > 59) {
             minute -= 60;
     		totalIncomeData.add(totalIncome);
             hour++;
         }
-        while (hour > 23) {
+        while(hour > 23) {
             hour -= 24;
             day++;
         }
-        while (day > 6) {
+        while(day > 6) {
             day -= 7;
         }
     }
@@ -389,8 +388,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private int getMissedCars(CarQueue queue, int numCars, int maxCars) {
     	int spaceLeft = maxCars - queue.carsInQueue();
-    	if(spaceLeft < numCars)
+    	if(spaceLeft < numCars) {
     		return numCars - spaceLeft;
+    	}
     	return 0;
     }
 
@@ -400,7 +400,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	/* regular cars */
     	numberOfCars = getNumberOfCarsArriving(weekDayRegularArrivals, weekendRegularArrivals, eventRegularArrivals);
     	numberOfMissedCars = getMissedCars(entranceOneQueue, numberOfCars, maxEntranceQueue);
-    	for (int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
+    	for(int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
         	entranceOneQueue.addCar(new RegularCar());
         }
     	totalRegularMissed += numberOfMissedCars;
@@ -409,10 +409,10 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	/* subscription cars */
         numberOfCars = getNumberOfCarsArriving(weekDaySubscriptionArrivals, weekendSubscriptionArrivals, eventSubscriptionArrivals);
         int spaceLeft = maxSubscriptions - totalParkedSubscription;
-        if(spaceLeft > 0)
-        {
-        	if(numberOfCars > spaceLeft)
+        if(spaceLeft > 0) {
+        	if(numberOfCars > spaceLeft) {
         		numberOfCars = spaceLeft;
+        	}
         	numberOfMissedCars = getMissedCars(entranceTwoQueue, numberOfCars, maxEntranceQueue);
         	for(int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
         		entranceTwoQueue.addCar(new SubscriptionCar());
@@ -427,7 +427,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	double standardDeviation = 50.0;
     	do {
     	  value = random.nextGaussian() * standardDeviation + average;
-    	} while(value <= min);
+    	} 
+    	while(value <= min);
     	return (int)Math.round(value);
     }
 
@@ -452,8 +453,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     	int curMinute = 24*60*day + 60*hour + minute;
 
-    	for(int i = 0; i < numberOfReservations; i++)
-    	{
+    	for(int i = 0; i < numberOfReservations; i++) {
             Location freeLocation = getFirstFreeParkingSpace("regular");
 
             int timeOfArrival = computeReservationArrivalTime();
@@ -471,19 +471,16 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	int curMinute = 24*60*day + 60*hour + minute;
 
 	    Iterator<Reservation> iterator = reservationList.iterator();
-	    while(iterator.hasNext())
-	    {
+	    while(iterator.hasNext()) {
 	    	Reservation reservation = iterator.next();
 
-	    	if(reservation.getArrivalTime() <= curMinute)
-	    	{
+	    	if(reservation.getArrivalTime() <= curMinute) {
 	    		ReservationCar car = new ReservationCar();
 	    		entranceTwoQueue.addCar(car);
 	    		car.setLocation(reservation.getLocation());
 				iterator.remove();
 	    	}
-	    	else if(reservation.getExpirationTime() <= curMinute)
-	    	{
+	    	else if(reservation.getExpirationTime() <= curMinute) {
 	    		ParkingSpace space = getParkingSpaceAt(reservation.getLocation());
 	    		space.setType("regular");
 	    		iterator.remove();
@@ -493,20 +490,23 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private void carsEntering(CarQueue queue) {
         int i = 0;
-    	while (queue.carsInQueue() > 0 && i < entranceSpeed)
-    	{
+    	while(queue.carsInQueue() > 0 && i < entranceSpeed) {
     		Car car = queue.peekCar();
 
             Location freeLocation;
-            if(car.getType() == "subscription")
+            if(car.getType() == "subscription") {
             	freeLocation = getFirstFreeParkingSpace("subscription");
-            else if(car.getType() == "reservation")
+            }
+            else if(car.getType() == "reservation") {
             	freeLocation = car.getLocation();
-            else
+            }
+            else {
             	freeLocation = getFirstFreeParkingSpace("regular");
+            }
 
-            if(freeLocation == null)
+            if(freeLocation == null) {
             	break;
+            }
 
             car = queue.removeCar();
             setCarAt(freeLocation, car);
@@ -515,9 +515,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
             String carType = car.getType();
             if(carType == "regular") {
             	totalParkedRegular++;
-            } else if(carType == "subscription") {
+            } 
+            else if(carType == "subscription") {
             	totalParkedSubscription++;
-            } else if(carType ==  "reservation") {
+            } 
+            else if(carType ==  "reservation") {
             	totalParkedReservation++;
             }
         }
@@ -525,8 +527,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private void carsReadyToLeave() {
         Car car = getFirstLeavingCar();
-        while (car != null) {
-        	if (car.getHasToPay()){
+        while(car != null) {
+        	if(car.getHasToPay()) {
 	            car.setIsPaying(true);
 	            paymentQueue.addCar(car);
         	}
@@ -539,14 +541,14 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     
     private void carsPaying() {
     	int i = 0;
-    	while (paymentQueue.carsInQueue() > 0 && i < paymentSpeed){
+    	while(paymentQueue.carsInQueue() > 0 && i < paymentSpeed) {
             Car car = paymentQueue.removeCar();
             String carType = car.getType();
-            if(car.getHasToPay())
-            {
+            if(car.getHasToPay()) {
             	if(carType == "regular") {
             	    this.totalRegularIncome += this.regularFee;
-            	} else if(carType == "reservation") { 
+            	} 
+            	else if(carType == "reservation") { 
             	    this.totalReservationIncome += this.reservationFee;
             	}
             }
@@ -557,7 +559,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private void carsLeaving() {
     	int i = 0;
-    	while (exitQueue.carsInQueue() > 0 && i < exitSpeed){
+    	while(exitQueue.carsInQueue() > 0 && i < exitSpeed){
             exitQueue.removeCar();
             i++;
     	}	
@@ -565,21 +567,18 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private int getNumberOfCarsArriving(int weekDay, int weekend, int event) {
         int averageNumberOfCarsPerHour = 100;
-        // Thursday/Friday/Saturday 18:00-24:00 and Sunday 12:00-18:00.
         if(hour < 7) {
         	averageNumberOfCarsPerHour = 20;
         }
-        
-        else if((day > 2 && day < 6 && hour >= 18) ||
-           (day == 6 && hour >= 12 && hour < 18))
-        {
+        else if((day > 2 && day < 6 && hour >= 18) || (day == 6 && hour >= 12 && hour < 18)) {
         	averageNumberOfCarsPerHour = event;
         }
-        else if(day < 5)
+        else if(day < 5) {
         	averageNumberOfCarsPerHour = weekDay;
-        else
+        }
+        else {
         	averageNumberOfCarsPerHour = weekend;
-
+        }
         double standardDeviation = averageNumberOfCarsPerHour * 0.3;
         double numberOfCarsPerHour = averageNumberOfCarsPerHour + random.nextGaussian() * standardDeviation;
         return (int)Math.round(numberOfCarsPerHour / 60);	
@@ -594,9 +593,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         String carType = car.getType();
         if(carType == "regular") {
         	totalParkedRegular--;
-        } else if(carType == "subscription") {
+        } 
+        else if(carType == "subscription") {
         	totalParkedSubscription--;
-        } else if(carType ==  "reservation") {
+        } 
+        else if(carType ==  "reservation") {
         	totalParkedReservation--;
         	ParkingSpace space = getParkingSpaceAt(location);
         	space.setType("regular");
