@@ -107,9 +107,9 @@ public class DataController extends AbstractController implements ActionListener
 		regularWeekDayData.setName("regularWeekDayData");
 		regularWeekendData.setName("regularWeekendData");
 		regularEventData.setName("regularEventData");
-		subscriptionWeekDayData.setName("subscriberWeekDayData");
-		subscriptionWeekendData.setName("subscriberWeekendData");
-		subscriptionEventData.setName("subscriberEventData");
+		subscriptionWeekDayData.setName("subscriptionWeekDayData");
+		subscriptionWeekendData.setName("subscriptionWeekendData");
+		subscriptionEventData.setName("subscriptionEventData");
 		reservationWeekDayData.setName("reservationWeekDayData");
 		reservationWeekendData.setName("reservationWeekendData");
 		reservationEventData.setName("reservationEventData");
@@ -217,6 +217,7 @@ public class DataController extends AbstractController implements ActionListener
 					}
 				}
 			}
+			simulator.reset();
 		}
 		if (e.getSource() == resetDataButton) {
 			simulator.resetDataControllerValues();

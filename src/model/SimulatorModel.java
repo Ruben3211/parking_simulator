@@ -101,6 +101,19 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         
         spaces = new ParkingSpace[numberOfFloors][numberOfRows][numberOfPlaces];
 
+        for (int floor = 0; floor < numberOfFloors; floor++) {
+            for (int row = 0; row < numberOfRows; row++) {
+                for (int place = 0; place < numberOfPlaces; place++) {
+                	spaces[floor][row][place] = new ParkingSpace();
+                }
+            }
+        }
+
+        resetDataControllerValues(); // do this before calling reset()
+        reset();
+    }
+
+    public void reset() {
         reservationList = new ArrayList<Reservation>();
 
     	entranceOneQueue = new CarQueue();
@@ -108,32 +121,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         paymentQueue = new CarQueue();
         exitQueue = new CarQueue();
 
-        maxEntranceQueue = 6;
-        
-        entranceSpeed = 3;
-        paymentSpeed = 7;
-        exitSpeed = 5;
+        data = new ArrayList<Integer>();
 
         day = 0;
         hour = 0;
         minute = 0;
-
-        weekDayRegularArrivals = 100;
-        weekendRegularArrivals = 200;
-        eventRegularArrivals = 300;
-        weekDaySubscriptionArrivals = 60;
-        weekendSubscriptionArrivals = 60;
-        eventSubscriptionArrivals = 60;
-        weekDayReservationArrivals = 60;
-        weekendReservationArrivals = 60;
-        eventReservationArrivals = 60;
-        
-    	maxSubscriptions = 60;
-        maxReservations = 60;
-
-        regularFee = 1;
-        subscriptionFee = 50;
-        reservationFee = 4;
 
         totalRegularIncome = 0;
         totalSubscriptionIncome = 0;
@@ -143,15 +135,15 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         totalParkedRegular = 0;
         totalParkedSubscription = 0;
         totalParkedReservation = 0;
-        
+
         parkedRegularIncome = 0;
         parkedReservationIncome = 0;
         parkedTotalIncome = 0;
-        
+
         totalRegularMissed = 0;
         totalReservationMissed = 0;
         totalCarsMissed = 0;
-        
+
         missedRegularIncome = 0;
         missedReservationIncome = 0;
         missedTotalIncome = 0;
@@ -159,18 +151,27 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         stepPause = 100;
         numberOfSteps = 0;
         run = false;
-        
-        data = new ArrayList<Integer>();
-    	
-        for (int floor = 0; floor < numberOfFloors; floor++) {
+
+        totalParkedRegular = 0;
+        totalParkedSubscription = 0;
+        totalParkedReservation = 0;
+
+        resetSpaces();
+		notifyObservers();
+    }
+
+    private void resetSpaces() {
+        /* set all to regular, without parked car */
+    	for (int floor = 0; floor < numberOfFloors; floor++) {
             for (int row = 0; row < numberOfRows; row++) {
                 for (int place = 0; place < numberOfPlaces; place++) {
-                	spaces[floor][row][place] = new ParkingSpace();
+                	ParkingSpace space = spaces[floor][row][place];
+                	space.setType("regular");
+                	space.setCar(null);
                 }
             }
         }
-
-        /* allocate subscription parking spaces */
+    	/* allocate subscription parking spaces */
         int floor = 0, row = 0, place = 0;
         for(int spaceIndex = 0; spaceIndex < maxSubscriptions; spaceIndex++) {
         	spaces[floor][row][place].setType("subscription");
@@ -183,13 +184,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         			floor++;
         		}
         	}
-        } 
-    }
-    
-    public void reset() {
-        totalParkedRegular = 0;
-        totalParkedSubscription = 0;
-        totalParkedReservation = 0;
+        }
     }
     
 	public ParkingSpace getParkingSpaceAt(Location location) {
@@ -402,9 +397,15 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     	/* subscription cars */
         numberOfCars = getNumberOfCarsArriving(weekDaySubscriptionArrivals, weekendSubscriptionArrivals, eventSubscriptionArrivals);
-    	numberOfMissedCars = getMissedCars(entranceTwoQueue, numberOfCars, maxEntranceQueue);
-        for (int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
-    		entranceTwoQueue.addCar(new SubscriptionCar());
+        int spaceLeft = maxSubscriptions - totalParkedSubscription;
+        if(spaceLeft > 0)
+        {
+        	if(numberOfCars > spaceLeft)
+        		numberOfCars = spaceLeft;
+        	numberOfMissedCars = getMissedCars(entranceTwoQueue, numberOfCars, maxEntranceQueue);
+        	for(int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
+        		entranceTwoQueue.addCar(new SubscriptionCar());
+        	}
         }
     }
 
@@ -423,7 +424,12 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	int numberOfReservations = getNumberOfCarsArriving(weekDayReservationArrivals, weekendReservationArrivals, eventReservationArrivals);
     	int numberOfMissedReservations = 0;
     	int numberOfFreeSpaces = countFreeParkingSpaces("regular");
-    	int numberOfAdditionalReservationsAllowed = maxReservations - reservationList.size();
+
+    	// limit number of reservations, but not the number of reservation cars
+    	//int numberOfAdditionalReservationsAllowed = maxReservations - reservationList.size();
+
+    	// limit both
+    	int numberOfAdditionalReservationsAllowed = maxReservations - reservationList.size() - totalParkedReservation;
 
     	if(numberOfReservations > numberOfAdditionalReservationsAllowed) {
     		numberOfMissedReservations += numberOfReservations - numberOfAdditionalReservationsAllowed;
@@ -552,7 +558,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 
     private int getNumberOfCarsArriving(int weekDay, int weekend, int event) {
         int averageNumberOfCarsPerHour;
-        
         // Thursday/Friday/Saturday 18:00-24:00 and Sunday 12:00-18:00.
         if((day > 2 && day < 6 && hour >= 18) ||
            (day == 6 && hour >= 12 && hour < 18))
