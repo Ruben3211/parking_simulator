@@ -114,7 +114,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     }
 
     public void reset() {
-        reservationList = new ArrayList<Reservation>();
+    	numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
+    	
+    	reservationList = new ArrayList<Reservation>();
 
     	entranceOneQueue = new CarQueue();
         entranceTwoQueue = new CarQueue();
