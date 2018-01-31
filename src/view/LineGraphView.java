@@ -49,7 +49,7 @@ public class LineGraphView extends AbstractView {
 	    gridColor = new Color(200, 200, 200, 200);
 	    pointWidth = 4;
         numberYDivisions = 10;
-		data = simulator.data;
+		data = getModel().getTotalIncomeData();
 		data.add(0);
 	}
 

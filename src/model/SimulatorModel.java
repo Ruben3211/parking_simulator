@@ -1,6 +1,5 @@
 package model;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -61,6 +60,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int totalSubscriptionIncome;
     private int totalReservationIncome;
 	private int totalIncome;
+	
+    private ArrayList<Integer> totalIncomeData;
 
     private int totalParkedRegular;
     private int totalParkedSubscription;
@@ -81,9 +82,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private int stepPause;
     private int numberOfSteps;
     private boolean run;
-    
-    public ArrayList<Integer> data;
-    public ArrayList<Point> graphPoints;
 
     /**
      * The constructor for the class SimulatorModel.
@@ -110,11 +108,44 @@ public class SimulatorModel extends AbstractModel implements Runnable {
                 }
             }
         }
-
-        resetDataControllerValues(); // do this before calling reset()
+        resetDataControllerValues();
         reset();
     }
-
+    
+    /**
+     * This method will start running the simulator. The length of the runtime
+     * is determined by the amount of steps given. When the start signal is
+     * given, a new thread will be created.
+     * 
+     * @param numberOfSteps the amount of steps the simulator will go through
+     */
+    public void start(int numberOfSteps) {
+    	this.numberOfSteps = numberOfSteps;
+    	run = true;
+    	new Thread(this).start();
+    }
+    
+    public void run() {
+    	for(int i = 0; i < numberOfSteps && run; i++) {
+    		firstAction();
+    		try {
+    			Thread.sleep(stepPause);
+    		} catch (InterruptedException e) {
+    			e.printStackTrace();
+    		}
+    		secondAction();
+    		notifyObservers();
+    	}
+    	run = false;
+    }
+    
+    /**
+     * This method is used to stop the simulator from running.
+     */
+    public void stop() {
+    	run = false;
+    }
+    
     public void reset() {
     	numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
     	
@@ -125,9 +156,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         paymentQueue = new CarQueue();
         exitQueue = new CarQueue();
 
-        data = new ArrayList<Integer>();
-        graphPoints = new ArrayList<Point>();
-
         day = 0;
         hour = 0;
         minute = 0;
@@ -137,6 +165,8 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         totalReservationIncome = 0;
     	totalIncome = 0;
 
+        totalIncomeData = new ArrayList<Integer>();
+    	
         totalParkedRegular = 0;
         totalParkedSubscription = 0;
         totalParkedReservation = 0;
@@ -153,14 +183,14 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         missedReservationIncome = 0;
         missedTotalIncome = 0;
 
-        stepPause = 100;
-        numberOfSteps = 0;
-        run = false;
-
         totalParkedRegular = 0;
         totalParkedSubscription = 0;
         totalParkedReservation = 0;
-
+        
+        stepPause = 100;
+        numberOfSteps = 0;
+        run = false;
+        
         resetSpaces();
 		notifyObservers();
     }
@@ -192,6 +222,27 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     }
     
+    private void firstAction() {
+    	advanceTime();
+    	checkReservations();
+    	carsArriving();
+    	carsReadyToLeave();
+    	carsPaying();
+    	setSubscriptionIncome();
+    	setParkedIncome();
+    	setTotalIncome();
+    	setTotalCarsMissed();
+    	setMissedIncome();
+    	tickCars();
+    }
+    
+    private void secondAction() {
+    	carsLeaving();
+    	carsEntering(entranceOneQueue);
+    	carsEntering(entranceTwoQueue);
+    	makeReservations();
+    }
+    
 	public ParkingSpace getParkingSpaceAt(Location location) {
 		if(!locationIsValid(location)) {
 			return null;
@@ -199,7 +250,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 		return spaces[location.getFloor()][location.getRow()][location.getPlace()];
 	}
 
-	public Car getCarAt(Location location) {
+	private Car getCarAt(Location location) {
     	ParkingSpace space = getParkingSpaceAt(location);
     	if(space == null) {
     		return null;
@@ -207,7 +258,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    		return space.getCar();
     }
 
-    public boolean setCarAt(Location location, Car car) {
+    private boolean setCarAt(Location location, Car car) {
     	ParkingSpace space = getParkingSpaceAt(location);
     	if(space == null) {
     		return false;
@@ -222,7 +273,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return false;
     }
 
-    public Car removeCarAt(Location location) {
+    private Car removeCarAt(Location location) {
     	ParkingSpace space = getParkingSpaceAt(location);
     	if(space == null) {
     		return null;
@@ -237,7 +288,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return car;
     }
 
-    public int countFreeParkingSpaces(String type) {
+    private int countFreeParkingSpaces(String type) {
     	int count = 0;
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
@@ -255,7 +306,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return count;	
     }
 
-    public Location getFirstFreeParkingSpace(String type) {
+    private Location getFirstFreeParkingSpace(String type) {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
@@ -272,7 +323,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return null;
     }
     
-    public Car getFirstLeavingCar() {
+    private Car getFirstLeavingCar() {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
@@ -290,7 +341,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return null;
     }
     
-    public void tickCars() {
+    private void tickCars() {
         for (int floor = 0; floor < getNumberOfFloors(); floor++) {
             for (int row = 0; row < getNumberOfRows(); row++) {
                 for (int place = 0; place < getNumberOfPlaces(); place++) {
@@ -314,56 +365,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return true;
     }
     
-    public void start(int numberOfSteps) {
-    	this.numberOfSteps = numberOfSteps;
-    	run = true;
-    	new Thread(this).start();
-    }
-    
-    public void stop() {
-    	run = false;
-    }
- 
-    private void firstAction() {
-    	advanceTime();
-    	checkReservations();
-    	carsArriving();
-    	carsReadyToLeave();
-    	carsPaying();
-    	setSubscriptionIncome();
-    	updateMoneyInGarageCounts();
-    	setTotalIncome();
-    	setTotalCarsMissed();
-    	setMissedIncome();
-    	tickCars();
-    }
-    
-    private void secondAction() {
-    	carsLeaving();
-    	carsEntering(entranceOneQueue);
-    	carsEntering(entranceTwoQueue);
-    	makeReservations();
-    }
-    
-    public void run() {
-    	for(int i = 0; i < numberOfSteps && run; i++) {
-    		firstAction();
-    		try {
-    			Thread.sleep(stepPause);
-    		} catch (InterruptedException e) {
-    			e.printStackTrace();
-    		}
-    		secondAction();
-    		notifyObservers();
-    	}
-    	run = false;
-    }
-    
     private void advanceTime() {
         minute++;
         while (minute > 59) {
             minute -= 60;
-    		data.add(totalIncome);
+    		totalIncomeData.add(totalIncome);
             hour++;
         }
         while (hour > 23) {
@@ -375,7 +381,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     }
 
-    private void updateMoneyInGarageCounts() {
+    private void setParkedIncome() {
         parkedRegularIncome = totalParkedRegular * regularFee;
         parkedReservationIncome = totalParkedReservation * reservationFee;
         parkedTotalIncome = parkedRegularIncome + parkedReservationIncome;
@@ -1000,6 +1006,16 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 	private void setTotalIncome() {
 		totalIncome = totalRegularIncome + totalSubscriptionIncome + totalReservationIncome;
 	}
+	
+    /**
+     * This method returns the totalIncome that is added to the ArrayList
+     * called totalIncomeData.
+     * 
+     * @return totalIncomeData the total income added to the ArrayList
+     */
+    public ArrayList<Integer> getTotalIncomeData() {
+    	return totalIncomeData;
+    }
     
     /**
      * This method returns the total amount regular cars that are currently
