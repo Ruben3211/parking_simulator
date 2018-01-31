@@ -108,9 +108,36 @@ public class SimulatorModel extends AbstractModel implements Runnable {
                 }
             }
         }
-        resetDataControllerValues();
+        initialization();
         reset();
     }
+    
+    /**
+     * This method is responsible for initialization all the data the simulator
+     * needs to setup in order to run correctly. This is done within the
+     * SimulatorModel constructor. This method is also used to reset the data in
+     * the DataController.
+     */
+   	public void initialization() {
+   		regularFee = 1;
+   		subscriptionFee = 50;
+   		reservationFee = 6;
+   		entranceSpeed = 3; 
+   		paymentSpeed = 7;
+   		exitSpeed = 5;
+   		weekDayRegularArrivals = 100;
+   		weekendRegularArrivals = 70;
+   		eventRegularArrivals = 300; 
+   		weekDaySubscriptionArrivals = 50;
+   		weekendSubscriptionArrivals = 5;
+   		eventSubscriptionArrivals = 20; 
+   		weekDayReservationArrivals = 20;
+   		weekendReservationArrivals = 50;
+   		eventReservationArrivals = 300;
+   		maxReservations = 250;
+   		maxSubscriptions = 60;
+   		maxEntranceQueue = 6;
+   	}
     
     /**
      * This method will start running the simulator. The length of the runtime
@@ -195,8 +222,13 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 		notifyObservers();
     }
 
+    /**
+     * This method is responsible for resetting all the parking spaces. It first
+     * removes all spaces and any parked cars. After which it will allocate the
+     * subscription parking spaces.
+     */
     private void resetSpaces() {
-        /* set all to regular, without parked car */
+        // Sets all places to regular places and removes parked cars.
     	for(int floor = 0; floor < numberOfFloors; floor++) {
             for(int row = 0; row < numberOfRows; row++) {
                 for(int place = 0; place < numberOfPlaces; place++) {
@@ -206,7 +238,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
                 }
             }
         }
-    	/* allocate subscription parking spaces */
+    	// Allocates the subscription parking spaces.
         int floor = 0, row = 0, place = 0;
         for(int spaceIndex = 0; spaceIndex < maxSubscriptions; spaceIndex++) {
         	spaces[floor][row][place].setType("subscription");
@@ -364,6 +396,10 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return true;
     }
     
+    /**
+     * This method advances the time by one minute each time the method is
+     * called upon. It will loop through 60 minutes, 24 hours and 7 days.
+     */
     private void advanceTime() {
         minute++;
         while(minute > 59) {
@@ -603,27 +639,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         	space.setType("regular");
         }
     }
-    
-   	public void resetDataControllerValues() {
-   		regularFee = 1;
-   		subscriptionFee = 50;
-   		reservationFee = 6;
-   		entranceSpeed = 3; 
-   		paymentSpeed = 7;
-   		exitSpeed = 5;
-   		weekDayRegularArrivals = 100;
-   		weekendRegularArrivals = 70;
-   		eventRegularArrivals = 300; 
-   		weekDaySubscriptionArrivals = 50;
-   		weekendSubscriptionArrivals = 5;
-   		eventSubscriptionArrivals = 20; 
-   		weekDayReservationArrivals = 20;
-   		weekendReservationArrivals = 50;
-   		eventReservationArrivals = 300;
-   		maxReservations = 250;
-   		maxSubscriptions = 60;
-   		maxEntranceQueue = 6;
-   	}
    	
    	public void setIntFromDataController(String objectName, int value) {
    		switch(objectName) {

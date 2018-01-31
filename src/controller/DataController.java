@@ -220,7 +220,7 @@ public class DataController extends AbstractController implements ActionListener
 			simulator.reset();
 		}
 		if (e.getSource() == resetDataButton) {
-			simulator.resetDataControllerValues();
+			simulator.initialization();
 			regularFeeData.setText(Integer.toString(simulator.getRegularFee()));
 			subscriptionFeeData.setText(Integer.toString(simulator.getSubscriptionFee()));
 			reservationFeeData.setText(Integer.toString(simulator.getReservationFee()));
