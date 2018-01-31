@@ -116,7 +116,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
      * This method is responsible for initialization all the data the simulator
      * needs to setup in order to run correctly. This is done within the
      * SimulatorModel constructor. This method is also used to reset the data in
-     * the DataController.
+     * the DataController, back to the initial values.
      */
    	public void initialization() {
    		regularFee = 1;
