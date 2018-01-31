@@ -618,7 +618,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    	public void setIntFromDataController(String objectName, int value) {
    		switch(objectName) {
 	   		case "regularFeeData":			regularFee = value;						break;
-	   		case "subscriberFeeData":		subscriptionFee = value;				break;
+	   		case "subscriptionFeeData":		subscriptionFee = value;				break;
 	   		case "reservationFeeData":		reservationFee = value;					break;
 	   		case "entranceSpeedData":		entranceSpeed = value;					break;
 	   		case "paymentSpeedData":		paymentSpeed = value;					break;
@@ -632,7 +632,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 	   		case "reservationWeekDayData":	weekDayReservationArrivals = value;		break;
 	   		case "reservationWeekendData":	weekendReservationArrivals = value;		break;
 	   		case "reservationEventData":	eventReservationArrivals = value;		break;
-	   		case "maxSubscribersData":		maxSubscriptions = value;				break;
+	   		case "maxSubscriptionsData":	maxSubscriptions = value;				break;
 	   		case "maxReservationsData":		maxReservations = value;				break;
 	   		case "maxEntranceQueueData":	maxEntranceQueue = value;				break;
    		}
