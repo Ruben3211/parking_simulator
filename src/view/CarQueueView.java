@@ -135,7 +135,7 @@ public class CarQueueView extends AbstractView  {
 		reservationMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedReservationIncome()));
 		totalMissedMoneyData.setText("€" + String.valueOf(getModel().getMissedTotalIncome()));
 		
-		// Uses the createQueueLine() method to show the car color in the queue.
+		// Uses the createQueueLine() method to show the car colors in the queue.
 		createQueueLine(g, getModel().getEntranceOneQueue());
 		createQueueLine(g, getModel().getEntranceTwoQueue());
 		createQueueLine(g, getModel().getPaymentQueue());
