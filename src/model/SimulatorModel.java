@@ -638,12 +638,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    		}
    	}
 
-    //-----------------------------------------------------------------------//
-    //-----------------------------------------------------------------------//
-    //	GETTERS and SETTERS													 //
-    //-----------------------------------------------------------------------//
-    //-----------------------------------------------------------------------//
-    
     /**
      * This method returns the total number of floors that exists in the
      * parking garage.
