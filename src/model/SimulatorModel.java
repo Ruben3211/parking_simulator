@@ -1,5 +1,6 @@
 package model;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
@@ -82,6 +83,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private boolean run;
     
     public ArrayList<Integer> data;
+    public ArrayList<Point> graphPoints;
 
     /**
      * The constructor for the class SimulatorModel.
@@ -124,6 +126,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         exitQueue = new CarQueue();
 
         data = new ArrayList<Integer>();
+        graphPoints = new ArrayList<Point>();
 
         day = 0;
         hour = 0;

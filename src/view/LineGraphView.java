@@ -24,8 +24,6 @@ import model.SimulatorModel;
 @SuppressWarnings("serial")
 public class LineGraphView extends AbstractView {
 	
-    private int width;
-    private int heigth;
     private int padding;
     private int labelPadding;
     private Color lineColor;
@@ -34,7 +32,6 @@ public class LineGraphView extends AbstractView {
     private static final Stroke GRAPH_STROKE = new BasicStroke(2f);
     private int pointWidth;
     private int numberYDivisions;
-    private int maxNumber;
 	private ArrayList<Integer> data;
 	
 	/**
@@ -45,8 +42,6 @@ public class LineGraphView extends AbstractView {
 	public LineGraphView(SimulatorModel simulator) {
 		super(simulator);
 		
-	    width = 800;
-	    heigth = 400;
 	    padding = 25;
 	    labelPadding = 25;
 	    lineColor = new Color(44, 102, 230, 180);
@@ -54,13 +49,12 @@ public class LineGraphView extends AbstractView {
 	    gridColor = new Color(200, 200, 200, 200);
 	    pointWidth = 4;
         numberYDivisions = 10;
-        maxNumber = simulator.getTotalIncome();
 		data = simulator.data;
 		data.add(0);
 	}
 
 	/**
-	 * 
+	 * This method draws the graph and adds the points to the graph.
 	 * 
 	 * @param g the specified Graphics context
 	 */
@@ -71,6 +65,7 @@ public class LineGraphView extends AbstractView {
 
         double xScale = ((double) getWidth() - (2 * padding) - labelPadding) / (data.size() - 1);
         double yScale = ((double) getHeight() - 2 * padding - labelPadding) / (getMaxNum() - getMinNum());
+        
 
         ArrayList<Point> graphPoints = new ArrayList<>();
         for (int i = 0; i < data.size(); i++) {
@@ -147,27 +142,31 @@ public class LineGraphView extends AbstractView {
             g2.fillOval(x, y, ovalW, ovalH);
         }
     }
+    
+    
 
     /**
+     * This method returns the lowest number in the data collection.
+     * It is used to draw the graph correctly.
      * 
-     * 
-     * @return
+     * @return minNum the lowest score in the collection
      */
     private double getMinNum() {
-    	int minScore = data.get(0);
-    	return minScore;
+    	int minNum= data.get(0);
+    	return minNum;
     }
 
     /**
+     * This method returns the highest number in the collection.
+     * It is used to draw the graph correctly.
      * 
-     * 
-     * @return
+     * @return maxNum
      */
     private double getMaxNum() {
-        double maxScore = Double.MIN_VALUE;
+        double maxNum = Double.MIN_VALUE;
         for (int d : data) {
-            maxScore = Math.max(maxScore, d);
+        	maxNum = Math.max(maxNum, d);
         }
-        return maxScore;
+        return maxNum;
     }
 }
