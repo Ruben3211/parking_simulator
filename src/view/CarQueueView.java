@@ -153,25 +153,25 @@ public class CarQueueView extends AbstractView  {
 	 * @param queueCar the queue used for comparison to get the proper data
 	 */
 	private void createQueueLine(Graphics g, CarQueue queueCar) {
-		int xCoordinate = 0;
+		int yCoordinate = 0;
 		
 		if(queueCar == getModel().getEntranceOneQueue()) {
-			xCoordinate = 21;
+			yCoordinate = 21;
 		}
 		if(queueCar == getModel().getEntranceTwoQueue()) {
-			xCoordinate = 37;
+			yCoordinate = 37;
 		}
 		if(queueCar == getModel().getPaymentQueue()) {
-			xCoordinate = 53;
+			yCoordinate = 53;
 		}
 		if(queueCar == getModel().getExitQueue()) {
-			xCoordinate = 69;
+			yCoordinate = 69;
 		}
 		for(int i = 0; i < queueCar.carsInQueue(); i++) {
 			if(queueCar.peekCar(i) != null) {
 				Car car = queueCar.peekCar(i);
 				g.setColor(car.getColor());
-				g.fillRect(125 + (i * 13), xCoordinate, 10, 10);
+				g.fillRect(125 + (i * 13), yCoordinate, 10, 10);
 			}
 		}
 	}
