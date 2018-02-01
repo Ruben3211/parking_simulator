@@ -74,6 +74,7 @@ public class RunController extends AbstractController implements ActionListener 
 			simulator.stop();
 		}
 		
+		// Disabled or enables the start and steps buttons.
 		if(simulator.getRun() == false) {
 			start.setEnabled(true);
 			steps.setEnabled(true);
