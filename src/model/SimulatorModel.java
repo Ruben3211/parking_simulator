@@ -602,7 +602,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     }
 
     private int getNumberOfCarsArriving(int weekDay, int weekend, int event) {
-        int averageNumberOfCarsPerHour = 100;
+        int averageNumberOfCarsPerHour;
         if(hour < 7) {
         	averageNumberOfCarsPerHour = 20;
         }
