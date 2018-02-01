@@ -73,6 +73,15 @@ public class RunController extends AbstractController implements ActionListener 
 		if(e.getSource() == stop) {
 			simulator.stop();
 		}
+		
+		if(simulator.getRun() == false) {
+			start.setEnabled(true);
+			steps.setEnabled(true);
+		}
+		if(simulator.getRun() == true) {
+			start.setEnabled(false);
+			steps.setEnabled(false);
+		}
 	}
 	
 	/**

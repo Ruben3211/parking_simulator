@@ -1201,4 +1201,14 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    	public int getNumberOfSteps() {
    		return numberOfSteps;
    	}
+   	
+   	/**
+   	 * This method will return a boolean on whether the simulator is running or 
+   	 * not.
+   	 * 
+   	 * @return run true if the simulator is running, false if not
+   	 */
+   	public boolean getRun() {
+   		return run;
+   	}
 }
