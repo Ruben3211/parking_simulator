@@ -42,7 +42,7 @@ public class Simulator {
 	 * The constructor for the class Simulator.
 	 */
 	public Simulator() {
-		simulatorLogic = new SimulatorModel(3, 6, 30);
+		simulatorLogic = new SimulatorModel(3, 6, 28);
 		
 		screen = new JFrame("Parking Garage Simulator");
 		graphTabbedPane = new JTabbedPane();

@@ -140,7 +140,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    		weekendReservationArrivals = 50;
    		eventReservationArrivals = 300;
    		maxReservations = 250;
-   		maxSubscriptions = 60;
+   		maxSubscriptions = 56;
    		maxEntranceQueue = 6;
    	}
     
