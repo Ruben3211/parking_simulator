@@ -1,8 +1,12 @@
 package model;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Random;
+
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 /**
  * 
@@ -638,6 +642,16 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         	ParkingSpace space = getParkingSpaceAt(location);
         	space.setType("regular");
         }
+    }
+    
+    public void playSound() {
+    	try {
+    		Clip clip = AudioSystem.getClip();
+    		clip.open(AudioSystem.getAudioInputStream(new File("res/audio/knob.wav")));
+    		clip.start();
+    	} catch (Exception e) {
+			e.printStackTrace(System.out);
+		}
     }
    	
    	public void setIntFromDataController(String objectName, int value) {

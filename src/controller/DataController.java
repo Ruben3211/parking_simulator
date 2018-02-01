@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.event.ActionEvent;
+
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,6 +12,9 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import model.SimulatorModel;
 
@@ -210,6 +214,7 @@ public class DataController extends AbstractController implements ActionListener
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == sendDataButton) {
+			simulator.playSound();
 			for (int i = 0; i < textFieldList.size(); i++) {
 				if(textFieldList.get(i).getText() != "") {
 					if (isInteger(textFieldList.get(i).getText()) == true) {
@@ -220,6 +225,7 @@ public class DataController extends AbstractController implements ActionListener
 			simulator.reset();
 		}
 		if (e.getSource() == resetDataButton) {
+			simulator.playSound();
 			simulator.initialization();
 			regularFeeData.setText(Integer.toString(simulator.getRegularFee()));
 			subscriptionFeeData.setText(Integer.toString(simulator.getSubscriptionFee()));
@@ -257,5 +263,5 @@ public class DataController extends AbstractController implements ActionListener
 	        return false; 
 	    }
 	    return true;
-	}
+	}	
 }
