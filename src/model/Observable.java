@@ -8,7 +8,7 @@ import view.Observer;
  * notify the observers.
  * 
  * @author Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 public interface Observable {

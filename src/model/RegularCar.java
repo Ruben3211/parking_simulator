@@ -10,7 +10,7 @@ import java.util.Random;
  * pay when they leave the garage.
  * 
  * @author Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 public class RegularCar extends Car {

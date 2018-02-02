@@ -5,7 +5,7 @@ package model;
  * and places. It also provides getter methods to return these numbers.
  * 
  * @author Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 public class Location {

@@ -10,10 +10,16 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 /**
- * 
+ * This class is the "database" of the application. It holds all the variables
+ * that keep track of various data points needed for the controllers and views.
+ * These variables or changed and retrieved via getters and setters, listed in
+ * this class. It also contains all the method needed to handle all the processes
+ * needed to run the simulator like adding cars, removed cars and calculating 
+ * time for various cars. It also contains method for running, stopping and
+ * resetting the application.
  * 
  * @author Ruben Bonga, Joey Kroes, Detmer Struiksma & Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 public class SimulatorModel extends AbstractModel implements Runnable {
@@ -118,7 +124,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     }
     
     /**
-     * This method is responsible for initialization all the data the simulator
+     * This method is responsible for initializing all the data the simulator
      * needs to setup in order to run correctly. This is done within the
      * SimulatorModel constructor. This method is also used to reset the data in
      * the DataController, back to the initial values.
@@ -178,6 +184,9 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	run = false;
     }
     
+    /**
+     * This method is used to reset the entire simulator to its default state.
+     */
     public void reset() {
     	numberOfOpenSpots = numberOfFloors * numberOfRows * numberOfPlaces;
     	
@@ -259,6 +268,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     }
     
+    /**
+     * This method consists of multiple sets of methods that need to be executed
+     * during the run of the simulation. These methods keep track of various
+     * different values. This method is called upon in the run() method.
+     */
     private void firstAction() {
     	advanceTime();
     	checkReservations();
@@ -273,6 +287,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	tickCars();
     }
     
+    /**
+     * This method is has the same function as the firstAction() method. These
+     * actions need to be taken separately for the simulator to function
+     * properly. This method is also called upon in the run() method.
+     */
     private void secondAction() {
     	carsLeaving();
     	carsEntering(entranceOneQueue);
@@ -280,6 +299,14 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	makeReservations();
     }
     
+    /**
+     * This method returns a parking space location. It first checks if the
+     * location is valid or not. If it is valid it return the floor, row and
+     * place of the space.
+     * 
+     * @param location the location that needs to be checked
+     * @return null if the location is invalid, the parking space if it is valid
+     */
 	public ParkingSpace getParkingSpaceAt(Location location) {
 		if(!locationIsValid(location)) {
 			return null;
@@ -287,6 +314,13 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 		return spaces[location.getFloor()][location.getRow()][location.getPlace()];
 	}
 
+	/**
+	 * This method retrieves the car located at a location. If the space is
+	 * empty null is returned, otherwise the car is returned.
+	 * 
+	 * @param location the location that needs to be checked
+	 * @return the car parked at the checked location, null if the space is empty
+	 */
 	private Car getCarAt(Location location) {
     	ParkingSpace space = getParkingSpaceAt(location);
     	if(space == null) {
@@ -377,6 +411,12 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return null;
     }
     
+    /**
+     * This method loops through all the location and gets the car parked at
+     * each one provided a car is parked on that location. If a car is parked
+     * the method will call upon the car.tick() method to decrease the parking 
+     * time of the car.
+     */
     private void tickCars() {
         for(int floor = 0; floor < getNumberOfFloors(); floor++) {
             for(int row = 0; row < getNumberOfRows(); row++) {
@@ -391,6 +431,12 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     }
     
+    /**
+     * This method will check if a location is valid or not.
+     * 
+     * @param location the location to be checked
+     * @return false if the location is invalid, true if the location is valid
+     */
     private boolean locationIsValid(Location location) {
         int floor = location.getFloor();
         int row = location.getRow();
@@ -421,6 +467,10 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     }
 
+    /**
+     * This method is used to update all the total parked income for regular
+     * cars, reservation cars and the income of these two combined.
+     */
     private void setParkedIncome() {
         parkedRegularIncome = totalParkedRegular * regularFee;
         parkedReservationIncome = totalParkedReservation * reservationFee;
@@ -438,7 +488,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     private void carsArriving() {
     	int numberOfCars, numberOfMissedCars;
 
-    	/* regular cars */
+    	// Regular cars.
     	numberOfCars = getNumberOfCarsArriving(weekDayRegularArrivals, weekendRegularArrivals, eventRegularArrivals);
     	numberOfMissedCars = getMissedCars(entranceOneQueue, numberOfCars, maxEntranceQueue);
     	for(int i = 0; i < numberOfCars - numberOfMissedCars; i++) {
@@ -447,7 +497,7 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	totalRegularMissed += numberOfMissedCars;
         missedRegularIncome = totalRegularMissed * regularFee;
 
-    	/* subscription cars */
+    	// Subscription cars.
         numberOfCars = getNumberOfCarsArriving(weekDaySubscriptionArrivals, weekendSubscriptionArrivals, eventSubscriptionArrivals);
         int spaceLeft = maxSubscriptions - totalParkedSubscription;
         if(spaceLeft > 0) {
@@ -461,6 +511,13 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     }
 
+    /**
+     * This method is used to calculate the arrival time for the reservation
+     * cars. It sets multiple variables and uses a do-while loop to calculate
+     * the value needed.
+     * 
+     * @return value the calculated time for a reservation to arrive
+     */
     private int computeReservationArrivalTime() {
     	double value;
     	double min = 2.0;
@@ -544,7 +601,6 @@ public class SimulatorModel extends AbstractModel implements Runnable {
             else {
             	freeLocation = getFirstFreeParkingSpace("regular");
             }
-
             if(freeLocation == null) {
             	break;
             }
@@ -566,6 +622,12 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     }
 
+    /**
+     * This method checks whether a car is ready to leave the garage. It checks
+     * whether a car has to pay or not. If a car has to pay it is added to the
+     * payment queue. If a car does not have to pay, it is added to the exit
+     * queue via the carLeaveSpot() method. 
+     */
     private void carsReadyToLeave() {
         Car car = getFirstLeavingCar();
         while(car != null) {
@@ -580,6 +642,12 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     }
     
+    /**
+     * This method uses a while loop to handle the cars within the paymentQueue.
+     * It check whether the car is a regular or reservation car and takes the
+     * appropriate addition depending on the type. It calls on the carLeavesSpot()
+     * to add the cars to the exit queue.
+     */
     private void carsPaying() {
     	int i = 0;
     	while(paymentQueue.carsInQueue() > 0 && i < paymentSpeed) {
@@ -598,6 +666,10 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	}
     }
 
+    /**
+     * This method is responsible for going through the exit queue and removing
+     * cars within it, one at a time.
+     */
     private void carsLeaving() {
     	int i = 0;
     	while(exitQueue.carsInQueue() > 0 && i < exitSpeed){
@@ -627,6 +699,13 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return (int)Math.round(numberOfCarsPerHour / 60);	
     }
     
+    /**
+     * This method makes sure a car leaves their parking spot. If a car is to
+     * be removed, it is added to the exit queue. If a car is removed the car
+     * counter for that type of car will be decreased.
+     * 
+     * @param car the car that is to leave a spot
+     */
     private void carLeavesSpot(Car car) {
     	Location location = car.getLocation();
 
@@ -647,6 +726,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         }
     }
     
+    /**
+     * This method is responsible for playing sounds. It can be called upon
+     * where ever the application needs to play a sound, by simple adding
+     * playSound() to that place.
+     */
     public void playSound() {
     	try {
     		Clip clip = AudioSystem.getClip();
@@ -657,6 +741,14 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 		}
     }
    	
+    /**
+     * This method is used for the DataController. It will check the name and
+     * pass the given value to the right variable within the model. This way
+     * the DataController can update the data. 
+     * 
+     * @param objectName the name of the variable that needs to be changed.
+     * @param value the value that needs to be given to the variable
+     */
    	public void setIntFromDataController(String objectName, int value) {
    		switch(objectName) {
 	   		case "regularFeeData":			regularFee = value;						break;

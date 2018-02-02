@@ -9,7 +9,7 @@ import java.awt.Color;
  * track of their location and payment status.
  * 
  * @author Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 public abstract class Car {

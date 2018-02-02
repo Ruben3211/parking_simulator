@@ -17,7 +17,7 @@ import model.SimulatorModel;
  * on the right methods to execute.
  * 
  * @author Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 @SuppressWarnings("serial")

@@ -9,7 +9,7 @@ import java.util.Queue;
  * the queue, as well as retrieving the total queue size.
  * 
  * @author Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 public class CarQueue {

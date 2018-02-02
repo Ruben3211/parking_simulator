@@ -14,7 +14,7 @@ import model.SimulatorModel;
  * without having the restart the entire application.
  * 
  * @author Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 @SuppressWarnings("serial")

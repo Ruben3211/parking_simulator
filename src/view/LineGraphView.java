@@ -14,11 +14,12 @@ import java.util.ArrayList;
 import model.SimulatorModel;
 
 /**
- * LineGraphView is responsible for drawing a LineGraph with the total income of the parking garage as data.
- * Every minute in the simulation a point is drawn.
+ * This class is responsible for drawing a line graph, which will display the
+ * total income of the parking garage. The line graph is updated every minute
+ * within the simulator.
  * 
  * @author Detmer Struiksma
- * @version 30/1/2018
+ * @version 03-02-2018
  */
 
 @SuppressWarnings("serial")
@@ -74,12 +75,12 @@ public class LineGraphView extends AbstractView {
             graphPoints.add(new Point(x1, y1));
         }
 
-        // draw a white background.
+        // Draw a white background.
         g2.setColor(Color.WHITE);
         g2.fillRect(padding + labelPadding, padding, getWidth() - (2 * padding) - labelPadding, getHeight() - 2 * padding - labelPadding);
         g2.setColor(Color.BLACK);
 
-        // create hatch marks and grid lines for y axis.
+        // Create hatch marks and grid lines for the y axis.
         for (int i = 0; i < numberYDivisions + 1; i++) {
             int x0 = padding + labelPadding;
             int x1 = pointWidth + padding + labelPadding;
@@ -97,7 +98,7 @@ public class LineGraphView extends AbstractView {
             g2.drawLine(x0, y0, x1, y1);
         }
 
-        // create hatch marks and grid lines for x axis.
+        // Create hatch marks and grid lines for the x axis.
         for (int i = 0; i < data.size(); i++) {
             if (data.size() > 1) {
                 int x0 = i * (getWidth() - padding * 2 - labelPadding) / (data.size() - 1) + padding + labelPadding;
@@ -143,11 +144,9 @@ public class LineGraphView extends AbstractView {
         }
     }
     
-    
-
     /**
-     * This method returns the lowest number in the data collection.
-     * It is used to draw the graph correctly.
+     * This method returns the lowest number in the data collection. It is used 
+     * to draw the graph correctly.
      * 
      * @return minNum the lowest score in the collection
      */
@@ -157,10 +156,10 @@ public class LineGraphView extends AbstractView {
     }
 
     /**
-     * This method returns the highest number in the collection.
-     * It is used to draw the graph correctly.
+     * This method returns the highest number in the data collection. It is used 
+     * to draw the graph correctly.
      * 
-     * @return maxNum
+     * @return maxNum the highest score in the collection
      */
     private double getMaxNum() {
         double maxNum = Double.MIN_VALUE;

@@ -23,7 +23,7 @@ import model.SimulatorModel;
  * circumstances and their results can be compared.
  * 
  * @author Joey Kroes
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 @SuppressWarnings("serial")

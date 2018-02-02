@@ -6,7 +6,7 @@ package model;
  * given certain spots within the garage where the other cars can't park.
  * 
  * @author Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 public class ParkingSpace {
 

@@ -13,7 +13,7 @@ import model.SimulatorModel;
  * appropriate methods when the value of the slider gets changed.
  * 
  * @author Detmer Struiksma & Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 @SuppressWarnings("serial")

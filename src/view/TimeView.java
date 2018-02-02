@@ -15,7 +15,7 @@ import model.SimulatorModel;
  * It does this by calling on two methods in the model.
  * 
  * @author Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 @SuppressWarnings("serial")

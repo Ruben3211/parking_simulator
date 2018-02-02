@@ -15,7 +15,7 @@ import model.SimulatorModel;
  * the amount of income this has cost the garage.
  * 
  * @author Ruben Bonga & Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 @SuppressWarnings("serial")

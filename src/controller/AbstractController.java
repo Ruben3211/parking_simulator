@@ -9,7 +9,7 @@ import model.SimulatorModel;
  * that this controller knows of the models existence.
  * 
  * @author Rick Zwaneveld
- * @version 30-01-2018
+ * @version 03-02-2018
  */
 
 @SuppressWarnings("serial")
