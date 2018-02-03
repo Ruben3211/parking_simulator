@@ -65,13 +65,16 @@ public class RunController extends AbstractController implements ActionListener 
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == start) {
 			simulator.start(40320);
+			simulator.playSound();
 		}
 		if(e.getSource() == steps) {
 			int numberOfSteps = parseSteps();
 			simulator.start(numberOfSteps);
+			simulator.playSound();
 		}
 		if(e.getSource() == stop) {
 			simulator.stop();
+			simulator.playSound();
 		}
 		
 		// Disabled or enables the start and steps buttons.

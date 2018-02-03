@@ -44,5 +44,6 @@ public class ResetController extends AbstractController implements ActionListene
 	 */
 	public void actionPerformed(ActionEvent e) {
 		simulator.reset();
+		simulator.playSound();
 	}
 }
