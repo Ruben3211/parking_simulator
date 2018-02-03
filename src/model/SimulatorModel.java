@@ -163,6 +163,12 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	new Thread(this).start();
     }
     
+    /**
+     * This method is responsible for running the simulator when the start() 
+     * method is called upon. It will execute the numberOfSteps given. With each
+     * step it will go through the firstAction() and secondAction() methods and
+     * updates the observers.
+     */
     public void run() {
     	for(int i = 0; i < numberOfSteps && run; i++) {
     		firstAction();
@@ -329,6 +335,14 @@ public class SimulatorModel extends AbstractModel implements Runnable {
    		return space.getCar();
     }
 
+	/**
+	 * This method is responsible for setting a car at a location. If a car is
+	 * successfully placed, the numberOfOpenSpots is decreased.
+	 * 
+	 * @param location the location a car will be placed at
+	 * @param car the car that needs to be placed
+	 * @return true if a car is placed, false if their is no space
+	 */
     private boolean setCarAt(Location location, Car car) {
     	ParkingSpace space = getParkingSpaceAt(location);
     	if(space == null) {
@@ -344,6 +358,14 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return false;
     }
 
+    /**
+     * This method removes a car from a specific location. If the location has
+     * no space or no car, null is returned. If the location has a car, the car
+     * is removed and the numberOfOpenSpots is increased.
+     * 
+     * @param location the location of the removed car
+     * @return null if their is no car or no space, the car is one is found
+     */
     private Car removeCarAt(Location location) {
     	ParkingSpace space = getParkingSpaceAt(location);
     	if(space == null) {
@@ -359,6 +381,13 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return car;
     }
 
+    /**
+     * This method returns the number of free parking spaces available. It will
+     * loop through all the location to do so.
+     * 
+     * @param type the space type
+     * @return count the number of free parking spaces
+     */
     private int countFreeParkingSpaces(String type) {
     	int count = 0;
         for(int floor = 0; floor < getNumberOfFloors(); floor++) {
@@ -377,6 +406,13 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return count;	
     }
 
+    /**
+     * This method looks for the first free parking space. It uses a nested
+     * for-loop to go through all the locations in the garage.
+     * 
+     * @param type the space type
+     * @return location if one is free, null otherwise
+     */
     private Location getFirstFreeParkingSpace(String type) {
         for(int floor = 0; floor < getNumberOfFloors(); floor++) {
             for(int row = 0; row < getNumberOfRows(); row++) {
@@ -394,6 +430,12 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         return null;
     }
     
+    /**
+     * This method uses a nested for-loop to go through all the location to find
+     * the first car that is leaving the garage.
+     * 
+     * @return car the first car found, null if no car is found
+     */
     private Car getFirstLeavingCar() {
         for(int floor = 0; floor < getNumberOfFloors(); floor++) {
             for(int row = 0; row < getNumberOfRows(); row++) {
@@ -477,6 +519,15 @@ public class SimulatorModel extends AbstractModel implements Runnable {
         parkedTotalIncome = parkedRegularIncome + parkedReservationIncome;
     }
 
+    /**
+     * This method calculates the number of missed cars. When the queue length
+     * gets to big, cars will leave.
+     * 
+     * @param queue the queue that is going to be checked
+     * @param numCars the cars within the queue
+     * @param maxCars the max number of cars allowed within a queue
+     * @return number of cars missed, if no cars are missed it returns 0
+     */
     private int getMissedCars(CarQueue queue, int numCars, int maxCars) {
     	int spaceLeft = maxCars - queue.carsInQueue();
     	if(spaceLeft < numCars) {
@@ -678,6 +729,16 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	}	
     }
 
+    /**
+     * This method changes the value of the averageNumberOfCarsPerHour to arrive
+     * in the garage. It does this based on certain times of the day and week.
+     * At night less cars come in. During events more cars will come in.
+     * 
+     * @param weekDay the average amount of cars arriving on a weekday
+     * @param weekend the average amount of cars arriving during the weekend
+     * @param event the average amount of cars arriving during an event
+     * @return the average amount of cars arriving
+     */
     private int getNumberOfCarsArriving(int weekDay, int weekend, int event) {
         int averageNumberOfCarsPerHour = 0;
         if(hour < 7) {
