@@ -536,6 +536,11 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return 0;
     }
 
+    /**
+     * This method is responsible for the arriving regular cars and subscription
+     * cars. It also keeps track of the missed regular cars and the missed regular
+     * income.
+     */
     private void carsArriving() {
     	int numberOfCars, numberOfMissedCars;
 
@@ -581,6 +586,12 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	return (int)Math.round(value);
     }
 
+    /**
+     * This method is responsible for making reservations. It checks how many cars
+     * should arrive, and the amount of reservations allowed. It also keeps track
+     * of the amount of missed reservations and the missed income. When a
+     * reservation is made, it is added to the reservation list.
+     */
     private void makeReservations() {
     	int numberOfReservations = getNumberOfCarsArriving(weekDayReservationArrivals, weekendReservationArrivals, eventReservationArrivals);
     	int numberOfMissedReservations = 0;
@@ -616,8 +627,15 @@ public class SimulatorModel extends AbstractModel implements Runnable {
     	}
     }
 
+    /**
+     * This method checks the reservations. It checks the reservation list and
+     * decides what action to take depending on the situation. If the arrival time
+     * is under or equal to the curMinute, the car will be added to the queue and
+     * added to the garage. If the expiration time is under or equal to the curMinute
+     * the reservation will be removed from the parking garage.
+     */
     private void checkReservations() {
-    	int curMinute = 24*60*day + 60*hour + minute;
+    	int curMinute = 24 * 60 * day + 60 * hour + minute;
 
 	    Iterator<Reservation> iterator = reservationList.iterator();
 	    while(iterator.hasNext()) {
@@ -637,6 +655,13 @@ public class SimulatorModel extends AbstractModel implements Runnable {
 	    }
     }
 
+    /**
+     * This method is responsible for removing cars from a queue and adding them
+     * to a parking location. It is also responsible for keeping track of how 
+     * many cars are currently parked for each car type.
+     * 
+     * @param queue the queue that needs to be checked
+     */
     private void carsEntering(CarQueue queue) {
         int i = 0;
     	while(queue.carsInQueue() > 0 && i < entranceSpeed) {
