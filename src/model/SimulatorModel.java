@@ -131,21 +131,21 @@ public class SimulatorModel extends AbstractModel implements Runnable {
      */
    	public void initialization() {
    		regularFee = 1;
-   		subscriptionFee = 50;
+   		subscriptionFee = 100;
    		reservationFee = 6;
    		entranceSpeed = 3; 
    		paymentSpeed = 7;
    		exitSpeed = 5;
    		weekDayRegularArrivals = 100;
    		weekendRegularArrivals = 70;
-   		eventRegularArrivals = 300; 
+   		eventRegularArrivals = 200; 
    		weekDaySubscriptionArrivals = 50;
    		weekendSubscriptionArrivals = 5;
    		eventSubscriptionArrivals = 20; 
    		weekDayReservationArrivals = 20;
    		weekendReservationArrivals = 50;
-   		eventReservationArrivals = 300;
-   		maxReservations = 250;
+   		eventReservationArrivals = 150;
+   		maxReservations = 200;
    		maxSubscriptions = 56;
    		maxEntranceQueue = 6;
    	}
